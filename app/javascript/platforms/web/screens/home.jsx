@@ -6,6 +6,10 @@ import {
   differenceInMinutes,
 } from "date-fns";
 
+import { useApiDay } from "generated/api";
+import { useCallback } from "react";
+import TimeInput from "ui/inputs/time";
+
 function Menu() {}
 
 function evalTimeslots(start, minutesStep) {
@@ -57,36 +61,34 @@ function DodoneTimeslot({ dodone, start }) {
   );
 }
 
-function Day() {
-  const day = {
-    wokeupAt: parseISO("2021-08-24T12:00:00.999Z"),
-  };
+function DayTimeslots({ day }) {
+  if (!day.wokeupAt) return null;
 
   const timeslots = evalTimeslots(day.wokeupAt, minutesPerSlot);
 
   const dodones = [
-    {
-      id: 1,
-      title: "Investment Operations and Art",
-      startedAt: parseISO("2021-08-24T12:30:00.999Z"),
-      finishedAt: parseISO("2021-08-24T13:55:00.999Z"),
-    },
-    {
-      id: 2,
-      title: "Exercise and Meditation",
-      startedAt: parseISO("2021-08-24T14:00:00.999Z"),
-      finishedAt: parseISO("2021-08-24T15:55:00.999Z"),
-    },
-    {
-      id: 3,
-      title: "Wordable",
-      startedAt: parseISO("2021-08-24T16:00:00.999Z"),
-      finishedAt: parseISO("2021-08-24T21:25:00.999Z"),
-    },
+    // {
+    //   id: 1,
+    //   title: "Investment Operations and Art",
+    //   startedAt: parseISO("2021-08-24T12:30:00.999Z"),
+    //   finishedAt: parseISO("2021-08-24T13:55:00.999Z"),
+    // },
+    // {
+    //   id: 2,
+    //   title: "Exercise and Meditation",
+    //   startedAt: parseISO("2021-08-24T14:00:00.999Z"),
+    //   finishedAt: parseISO("2021-08-24T15:55:00.999Z"),
+    // },
+    // {
+    //   id: 3,
+    //   title: "Wordable",
+    //   startedAt: parseISO("2021-08-24T16:00:00.999Z"),
+    //   finishedAt: parseISO("2021-08-24T21:25:00.999Z"),
+    // },
   ];
 
   return (
-    <View>
+    <View style={tw("relative")}>
       {timeslots.map((timeslot) => {
         const signature = format(timeslot, "HH:mm");
 
@@ -101,6 +103,80 @@ function Day() {
           />
         );
       })}
+    </View>
+  );
+}
+
+function DayHeaderWokeupAt({ day }) {
+  const { apiUpdateDay } = useApiUpdateDay();
+  const [editing, setEditing] = useState(false);
+  const [wokeupAt, setWokeupAt] = useState(
+    day.wokeupAt ? day.wokeupAt : new Date()
+  );
+
+  const updateDay = useCallback(() => {
+    apiUpdateDay(day.id, { wokeupAt });
+    setEditing(false);
+  });
+
+  if (editing) {
+    return (
+      <View>
+        <TimeInput value={wokeupAt} onChange={setWokeupAt} />
+        <button onClick={updateDay}>Save</button>
+      </View>
+    );
+  }
+
+  return (
+    <View style={tw("p-4")} onClick={() => setEditing(true)}>
+      {day.wokeupAt ? (
+        <Text>{format(day.wokeupAt, "HH:mm")}</Text>
+      ) : (
+        <Text>Start Day!</Text>
+      )}
+    </View>
+  );
+}
+
+function DayHeader({ day }) {
+  return (
+    <View>
+      <View style={tw("p-4")}>
+        <Text style={tw("p-4")}>{format(day.day, "EEE, LLL do")}</Text>
+        <DayHeaderWokeupAt day={day} />
+      </View>
+    </View>
+  );
+}
+
+function useApiUpdateDay() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const apiUpdateDay = useCallback((dayId, dayAttributes) => {
+    setIsLoading(true);
+
+    fetch(`api/days/${dayId}.json`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ day: dayAttributes }),
+    });
+  });
+
+  return { apiUpdateDay };
+}
+
+function Day() {
+  const { day, isLoading } = useApiDay("today");
+
+  if (isLoading) return null;
+
+  return (
+    <View>
+      <DayHeader day={day} />
+      <DayTimeslots day={day} />
     </View>
   );
 }
