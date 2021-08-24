@@ -35,7 +35,7 @@ const FontFaces = `
 //   font-family: DigitalDismay;
 // }
 
-const App = MobileApp;
+const App = WebApp;
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(<App />, document.querySelector("#spa"));

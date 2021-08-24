@@ -1,0 +1,19 @@
+export default {
+  attributes: {
+    <%- exposed_attributes.each do |name, attribute| -%>
+    <%= attribute.fe_name %>: {
+      name: <%= attribute.fe_name.to_json %>,
+      type: <%= attribute.type.to_json %>,
+      writeable: <%= attribute.writeable.to_json %>,
+      default: <%= attribute.default.to_json %>,
+    },
+    <%- end -%>
+  },
+  names: {
+    <%- name_map.each do |name_method, value| -%>
+    <%= name_method %>: "<%= value -%>",
+    <%- end -%>
+  },
+  validators: <%= pretty_print_thing(printable_validators, 1) %>,
+  enums: <%= pretty_print_thing(exposed_enums, 1) %>,
+}

@@ -1,0 +1,2 @@
+class Braindamage::Config
+end

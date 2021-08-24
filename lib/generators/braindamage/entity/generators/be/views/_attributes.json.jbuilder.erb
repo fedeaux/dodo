@@ -1,0 +1,2 @@
+json.extract! <%= singular_underscore_name %>,
+              :<%= exposed_attributes.values.map(&:name).join(",\n              :") %>
