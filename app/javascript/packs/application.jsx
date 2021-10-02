@@ -11,6 +11,7 @@ import FontAwesome from "react-native-vector-icons/Fonts/FontAwesome.ttf";
 import FontAwesome5_Regular from "react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf";
 import FontAwesome5_Solid from "react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf";
 // import DigitalDismay from "./assets/fonts/DigitalDismay.otf";
+import BraindamageApiProvider from "braindamage/api/provider";
 
 const FontFaces = `
 @font-face {
@@ -35,10 +36,18 @@ const FontFaces = `
 //   font-family: DigitalDismay;
 // }
 
-const App = WebApp;
+const App = MobileApp;
+
+function Root() {
+  return (
+    <BraindamageApiProvider>
+      <App />
+    </BraindamageApiProvider>
+  );
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<App />, document.querySelector("#spa"));
+  ReactDOM.render(<Root />, document.querySelector("#spa"));
 
   // Create stylesheet
   const style = document.createElement("style");

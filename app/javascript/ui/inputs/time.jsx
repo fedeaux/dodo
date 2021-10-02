@@ -9,7 +9,7 @@ export default function TimeInput({ value, onChange }) {
 
     if (v.match(/\d\d:\d\d/)) {
       const parts = v.split(":");
-      onChange(setMinutes(setHours(value, parts[0]), parts[1]));
+      onChange({ value: setMinutes(setHours(value, parts[0]), parts[1]) });
     }
   });
 

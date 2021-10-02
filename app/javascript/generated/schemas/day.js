@@ -24,6 +24,12 @@ export default {
       writeable: true,
       default: null,
     },
+    userId: {
+      name: "userId",
+      type: "integer",
+      writeable: true,
+      default: null,
+    },
     createdAt: {
       name: "createdAt",
       type: "datetime",
@@ -48,6 +54,15 @@ export default {
     pluralClass: "Days",
   },
   validators: [
+    {
+      className: "ActiveRecord::Validations::PresenceValidator",
+      options: {
+        message: "required",
+      },
+      attributes: [
+        "user",
+      ],
+    },
   ],
   enums: {
   },
