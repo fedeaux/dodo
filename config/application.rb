@@ -20,5 +20,6 @@ module Dodo
     config.eager_load_paths << Rails.root.join("app/framework")
     config.hosts << 'lvh.me'
     config.hosts << 'fedeaux.ngrok.io'
+    config.hosts << "fedeaux-dodo.herokuapp.com"
   end
 end
