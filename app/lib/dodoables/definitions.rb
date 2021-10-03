@@ -1,0 +1,2 @@
+module Dodoables::Definitions
+end
