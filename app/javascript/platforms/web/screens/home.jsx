@@ -6,6 +6,8 @@ import {
   differenceInMinutes,
 } from "date-fns";
 
+import ENV from "env";
+
 import { useApiDays } from "generated/api";
 import { useCallback } from "react";
 import TimeInput from "ui/inputs/time";
@@ -178,6 +180,8 @@ export default function Home() {
           </View>
         );
       })}
+
+      <Text>{ENV.API_HOST}</Text>
     </View>
   );
 }

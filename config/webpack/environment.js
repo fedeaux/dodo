@@ -46,6 +46,6 @@ providedModules.forEach((providedModule) => {
 });
 
 environment.plugins.append('Provide', new webpack.ProvidePlugin(provided));
-environment.plugins.append('Dotenv', new Dotenv(systemvars: true));
+environment.plugins.append('Dotenv', new Dotenv({ systemvars: true }));
 
 module.exports = environment
