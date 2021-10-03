@@ -1,5 +1,5 @@
 export default function useBoolState(initial = false) {
-  const [value, setValue] = useState(true);
+  const [value, setValue] = useState(initial);
 
   const setTrue = useCallback(() => {
     return setValue(true);
