@@ -15,6 +15,7 @@ export default function Home() {
           <DayFieldWokeupAt day={day} />
           <SubtleTitle> Doables </SubtleTitle>
           <SubtleTitle> Habits </SubtleTitle>
+          <Text>{JSON.stringify(process.env)}</Text>
         </DefaultScreen>
       )}
     </>

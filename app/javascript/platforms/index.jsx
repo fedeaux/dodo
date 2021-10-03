@@ -1,5 +1,7 @@
 import BraindamageApiProvider from "braindamage/api/provider";
-axios.defaults.baseURL = "https://fedeaux.ngrok.io";
+import ENV from "env";
+
+axios.defaults.baseURL = ENV.API_HOST;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export default function Platform({ App }) {
