@@ -13,9 +13,6 @@ export default function Home() {
       {!isLoading && (
         <DefaultScreen title={format(day.day, "E, MMM do")}>
           <DayFieldWokeupAt day={day} />
-          <SubtleTitle> Doables </SubtleTitle>
-          <SubtleTitle> Habits </SubtleTitle>
-          <Text>{JSON.stringify(process.env)}</Text>
         </DefaultScreen>
       )}
     </>

@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const { environment } = require('@rails/webpacker')
 
@@ -45,5 +46,6 @@ providedModules.forEach((providedModule) => {
 });
 
 environment.plugins.append('Provide', new webpack.ProvidePlugin(provided));
+environment.plugins.append('Dotenv', new Dotenv());
 
 module.exports = environment
