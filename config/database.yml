@@ -7,9 +7,6 @@ default: &default
 development:
   <<: *default
   host: localhost
-  database: <%= ENV['DODO_DEVELOPMENT_DATABASE'] %>
-  username: <%= ENV['DODO_DEVELOPMENT_DATABASE_USERNAME'] %>
-  password: <%= ENV['DODO_DEVELOPMENT_DATABASE_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
