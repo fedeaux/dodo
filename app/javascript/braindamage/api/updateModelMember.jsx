@@ -6,19 +6,11 @@ export default async function updateModelMember(path, Model, modelParams = {}) {
     modelParams[idParamName]
   );
 
-  return fetch(parameterizedPath, {
-    method: "put",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  return axios
+    .put(parameterizedPath, {
       [Model.singularCamelName]: modelParams[attributesParamName],
-    }),
-  })
-    .then((response) => {
-      return response.json();
     })
-    .then((data) => {
+    .then(({ data }) => {
       const instance = new Model(data[Model.singularCamelName]);
       return { ...data, [Model.singularCamelName]: instance };
     });

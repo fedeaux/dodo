@@ -1,7 +1,9 @@
+import { TouchableOpacity } from "react-native";
+
 export default function Button({ label, onClick }) {
   return (
-    <View onClick={onClick}>
+    <TouchableOpacity onPress={onClick}>
       <Text>{label}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }

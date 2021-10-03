@@ -7,13 +7,15 @@ export default function useQuery(cacheKey, queryFunc, queryParams) {
   const [response, setResponse] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(async () => {
-    if (cached) {
-      setResponse(cached);
-      setIsLoading(false);
-    } else {
-      addToCache(cacheKey, await queryFunc(...queryParams));
-    }
+  useEffect(() => {
+    ((async () => {
+      if (cached) {
+        setResponse(cached);
+        setIsLoading(false);
+      } else {
+        addToCache(cacheKey, await queryFunc(...queryParams));
+      }
+    }))()
   }, [cached]);
 
   return { ...response, isLoading };

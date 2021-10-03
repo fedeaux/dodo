@@ -150,24 +150,6 @@ function DayHeader({ day }) {
   );
 }
 
-function useApiUpdateDay() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const apiUpdateDay = useCallback((dayId, dayAttributes) => {
-    setIsLoading(true);
-
-    fetch(`api/days/${dayId}.json`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ day: dayAttributes }),
-    });
-  });
-
-  return { apiUpdateDay };
-}
-
 function Day() {
   const { day, isLoading } = useApiDay("today");
 
@@ -185,9 +167,7 @@ export default function Home() {
   return (
     <View style={tw("flex flex-col h-full")}>
       <View style={tw("flex px-4 py-2")} />
-      <View style={tw("flex px-4 py-2 flex-grow")}>
-        <Day />
-      </View>
+      <View style={tw("flex px-4 py-2 flex-grow")}></View>
     </View>
   );
 }

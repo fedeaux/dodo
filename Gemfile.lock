@@ -211,6 +211,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-protection (2.1.0)
       rack
     rack-proxy (0.7.0)
@@ -346,6 +348,7 @@ DEPENDENCIES
   pry
   pry-doc
   puma (~> 5.0)
+  rack-cors
   rails (~> 6.1.4)
   recursive-open-struct
   sass-rails (>= 6)
