@@ -3,3 +3,5 @@ json.days do
     json.partial! "member", day: day
   end
 end
+
+json.cache_key Day.cache_key

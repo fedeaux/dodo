@@ -6,7 +6,7 @@ import {
   differenceInMinutes,
 } from "date-fns";
 
-import { useApiDay } from "generated/api";
+import { useApiDays } from "generated/api";
 import { useCallback } from "react";
 import TimeInput from "ui/inputs/time";
 
@@ -164,10 +164,20 @@ function Day() {
 }
 
 export default function Home() {
+  const { days, isLoading } = useApiDays();
+
+  if (isLoading) return null;
+
   return (
     <View style={tw("flex flex-col h-full")}>
-      <View style={tw("flex px-4 py-2")} />
-      <View style={tw("flex px-4 py-2 flex-grow")}></View>
+      {days.map((day) => {
+        return (
+          <View key={day.id}>
+            <Text>{format(day.day, "E, MMM do")}</Text>
+            {day.wokeupAt && <Text>{format(day.wokeupAt, "HH:mm")}</Text>}
+          </View>
+        );
+      })}
     </View>
   );
 }

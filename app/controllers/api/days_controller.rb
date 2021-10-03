@@ -1,6 +1,10 @@
 class Api::DaysController < ApiController
   before_action :find_day, only: %i[show update]
 
+  def index
+    @days = current_user.days
+  end
+
   def update
     @day.update day_params
   end

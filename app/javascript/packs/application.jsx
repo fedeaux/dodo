@@ -16,21 +16,19 @@ import Platfrom from "../platforms/index";
 
 const FontFaces = `
 @font-face {
-  src: url(/#{FontAwesome});
+  src: url(${FontAwesome});
   font-family: FontAwesome;
 }
 
 @font-face {
-  src: url(/#{FontAwesome5_Regular});
+  src: url(${FontAwesome5_Regular});
   font-family: FontAwesome5_Regular;
 }
 
 @font-face {
-  src: url(/#{FontAwesome5_Solid});
+  src: url(${FontAwesome5_Solid});
   font-family: FontAwesome5_Solid;
-}
-
-`;
+}`;
 
 // @font-face {
 //   src: url(/#{DigitalDismay});
@@ -38,7 +36,7 @@ const FontFaces = `
 // }
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<Platfrom App={MobileApp} />, document.querySelector("#spa"));
+  ReactDOM.render(<Platfrom App={WebApp} />, document.querySelector("#spa"));
 
   // Create stylesheet
   const style = document.createElement("style");

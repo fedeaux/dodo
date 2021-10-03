@@ -13,5 +13,12 @@ export default function TimeInput({ value, onChange }) {
     }
   });
 
-  return <TextInput value={textValue} onChangeText={handleOnChange} />;
+  return (
+    <TextInput
+      autoFocus={true}
+      value={textValue}
+      style={tw("p-2 bg-gray-900 bg-opacity-60 rounded text-xl")}
+      onChangeText={handleOnChange}
+    />
+  );
 }

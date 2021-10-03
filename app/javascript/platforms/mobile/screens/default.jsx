@@ -1,22 +1,48 @@
-import { ImageBackground } from "react-native";
-// import Icon from "react-native-vector-icons/FontAwesome";
+import { ImageBackground, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Button from "ui/controls/button";
+import useBoolState from "util/useBoolState";
 
-function Menu() {}
+function Menu({ closeMenu }) {
+  return (
+    <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60 p-4")}>
+      <Text style={tw("text-center text-xl mb-4")}>Menu</Text>
+      <TouchableOpacity
+        style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-2 pl-4")}
+        onPress={closeMenu}
+      >
+        <Icon size={18} name="close" />
+      </TouchableOpacity>
+      <Button label="Reload" />
+    </View>
+  );
+}
 
 export default function DefaultScreen({ children, title = null }) {
+  const [showMenu, closeMenu, openMenu] = useBoolState();
+
   return (
     <ImageBackground
       source={{ uri: "https://iili.io/30TXeI.jpg" }}
       style={{ width: "100%", height: "100%" }}
       style={tw("w-full h-full")}
     >
-      <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60")}>
-        <View style={tw("flex items-center pb-2 pt-4")}>
-          <Text style={tw("text-blue-200 font-thin italic")}>{title}</Text>
-          {/* <Icon style={tw("text-blue-200")} name="ellipsis-v" /> */}
+      {showMenu ? (
+        <Menu closeMenu={closeMenu} />
+      ) : (
+        <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60")}>
+          <View style={tw("flex flex-row px-4 pb-1 pt-4")}>
+            <TouchableOpacity
+              style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-2 pl-4")}
+              onPress={openMenu}
+            >
+              <Icon size={18} name="ellipsis-v" />
+            </TouchableOpacity>
+            <Text style={tw("text-blue-300 pt-1")}>{title}</Text>
+          </View>
+          <View style={tw("flex-grow p-4")}>{children}</View>
         </View>
-        <View style={tw("flex-grow p-4")}>{children}</View>
-      </View>
+      )}
     </ImageBackground>
   );
 }

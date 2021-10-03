@@ -70,6 +70,13 @@ module Braindamage::Braindamageable
     def hide(name)
       exposed_attributes.delete name.to_s
     end
+
+    def cache_key
+      {
+        name: "#{self.plural_underscore_name}",
+        updated_at: false
+      }
+    end
   end
 
   def cache_key
