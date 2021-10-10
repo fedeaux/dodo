@@ -25,7 +25,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 if ENV.fetch("RAILS_ENV", "development") == "production"
-  bind "unix://tmp/puma-dodo.sock"
+  bind "unix:/tmp/puma-dodo.sock"
 end
 
 # Specifies the number of `workers` to boot in clustered mode.

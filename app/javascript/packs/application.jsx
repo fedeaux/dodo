@@ -36,7 +36,7 @@ const FontFaces = `
 // }
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<Platfrom App={WebApp} />, document.querySelector("#spa"));
+  ReactDOM.render(<Platfrom App={MobileApp} />, document.querySelector("#spa"));
 
   // Create stylesheet
   const style = document.createElement("style");
