@@ -20,11 +20,13 @@ port ENV.fetch("PORT") { 3000 }
 # Specifies the `environment` that Puma will run in.
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
-app_dir = File.expand_path("..", __FILE__)
 
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
-bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+
+if ENV.fetch("RAILS_ENV", "development") == "production"
+  bind "unix://tmp/puma-dodo.sock"
+end
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked web server processes. If using threads and workers together
