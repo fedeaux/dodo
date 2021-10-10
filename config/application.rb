@@ -18,8 +18,6 @@ module Dodo
     #
     # config.time_zone = "Central Time (US & Canada)"
     config.eager_load_paths << Rails.root.join("app/framework")
-    config.hosts << 'lvh.me'
-    config.hosts << 'fedeaux.ngrok.io'
-    config.hosts << "fedeaux-dodo.herokuapp.com"
+    config.hosts << /.*/
   end
 end
