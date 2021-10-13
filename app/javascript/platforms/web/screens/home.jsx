@@ -11,6 +11,7 @@ import ENV from "env";
 import { useApiDays } from "generated/api";
 import { useCallback } from "react";
 import TimeInput from "ui/inputs/time";
+import Button from "ui/controls/button";
 
 function Menu() {}
 
@@ -168,6 +169,11 @@ function Day() {
 export default function Home() {
   const { days, isLoading } = useApiDays();
 
+  const useMobile = useCallback(() => {
+    localStorage.setItem("useMobile", true);
+    window.location.reload();
+  });
+
   if (isLoading) return null;
 
   return (
@@ -181,7 +187,7 @@ export default function Home() {
         );
       })}
 
-      <Text>{ENV.API_HOST}</Text>
+      <Button label="Use Mobile" onClick={useMobile} />
     </View>
   );
 }

@@ -2,8 +2,14 @@ import { ImageBackground, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Button from "ui/controls/button";
 import useBoolState from "util/useBoolState";
+import ENV from "env";
 
 function Menu({ closeMenu }) {
+  const useWeb = useCallback(() => {
+    localStorage.removeItem("useMobile");
+    window.location.reload();
+  });
+
   return (
     <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60 p-4")}>
       <Text style={tw("text-center text-xl mb-4")}>Menu</Text>
@@ -14,6 +20,7 @@ function Menu({ closeMenu }) {
         <Icon size={18} name="close" />
       </TouchableOpacity>
       <Button label="Reload" />
+      {ENV.PLATFORM == "web" && <Button label="Use Web" onClick={useWeb} />}
     </View>
   );
 }
