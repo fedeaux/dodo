@@ -32,6 +32,7 @@ const providedModules = [
   ['react', 'useCallback'],
   ['react', 'useEffect'],
   ['react', 'useState'],
+  ['react', 'useMemo'],
 ];
 
 const provided = {

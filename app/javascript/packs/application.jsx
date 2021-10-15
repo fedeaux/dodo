@@ -12,7 +12,7 @@ import FontAwesome5_Regular from "react-native-vector-icons/Fonts/FontAwesome5_R
 import FontAwesome5_Solid from "react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf";
 // import DigitalDismay from "./assets/fonts/DigitalDismay.otf";
 
-import Platfrom from "../platforms/index";
+import Platform from "../platforms/index";
 
 const FontFaces = `
 @font-face {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const useMobile = localStorage.getItem("useMobile");
 
   ReactDOM.render(
-    <Platfrom App={useMobile ? MobileApp : WebApp} />,
+    <Platform App={useMobile ? MobileApp : WebApp} />,
     document.querySelector("#spa")
   );
 
