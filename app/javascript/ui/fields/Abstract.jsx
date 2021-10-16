@@ -1,12 +1,14 @@
+import TimeInput from "ui/inputs/time";
 import TextInput from "ui/inputs/text";
 import SelectInput from "ui/inputs/select";
+import BoolInput from "ui/inputs/bool";
 
-function FieldLabel({ label }) {
-  return <Text style={tw("pb-1 text-blue-400")}>{label}</Text>;
-}
+import FieldLabel from "ui/fields/Label";
 
 const inputMap = {
+  bool: BoolInput,
   text: TextInput,
+  time: TimeInput,
   select: SelectInput,
 };
 
@@ -24,6 +26,15 @@ export default function AbstractField({
   });
 
   const Input = inputMap[type];
+
+  if (type == "bool") {
+    return (
+      <View style={tw("mt-4 flex-row")}>
+        <Input {...props} onChange={handleOnChange} />
+        <FieldLabel label={label} tws="ml-2" />
+      </View>
+    );
+  }
 
   return (
     <View style={tw("mt-4")}>

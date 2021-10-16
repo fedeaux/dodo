@@ -1,23 +1,30 @@
 import { TouchableOpacity } from "react-native";
 import PrimaryButton from "ui/controls/button/primary";
 import ActionScreen from "platforms/mobile/screens/action";
+import AbstractDisplay from "ui/displays/Abstract";
 
 function MealDodoneShow({ dodone }) {
   return (
     <ActionScreen title={dodone.name}>
       <View style={tw("flex h-full p-4")}>
         <View style={tw("flex-grow")}>
+          <AbstractDisplay
+            type="time"
+            value={dodone.startedAt}
+            label="Started at"
+          />
+          <AbstractDisplay
+            type="time"
+            value={dodone.finishedAt}
+            label="Finished at"
+          />
+
           {Object.values(dodone.fields)
             .sort((fa, fb) => {
               return fa.order - fb.order;
             })
             .map((field) => {
-              return (
-                <View key={field.name} style={tw("mt-2")}>
-                  <Text style={tw("text-sm")}>{field.label}</Text>
-                  <Text style={tw("text-lg")}>{field.value}</Text>
-                </View>
-              );
+              return <AbstractDisplay key={field.name} {...field} />;
             })}
         </View>
         <View style={tw("flex-row")}>

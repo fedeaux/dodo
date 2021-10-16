@@ -21,6 +21,20 @@ class Model {
 
     return this;
   }
+
+  serialize() {
+    const raw = {};
+
+    Object.values(this.constructor.attributes()).forEach((attribute) => {
+      raw[attribute.name] = this[attribute.name];
+    })
+
+    return raw;
+  }
+
+  clone() {
+    return new this.constructor(this.serialize());
+  }
 }
 
 Object.assign(Model, Attributable);

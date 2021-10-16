@@ -37,7 +37,7 @@ def todo_fields(*fields)
   field_hash = {}
 
   fields.each do |field|
-    field_hash[field.downcase.gsub(/\s/, '-')] = {
+    field_hash[field.downcase.gsub(/\s/, '_').camelize(:lower)] = {
       type: :bool,
       label: field
     }
@@ -107,6 +107,11 @@ end
         'Salad and Fish',
         'One song cleanup',
         'Skincare'
+      ).merge(
+        comments: {
+          type: :text,
+          order: 9
+        }
       )
     ),
   }

@@ -6,12 +6,15 @@ import { useApiUpdateDodone } from "generated/api";
 import { useHistory } from "lib/router";
 
 function SimpleFormDodoneEdit({ dodone }) {
-  const [dodoneAttributes, setDodoneAttributes] = useState(dodone);
+  const [formDodone, setFormDodone] = useState(dodone);
   const { update, isLoading } = useApiUpdateDodone();
   const history = useHistory();
 
   const save = useCallback(async () => {
-    await update({ dodoneId: dodone.id, dodoneAttributes });
+    await update({
+      dodoneId: dodone.id,
+      dodoneAttributes: formDodone.serialize(),
+    });
     history.push(`/dodones/${dodone.id}`);
   });
 
@@ -20,8 +23,8 @@ function SimpleFormDodoneEdit({ dodone }) {
       <View style={tw("flex h-full p-4")}>
         <View style={tw("flex-grow")}>
           <DodoneExperimentsSimpleForm
-            dodoneAttributes={dodoneAttributes}
-            setDodoneAttributes={setDodoneAttributes}
+            dodone={formDodone}
+            setDodone={setFormDodone}
           />
         </View>
         <View style={tw("flex-row")}>
