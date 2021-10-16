@@ -20,6 +20,14 @@ const react =  {
 
 environment.loaders.append('react', react);
 
+// test: /\.(gif|jpg|png|mp3|aac|ogg)$/,
+const comeon = {
+  test: /\.mp3$/,
+  loader: 'file-loader'
+}
+
+environment.loaders.append('comeon', comeon);
+
 environment.resolve = {
   alias: {
     'react-native$': 'react-native-web'
