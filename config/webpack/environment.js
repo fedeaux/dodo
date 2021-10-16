@@ -37,10 +37,12 @@ environment.resolve = {
 const providedModules = [
   ['react-native-web', 'View'],
   ['react-native-web', 'Text'],
+  ['react', 'createContext'],
   ['react', 'useCallback'],
+  ['react', 'useContext'],
   ['react', 'useEffect'],
-  ['react', 'useState'],
   ['react', 'useMemo'],
+  ['react', 'useState'],
 ];
 
 const provided = {

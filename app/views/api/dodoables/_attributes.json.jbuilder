@@ -1,0 +1,10 @@
+json.extract! dodoable,
+              :id,
+              :name,
+              :slug,
+              :executor,
+              :trigger,
+              :fields,
+              :user_id,
+              :created_at,
+              :updated_at

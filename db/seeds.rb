@@ -1,6 +1,27 @@
 user = User.where(id: 1).first_or_create
 user.update(email: 'phec06@gmail.com', name: 'Pedro')
 
+[
+  {
+    name: 'First Meal: Salad Cottage Sandwich',
+    slug: 'meal:first',
+    executor: {
+      component: 'SimpleForm'
+    },
+    trigger: {
+      component: 'Meal'
+    },
+    fields: {},
+  },
+].each do |dodoable_attributes|
+  Dodoable.where(
+    slug: dodoable_attributes[:slug],
+    user_id: user.id
+  )
+    .first_or_create
+    .update(dodoable_attributes)
+end
+
 # Dodoable.where(name: 'Art', slug: 'art', user_id: user.id).first_or_create
 # Dodoable.where(name: 'Exercise', slug: 'exercise', user_id: user.id).first_or_create
 # Dodoable.where(name: 'Enlightment', slug: 'enlightment', user_id: user.id).first_or_create

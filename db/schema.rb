@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_174337) do
+ActiveRecord::Schema.define(version: 2021_10_16_141002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,30 @@ ActiveRecord::Schema.define(version: 2021_08_24_174337) do
     t.index ["user_id"], name: "index_days_on_user_id"
   end
 
+  create_table "dodoables", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.jsonb "executor"
+    t.jsonb "trigger"
+    t.jsonb "fields"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_dodoables_on_user_id"
+  end
+
+  create_table "dodones", force: :cascade do |t|
+    t.bigint "dodoable_id", null: false
+    t.bigint "day_id", null: false
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.jsonb "fields"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["day_id"], name: "index_dodones_on_day_id"
+    t.index ["dodoable_id"], name: "index_dodones_on_dodoable_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -33,4 +57,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_174337) do
   end
 
   add_foreign_key "days", "users"
+  add_foreign_key "dodoables", "users"
+  add_foreign_key "dodones", "days"
+  add_foreign_key "dodones", "dodoables"
 end
