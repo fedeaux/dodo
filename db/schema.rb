@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(version: 2021_10_16_141002) do
   create_table "dodoables", force: :cascade do |t|
     t.string "name"
     t.string "slug"
-    t.jsonb "executor"
-    t.jsonb "trigger"
-    t.jsonb "fields"
+    t.jsonb "executor", default: {}
+    t.jsonb "trigger", default: {}
+    t.jsonb "fields", default: {}
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_141002) do
     t.bigint "day_id", null: false
     t.datetime "started_at"
     t.datetime "finished_at"
-    t.jsonb "fields"
+    t.jsonb "fields", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["day_id"], name: "index_dodones_on_day_id"

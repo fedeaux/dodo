@@ -1,10 +1,10 @@
 user = User.where(id: 1).first_or_create
 user.update(email: 'phec06@gmail.com', name: 'Pedro')
 
-[
+def meal_dodoable(slug_suffix, name)
   {
-    name: 'First Meal: Salad Cottage Sandwich',
-    slug: 'meal:first',
+    name: name,
+    slug: "meal:#{slug_suffix}",
     executor: {
       component: 'SimpleForm'
     },
@@ -12,7 +12,15 @@ user.update(email: 'phec06@gmail.com', name: 'Pedro')
       component: 'Meal'
     },
     fields: {},
-  },
+  }
+end
+
+[
+  meal_dodoable('first', 'First Meal: Salad Cottage Sandwich'),
+  meal_dodoable('second', 'Second Meal: Yogurt Grains'),
+  meal_dodoable('third', 'Third Meal: Frozen Lunch'),
+  meal_dodoable('fourth', 'Fourth Meal: ?'),
+  meal_dodoable('fifth', 'Fifth Meal: Corn Flakes'),
 ].each do |dodoable_attributes|
   Dodoable.where(
     slug: dodoable_attributes[:slug],

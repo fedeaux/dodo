@@ -29,7 +29,7 @@ module Generators
     end
 
     def hooks
-      [read_hooks, put_hooks].flatten.join("\n\n").strip
+      [read_hooks, put_hooks, post_hooks].flatten.join("\n\n").strip
     end
 
     def read_hooks
@@ -48,6 +48,16 @@ module Generators
   const { write: update, ...rest } = useWrite(#{endpoint.abstract_api_function}, [#{endpoint.parameterized_api_path}, #{endpoint.instantiable_model_name}]);
 
   return { update, ...rest };
+}"
+      end
+    end
+
+    def post_hooks
+      endpoints.select(&:post?).map do |endpoint|
+        "export function #{endpoint.hook_signature} {
+  const { write: create, ...rest } = useWrite(#{endpoint.abstract_api_function}, [#{endpoint.parameterized_api_path}, #{endpoint.instantiable_model_name}]);
+
+  return { create, ...rest };
 }"
       end
     end

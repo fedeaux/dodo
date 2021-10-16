@@ -34,7 +34,7 @@ export default {
       name: "fields",
       type: "jsonb",
       writeable: true,
-      default: null,
+      default: "{}",
     },
     createdAt: {
       name: "createdAt",

@@ -59,10 +59,10 @@ class BaseGenerator
   def template(source, *args)
     config = args.last.is_a?(Hash) ? args.pop : {}
     target = args.first
-    target_dir = target.to_s.split('/').last(2).first
+    generated = target.to_s.include? 'generated'
 
     if braindamage_generator.options[:smart]
-      if target_dir == 'generated'
+      if generated
         config[:force] = true
       else
         config[:skip] = true

@@ -3,12 +3,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Button from "ui/controls/button";
 import useBoolState from "util/useBoolState";
 import ENV from "env";
+import { BraindamageApiContext } from "braindamage/api/provider";
 
 function Menu({ closeMenu }) {
   const useWeb = useCallback(() => {
     localStorage.removeItem("useMobile");
     window.location.reload();
   });
+
+  const { nukeCache } = useContext(BraindamageApiContext);
 
   return (
     <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60 p-4")}>
@@ -19,7 +22,7 @@ function Menu({ closeMenu }) {
       >
         <Icon size={18} name="close" />
       </TouchableOpacity>
-      <Button label="Reload" />
+      <Button label="Reload" onClick={nukeCache} />
       {ENV.PLATFORM == "web" && <Button label="Use Web" onClick={useWeb} />}
     </View>
   );

@@ -24,9 +24,14 @@ export default function BraindamageApiProvider({ children }) {
     setCache({ ...cache, [response.cacheKey.name]: response });
   });
 
+  const nukeCache = useCallback(() => {
+    setQueryCache({});
+    setCache({});
+  });
+
   return (
     <BraindamageApiContext.Provider
-      value={{ cache, addToCache, updateCache, useQueryCache }}
+      value={{ cache, addToCache, updateCache, useQueryCache, nukeCache }}
     >
       {children}
     </BraindamageApiContext.Provider>

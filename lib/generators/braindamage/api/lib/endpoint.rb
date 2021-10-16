@@ -16,7 +16,7 @@ class Endpoint
   end
 
   def hook_signature
-    entities_signature = if path_parts.last.param?
+    entities_signature = if path_parts.last.param? || post?
                            entities.map(&:singular_class_name).join
                          else
                            (entities[0..-2].map(&:singular_class_name) + [entities.last.plural_class_name]).join
@@ -32,6 +32,8 @@ class Endpoint
       "useApi#{entities_signature}(#{params_signature})"
     elsif put?
       "useApiUpdate#{entities_signature}(#{params_signature})"
+    elsif post?
+      "useApiCreate#{entities_signature}(#{params_signature})"
     end
   end
 
@@ -44,6 +46,8 @@ class Endpoint
       end
     elsif put?
       'updateModelMember'
+    elsif post?
+      'createModelMember'
     end
   end
 
@@ -168,6 +172,10 @@ class Endpoint
 
   def put?
     verb == "PUT"
+  end
+
+  def post?
+    verb == "POST"
   end
 end
 

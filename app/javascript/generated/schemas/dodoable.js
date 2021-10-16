@@ -22,19 +22,19 @@ export default {
       name: "executor",
       type: "jsonb",
       writeable: true,
-      default: null,
+      default: "{}",
     },
     trigger: {
       name: "trigger",
       type: "jsonb",
       writeable: true,
-      default: null,
+      default: "{}",
     },
     fields: {
       name: "fields",
       type: "jsonb",
       writeable: true,
-      default: null,
+      default: "{}",
     },
     userId: {
       name: "userId",
