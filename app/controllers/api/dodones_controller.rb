@@ -6,6 +6,10 @@ class Api::DodonesController < ApiController
     @dodone.save
   end
 
+  def update
+    @dodone.update dodone_params
+  end
+
   def destroy
     @dodone.destroy
   end
@@ -13,7 +17,7 @@ class Api::DodonesController < ApiController
   private
 
   def dodone_params
-    params.require(:dodone).permit(:day_id, :started_at, :finished_at, :dodoable_id)
+    params.require(:dodone).permit(:day_id, :started_at, :finished_at, :dodoable_id, fields: {})
   end
 
   def set_dodone

@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native";
 import useBoolState from "util/useBoolState";
 import PrimaryButton from "ui/controls/button/primary";
 import { useApiDestroyDodone } from "generated/api";
+import { Link } from "lib/router";
 
 export default function DodoneListItem({ dodone }) {
   const [confirmingDestroy, cancelConfirmDestroy, showConfirmDestroy] =
@@ -34,8 +35,9 @@ export default function DodoneListItem({ dodone }) {
         </>
       ) : (
         <>
-          <Text>{dodone.id}</Text>
-          <View style={tw("flex-grow")} />
+          <Link style={tw("flex-grow")} to={`/dodones/${dodone.id}`}>
+            <Text>{dodone.id}</Text>
+          </Link>
           <TouchableOpacity onPress={showConfirmDestroy}>
             <Icon name="trash" />
           </TouchableOpacity>

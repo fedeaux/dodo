@@ -12,11 +12,38 @@ def meal_dodoable(slug_suffix, name)
       component: 'Meal'
     },
     fields: {
+      status: {
+        type: :select,
+        options: text_select_options(['Ate it', 'Skip', 'Something Else']),
+        default: 'Ate it'
+      },
       comments: {
         type: :text
       }
     },
   }
+end
+
+def text_select_options(options)
+  options.map do |option|
+    {
+      value: option,
+      label: option
+    }
+  end
+end
+
+def todo_fields(*fields)
+  field_hash = {}
+
+  fields.each do |field|
+    field_hash[field.downcase.gsub(/\s/, '-')] = {
+      type: :bool,
+      label: field
+    }
+  end
+
+  field_hash
 end
 
 [
@@ -25,6 +52,64 @@ end
   meal_dodoable('third', '15:00: Frozen Lunch'),
   meal_dodoable('fourth', '19:30: ?'),
   meal_dodoable('fifth', '23:00: Corn Flakes'),
+  {
+    name: 'Smoking',
+    slug: "bad-habit:smoking",
+    executor: {
+      component: 'SimpleForm'
+    },
+    trigger: {
+      component: 'Habit',
+    },
+    fields: {
+      trigger: {
+        type: :select,
+        options: [
+          'Bathroom',
+          'Eat',
+          'Sex',
+          'Sleep',
+          'Wakeup'
+        ]
+      },
+      comments: {
+        type: :text
+      }
+    },
+  },
+  {
+    name: 'Breath Meditation',
+    slug: "meditation:Breath",
+    executor: {
+      component: '?'
+    },
+    trigger: {
+      component: '?',
+    },
+    fields: {},
+  },
+  {
+    name: 'Evening Chores',
+    slug: "chores:evening",
+    executor: {
+      component: 'Todo',
+    },
+    trigger: {
+      component: '?',
+    },
+    fields: {}.merge(
+      todo_fields(
+        'Tea',
+        'Juice',
+        'Water',
+        'Setup Coffee',
+        'Milk and Albumin',
+        'Salad and Fish',
+        'One song cleanup',
+        'Skincare'
+      )
+    ),
+  }
 ].each do |dodoable_attributes|
   Dodoable.where(
     slug: dodoable_attributes[:slug],

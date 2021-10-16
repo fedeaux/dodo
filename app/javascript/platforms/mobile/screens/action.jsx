@@ -16,7 +16,7 @@ export default function ActionScreen({ children, backTo, title = null }) {
       style={tw("w-full h-full")}
     >
       <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60")}>
-        <View style={tw("px-4 pb-1 pt-4")}>
+        <View style={tw("px-4 pb-1 pt-4 min-h-14")}>
           <Link to="/" style={tw("pt-1 text-blue-200 absolute top-4 left-4")}>
             <Icon size={18} name="chevron-left" />
           </Link>

@@ -2,6 +2,31 @@ class Dodoable < ApplicationRecord
   include Braindamage::Braindamageable
   belongs_to :user
   has_many :dodones
+
+  # def fields
+  #   super.
+  # end
+
+  def fields
+    order = -1
+
+    super.deep_symbolize_keys.map do |name, options|
+      order += 1
+
+      [
+        name,
+        {
+          name: name,
+          label: name,
+          order: order,
+          default: ''
+        }.merge(options)]
+    end.to_h
+  end
+
+  def self.s(slug)
+    find_by slug: slug
+  end
 end
 
 # == Schema Information
