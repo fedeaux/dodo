@@ -18,21 +18,20 @@ function MealDodoableTrigger({ dodoable }) {
           ? `/dodoables/${dodoable.id}`
           : `/dodoables/${dodoable.id}/executor`
       }
-      style={tw(
-        "py-2 px-4 rounded bg-gray-900 bg-opacity-60 no-underline mt-2"
-      )}
+      style={tw("py-2 px-4 rounded bg-gray-900 bg-opacity-60 mt-2")}
     >
       <View style={tw("flex flex-row")}>
         {dodoneToday ? (
           <>
             <Text style={tw("text-xs text-blue-300 flex-1")}>
-              {dodoable.name} @ {format(dodoneToday.startedAt, "HH:mm")}
+              {dodoable.name} @
+              {dodoneToday.startedAt && format(dodoneToday.startedAt, "HH:mm")}
             </Text>
             <Icon size={15} name="check" />
           </>
         ) : (
           <>
-            <Text style={tw("text-xl text-center text-blue-300 flex-1")}>
+            <Text style={tw("text-xl text-blue-300 flex-1")}>
               {dodoable.name}
             </Text>
             <Icon size={26} name="play" />

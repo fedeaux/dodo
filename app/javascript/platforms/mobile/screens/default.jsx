@@ -43,7 +43,7 @@ export default function DefaultScreen({ children, title = null }) {
         <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60")}>
           <View style={tw("flex flex-row px-4 pb-1 pt-4")}>
             <TouchableOpacity
-              style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-2 pl-4")}
+              style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-4")}
               onPress={openMenu}
             >
               <Icon size={18} name="ellipsis-v" />

@@ -1,5 +1,5 @@
 class Api::DodoablesController < ApiController
-  before_action :set_dodoable, only: [:show, :update]
+  before_action :set_dodoable, only: [:show, :update, :destroy]
 
   def index
     @dodoables = current_user.dodoables

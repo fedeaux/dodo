@@ -1,7 +1,8 @@
 import { TouchableOpacity } from "react-native";
-import { Link } from "lib/router";
-import MainTitle from "ui/typography/MainTitle";
+import PrimaryButton from "ui/controls/button/primary";
 import UserContext from "lib/UserContext";
+import ActionScreen from "platforms/mobile/screens/action";
+import DodoneListItem from "entities/dodones/list/item";
 
 function MealDodoableShow({ dodoable }) {
   const { day } = useContext(UserContext);
@@ -11,24 +12,28 @@ function MealDodoableShow({ dodoable }) {
   });
 
   return (
-    <View>
-      <MainTitle>{dodoable.name}</MainTitle>
-      {dodoable.dodones.map((dodone) => {
-        return (
-          <View key={dodone.id}>
-            <Text>{dodone.id}</Text>
-          </View>
-        );
-      })}
-
-      {dodoneToday ? (
-        <Text>Dodone!</Text>
-      ) : (
-        <Link to={`/dodoables/${dodoable.id}/executor`}>
-          <Text>Dodoit</Text>
-        </Link>
-      )}
-    </View>
+    <ActionScreen title={dodoable.name}>
+      <View style={tw("flex h-full p-4")}>
+        <View style={tw("flex-grow")}>
+          {dodoable.dodones.map((dodone) => {
+            return <DodoneListItem key={dodone.id} dodone={dodone} />;
+          })}
+        </View>
+        <View style={tw("flex flex-row")}>
+          {dodoneToday ? (
+            <Text>Dodone!</Text>
+          ) : (
+            <PrimaryButton
+              color="success"
+              size="large"
+              tws="flex-grow"
+              label="Dodoit"
+              to={`/dodoables/${dodoable.id}/executor`}
+            />
+          )}
+        </View>
+      </View>
+    </ActionScreen>
   );
 }
 

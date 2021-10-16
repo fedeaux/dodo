@@ -10,6 +10,8 @@ export default function TimeInput({ value, onChange }) {
     if (text.match(/\d\d:\d\d/)) {
       const parts = text.split(":");
       onChange({ value: setMinutes(setHours(value, parts[0]), parts[1]) });
+    } else {
+      onChange({ value: null });
     }
   });
 

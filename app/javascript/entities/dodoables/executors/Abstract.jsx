@@ -2,9 +2,10 @@ import { TouchableOpacity } from "react-native";
 import { Link, useHistory } from "lib/router";
 import MainTitle from "ui/typography/MainTitle";
 import UserContext from "lib/UserContext";
-import Button from "ui/controls/button";
+import PrimaryButton from "ui/controls/button/primary";
 import TimeInput from "ui/inputs/time";
 import { useApiCreateDodone } from "generated/api";
+import ActionScreen from "platforms/mobile/screens/action";
 
 function MealDodoableExecutor({ dodoable }) {
   const { day } = useContext(UserContext);
@@ -22,19 +23,28 @@ function MealDodoableExecutor({ dodoable }) {
   });
 
   return (
-    <View>
-      <MainTitle>{dodoable.name}</MainTitle>
-      <View>
-        <Text>At</Text>
-        <TimeInput
-          value={new Date()}
-          onChange={({ value }) => {
-            setDodoneAttributes({ ...dodoneAttributes, startedAt: value });
-          }}
-        />
+    <ActionScreen title={dodoable.name}>
+      <View style={tw("flex h-full p-4")}>
+        <View style={tw("flex-grow")}>
+          <Text>At</Text>
+          <TimeInput
+            value={new Date()}
+            onChange={({ value }) => {
+              setDodoneAttributes({ ...dodoneAttributes, startedAt: value });
+            }}
+          />
+        </View>
+        <View style={tw("flex flex-row")}>
+          <PrimaryButton
+            label="Dodone!"
+            size="large"
+            color="success"
+            tws="flex-grow"
+            onClick={save}
+          />
+        </View>
       </View>
-      <Button label="Dodone!" onClick={save} />
-    </View>
+    </ActionScreen>
   );
 }
 

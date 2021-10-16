@@ -11,16 +11,20 @@ def meal_dodoable(slug_suffix, name)
     trigger: {
       component: 'Meal'
     },
-    fields: {},
+    fields: {
+      comments: {
+        type: :text
+      }
+    },
   }
 end
 
 [
-  meal_dodoable('first', 'First Meal: Salad Cottage Sandwich'),
-  meal_dodoable('second', 'Second Meal: Yogurt Grains'),
-  meal_dodoable('third', 'Third Meal: Frozen Lunch'),
-  meal_dodoable('fourth', 'Fourth Meal: ?'),
-  meal_dodoable('fifth', 'Fifth Meal: Corn Flakes'),
+  meal_dodoable('first', '08:00: Salad Cottage Sandwich'),
+  meal_dodoable('second', '11:30: Yogurt Grains'),
+  meal_dodoable('third', '15:00: Frozen Lunch'),
+  meal_dodoable('fourth', '19:30: ?'),
+  meal_dodoable('fifth', '23:00: Corn Flakes'),
 ].each do |dodoable_attributes|
   Dodoable.where(
     slug: dodoable_attributes[:slug],

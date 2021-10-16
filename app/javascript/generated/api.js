@@ -3,6 +3,7 @@ import { BraindamageApiContext } from "braindamage/api/provider";
 import getModelCollection from 'braindamage/api/getModelCollection';
 import getModelMember from 'braindamage/api/getModelMember';
 import createModelMember from 'braindamage/api/createModelMember';
+import destroyModelMember from 'braindamage/api/destroyModelMember';
 import updateModelMember from 'braindamage/api/updateModelMember';
 
 import useQuery from 'braindamage/api/useQuery';
@@ -82,4 +83,22 @@ export function useApiCreateDodone() {
   const { write: create, ...rest } = useWrite(createModelMember, ['/api/dodones', Dodone]);
 
   return { create, ...rest };
+}
+
+export function useApiDestroyDay() {
+  const { write: destroy, ...rest } = useWrite(destroyModelMember, ['/api/days/:dayId', Day]);
+
+  return { destroy, ...rest };
+}
+
+export function useApiDestroyDodoable() {
+  const { write: destroy, ...rest } = useWrite(destroyModelMember, ['/api/dodoables/:dodoableId', Dodoable]);
+
+  return { destroy, ...rest };
+}
+
+export function useApiDestroyDodone() {
+  const { write: destroy, ...rest } = useWrite(destroyModelMember, ['/api/dodones/:dodoneId', Dodone]);
+
+  return { destroy, ...rest };
 }

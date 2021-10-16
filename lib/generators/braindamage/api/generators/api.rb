@@ -29,7 +29,7 @@ module Generators
     end
 
     def hooks
-      [read_hooks, put_hooks, post_hooks].flatten.join("\n\n").strip
+      [read_hooks, put_hooks, post_hooks, delete_hooks].flatten.join("\n\n").strip
     end
 
     def read_hooks
@@ -58,6 +58,16 @@ module Generators
   const { write: create, ...rest } = useWrite(#{endpoint.abstract_api_function}, [#{endpoint.parameterized_api_path}, #{endpoint.instantiable_model_name}]);
 
   return { create, ...rest };
+}"
+      end
+    end
+
+    def delete_hooks
+      endpoints.select(&:delete?).map do |endpoint|
+        "export function #{endpoint.hook_signature} {
+  const { write: destroy, ...rest } = useWrite(#{endpoint.abstract_api_function}, [#{endpoint.parameterized_api_path}, #{endpoint.instantiable_model_name}]);
+
+  return { destroy, ...rest };
 }"
       end
     end
