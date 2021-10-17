@@ -5,9 +5,7 @@ def meal_dodoable(slug_suffix, name)
   {
     name: name,
     slug: "meal:#{slug_suffix}",
-    executor: {
-      component: 'SimpleForm'
-    },
+    executor: {},
     trigger: {
       component: 'Meal',
       icon: {
@@ -60,7 +58,7 @@ end
     name: 'Smoking',
     slug: "bad-habit:smoking",
     executor: {
-      component: 'SimpleForm'
+      finished_at_behaviour: :instantaneous
     },
     trigger: {
       component: 'Habit',
@@ -68,13 +66,13 @@ end
     fields: {
       trigger: {
         type: :select,
-        options: [
+        options: text_select_options([
           'Bathroom',
           'Eat',
           'Sex',
           'Sleep',
           'Wakeup'
-        ]
+        ])
       },
       comments: {
         type: :text
@@ -85,7 +83,7 @@ end
     name: 'Breath Meditation',
     slug: "meditation:Breath",
     executor: {
-      component: '?'
+      finished_at_behaviour: :timer
     },
     trigger: {
       component: '?',
@@ -96,7 +94,7 @@ end
     name: 'Evening Chores',
     slug: "chores:evening",
     executor: {
-      component: 'Todo',
+      save_on_field_changed: true
     },
     trigger: {
       component: '?',
@@ -122,7 +120,7 @@ end
     name: 'On Wakeup',
     slug: "chores:wakeup",
     executor: {
-      component: 'Todo',
+      save_on_field_changed: true
     },
     trigger: {
       component: '?',

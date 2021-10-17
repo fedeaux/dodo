@@ -6,22 +6,35 @@ class Dodoable < ApplicationRecord
   has_many :days, through: :dodones
 
   expose :dodone_today?, type: :boolean
+  expose :being_tracked_dodones
 
   def fields
     order = -1
 
     super.deep_symbolize_keys.map do |name, options|
       order += 1
+      label = name.to_s.titleize
 
-      [
-        name,
-        {
-          name: name,
-          label: name,
-          order: order,
-          default: ''
-        }.merge(options)]
+      options = {
+        name: name,
+        label: label,
+        order: order,
+        default: ''
+      }.merge(options)
+
+      if options[:type].to_sym == :select
+        options[:placeholder] = "Select #{label}"
+      end
+
+      [name, options]
     end.to_h
+  end
+
+  def executor
+    {
+      finished_at_behaviour: :chronometer,
+      save_on_field_changed: false
+    }.merge(super.deep_symbolize_keys)
   end
 
   def dodone_today?
@@ -30,6 +43,12 @@ class Dodoable < ApplicationRecord
 
   def dodone_saved!
     update(last_dodone_day: days.ordered.last)
+  end
+
+  def being_tracked_dodones
+    return nil if executor[:finished_at_behaviour] == :instantaneous
+
+    dodones.where(finished_at: nil)
   end
 
   def self.s(slug)

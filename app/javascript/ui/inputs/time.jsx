@@ -20,12 +20,12 @@ export default function TimeInput({ value, onChange, label }) {
 
   const hourChanged = useCallback(({ hour }) => {
     let newValue = isValid(value) ? value : new Date();
-    onChange({ value: setHours(newValue, hour) });
+    onChange({ value: setSeconds(setHours(newValue, hour), 0) });
   });
 
   const minutesChanged = useCallback(({ minutes }) => {
     let newValue = isValid(value) ? value : new Date();
-    onChange({ value: setMinutes(newValue, minutes) });
+    onChange({ value: setSeconds(setMinutes(newValue, minutes), 0) });
   });
 
   const setValueToNow = useCallback(() => {

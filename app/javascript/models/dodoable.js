@@ -9,8 +9,12 @@ class Dodoable extends Model {
   static attributesDefinitions() {
     return {
       dodones: {
-        type: "belongs_to",
+        type: "has_many",
         class: Dodone
+      },
+      beingTrackedDodones: {
+        type: "has_many",
+        class: Dodone,
       }
     };
   }

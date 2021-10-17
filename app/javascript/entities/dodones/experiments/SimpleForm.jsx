@@ -49,14 +49,15 @@ export default function DodoneExperimentsSimpleForm({ dodone, setDodone }) {
             />
           );
         })}
-
-      <AbstractField
-        type="time"
-        name="finishedAt"
-        value={dodone.finishedAt}
-        label="Finished At"
-        onChange={onDodoneChanged}
-      />
+      {dodone.finishedAt && (
+        <AbstractField
+          type="time"
+          name="finishedAt"
+          value={dodone.finishedAt}
+          label="Finished At"
+          onChange={onDodoneChanged}
+        />
+      )}
     </>
   );
 }

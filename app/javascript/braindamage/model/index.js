@@ -32,6 +32,14 @@ class Model {
     return raw;
   }
 
+  get isPersisted() {
+    return !this.isNewRecord;
+  }
+
+  get isNewRecord() {
+    return isNaN(this.id);
+  }
+
   clone() {
     return new this.constructor(this.serialize());
   }

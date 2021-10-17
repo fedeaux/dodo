@@ -80,7 +80,7 @@ function getAttributeParser(attribute) {
     }
   }
 
-  if(attribute.type === "belongs_to") {
+  if(attribute.type === "belongs_to" || attribute.type === "has_many") {
     return (value) => {
       try {
         if (Array.isArray(value)) {

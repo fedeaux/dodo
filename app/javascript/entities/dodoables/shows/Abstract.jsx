@@ -11,6 +11,8 @@ function MealDodoableShow({ dodoable }) {
     return dodone.dayId == day.id;
   });
 
+  console.log("dodoable.dodones", dodoable.dodones);
+
   return (
     <ActionScreen title={dodoable.name}>
       <View style={tw("flex h-full p-4")}>

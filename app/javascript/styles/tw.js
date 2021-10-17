@@ -3,7 +3,15 @@ import styles from './styles.json';
 const customStyles = {
   "min-h-14": {
     "minHeight": 56
-  }
+  },
+  "text-5xl": {
+    "fontSize": 42,
+    "lineHeight": 44
+  },
+  "text-6xl": {
+    "fontSize": 48,
+    "lineHeight": 48
+  },
 }
 
 function extend(...selectors) {
@@ -33,7 +41,7 @@ function tw(...args) {
   });
 
   args = args.filter((arg) => {
-    return typeof arg != 'object';
+    return typeof arg != 'object' && arg.length > 0;
   });
 
 

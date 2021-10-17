@@ -2,7 +2,13 @@ import { TouchableOpacity } from "react-native";
 import Modal from "ui/controls/modal";
 import TextDisplay from "ui/displays/text";
 
-export default function SelectInput({ value, options, onChange, label }) {
+export default function SelectInput({
+  value,
+  options,
+  placeholder,
+  onChange,
+  label,
+}) {
   const [showingModal, hideModal, showModal] = useBoolState(false);
 
   const selectOption = useCallback(
@@ -20,7 +26,7 @@ export default function SelectInput({ value, options, onChange, label }) {
   return (
     <>
       <TouchableOpacity onPress={showModal}>
-        <TextDisplay value={selectedOption?.label} />
+        <TextDisplay value={selectedOption?.label || placeholder} />
       </TouchableOpacity>
       <Modal
         showingModal={showingModal}
