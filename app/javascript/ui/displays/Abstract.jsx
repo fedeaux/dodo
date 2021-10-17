@@ -2,10 +2,11 @@ import { format } from "date-fns";
 import FieldLabel from "ui/fields/Label";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TimeDisplay from "ui/displays/time";
+import TextDisplay from "ui/displays/text";
 
 function BoolDisplay({ value }) {
   return (
-    <View style={tw("mt-2")}>
+    <View style={tw("mt-1")}>
       {value ? (
         <Icon size={12} name="check" />
       ) : (
@@ -15,17 +16,9 @@ function BoolDisplay({ value }) {
   );
 }
 
-function TextDisplay({ value }) {
-  return (
-    <View style={tw("mt-2")}>
-      <Text style={tw("text-lg")}>{value}</Text>
-    </View>
-  );
-}
-
 function SelectDisplay({ value }) {
   return (
-    <View style={tw("mt-2")}>
+    <View style={tw("mt-1")}>
       <Text style={tw("text-lg")}>{value}</Text>
     </View>
   );
