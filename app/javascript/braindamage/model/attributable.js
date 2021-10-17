@@ -82,13 +82,15 @@ function getAttributeParser(attribute) {
 
   if(attribute.type === "belongs_to" || attribute.type === "has_many") {
     return (value) => {
+      if(!value) return attribute.default || null;
+
       try {
         if (Array.isArray(value)) {
           return value.map((v) => new attribute.class(v));
         }
+
         return new attribute.class(value);
       } catch(e) {
-        console.log(e);
         return attribute.default || null;
       }
     }

@@ -5,7 +5,9 @@ def meal_dodoable(slug_suffix, name)
   {
     name: name,
     slug: "meal:#{slug_suffix}",
-    executor: {},
+    executor: {
+      day_interaction: :once
+    },
     trigger: {
       component: 'Meal',
       icon: {
@@ -94,7 +96,8 @@ end
     name: 'Evening Chores',
     slug: "chores:evening",
     executor: {
-      save_on_field_changed: true
+      save_on_field_changed: true,
+      day_interaction: :once
     },
     trigger: {
       component: '?',
@@ -120,7 +123,8 @@ end
     name: 'On Wakeup',
     slug: "chores:wakeup",
     executor: {
-      save_on_field_changed: true
+      save_on_field_changed: true,
+      day_interaction: :once
     },
     trigger: {
       component: '?',

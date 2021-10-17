@@ -66,6 +66,12 @@ export default {
       writeable: true,
       default: null,
     },
+    beingTrackedDodone: {
+      name: "beingTrackedDodone",
+      type: "string",
+      writeable: true,
+      default: null,
+    },
   },
   names: {
     singularUnderscore: "dodoable",

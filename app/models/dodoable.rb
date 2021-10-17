@@ -6,7 +6,7 @@ class Dodoable < ApplicationRecord
   has_many :days, through: :dodones
 
   expose :dodone_today?, type: :boolean
-  expose :being_tracked_dodones
+  expose :being_tracked_dodone
 
   def fields
     order = -1
@@ -33,7 +33,8 @@ class Dodoable < ApplicationRecord
   def executor
     {
       finished_at_behaviour: :chronometer,
-      save_on_field_changed: false
+      save_on_field_changed: false,
+      day_interaction: :many
     }.merge(super.deep_symbolize_keys)
   end
 
@@ -45,10 +46,10 @@ class Dodoable < ApplicationRecord
     update(last_dodone_day: days.ordered.last)
   end
 
-  def being_tracked_dodones
+  def being_tracked_dodone
     return nil if executor[:finished_at_behaviour] == :instantaneous
 
-    dodones.where(finished_at: nil)
+    dodones.find_by(finished_at: nil)
   end
 
   def self.s(slug)

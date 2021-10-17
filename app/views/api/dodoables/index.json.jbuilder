@@ -8,9 +8,9 @@ json.dodoables do
       end
     end
 
-    json.being_tracked_dodones do
-      json.array! dodoable.being_tracked_dodones do |dodone|
-        json.partial! "/api/dodones/attributes", dodone: dodone
+    if dodoable.being_tracked_dodone
+      json.being_tracked_dodone do
+        json.partial! "/api/dodones/attributes", dodone: dodoable.being_tracked_dodone
       end
     end
   end

@@ -193,8 +193,8 @@ export default function AbstractDodoableExecutor({ dodoable }) {
   const { day } = useContext(UserContext);
   let dodone = null;
 
-  if (dodoable.beingTrackedDodones.length > 0) {
-    dodone = dodoable.beingTrackedDodones[0];
+  if (dodoable.beingTrackedDodone) {
+    dodone = dodoable.beingTrackedDodone;
   } else {
     dodone = new Dodone({
       dayId: day.id,

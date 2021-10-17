@@ -12,8 +12,8 @@ class Dodoable extends Model {
         type: "has_many",
         class: Dodone
       },
-      beingTrackedDodones: {
-        type: "has_many",
+      beingTrackedDodone: {
+        type: "belongs_to",
         class: Dodone,
       }
     };
