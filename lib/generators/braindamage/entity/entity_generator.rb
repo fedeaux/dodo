@@ -28,7 +28,7 @@ class Braindamage::EntityGenerator < Rails::Generators::NamedBase
 
     active_generators_paths.map do |generator_path|
       path_2_generator generator_path.split(".")[0..-2].join "."
-    end
+    end.sort_by(&:order)
   end
 
   def path_2_generator(path)

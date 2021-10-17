@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import FieldLabel from "ui/fields/Label";
 import Icon from "react-native-vector-icons/FontAwesome";
+import TimeDisplay from "ui/displays/time";
 
 function BoolDisplay({ value }) {
   return (
@@ -18,18 +19,6 @@ function TextDisplay({ value }) {
   return (
     <View style={tw("mt-2")}>
       <Text style={tw("text-lg")}>{value}</Text>
-    </View>
-  );
-}
-
-function TimeDisplay({ value }) {
-  return (
-    <View style={tw("mt-2")}>
-      {value ? (
-        <Text style={tw("text-lg italic")}>{format(value, "HH:mm")}</Text>
-      ) : (
-        <Text style={tw("text-lg italic")}>Not set</Text>
-      )}
     </View>
   );
 }

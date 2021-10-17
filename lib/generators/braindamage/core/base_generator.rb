@@ -3,6 +3,11 @@ require_relative './pathable'
 class BaseGenerator
   include Pathable
   attr_reader :braindamage_generator
+  delegate :inject_into_file, to: :braindamage_generator
+
+  def self.order
+    999
+  end
 
   def initialize(braindamage_generator)
     @braindamage_generator = braindamage_generator

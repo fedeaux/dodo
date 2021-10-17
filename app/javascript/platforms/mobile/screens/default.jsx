@@ -1,7 +1,6 @@
 import { ImageBackground, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Button from "ui/controls/button";
-import useBoolState from "util/useBoolState";
 import ENV from "env";
 import { BraindamageApiContext } from "braindamage/api/provider";
 

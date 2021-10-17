@@ -1,6 +1,5 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
-import useBoolState from "util/useBoolState";
 import PrimaryButton from "ui/controls/button/primary";
 import { useApiDestroyDodone } from "generated/api";
 import { Link } from "lib/router";

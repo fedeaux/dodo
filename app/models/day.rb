@@ -1,10 +1,21 @@
 class Day < ApplicationRecord
   include Braindamage::Braindamageable
   belongs_to :user
+  has_many :day_dodoables
 
   scope :ordered, ->{
     order(:day)
   }
+
+  before_save :ensure_day_dodoables, if: :wokeup_at_changed?
+
+  def ensure_day_dodoables
+    Services::DayBuilder.new(self).build
+  end
+
+  def dodoables
+    day_dodoables.includes(:dodoable).order(:order).map(&:dodoable)
+  end
 end
 
 # == Schema Information

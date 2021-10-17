@@ -18,6 +18,7 @@ function SimpleFormDodoableExecutor({ dodoable }) {
     new Dodone({
       dayId: day.id,
       dodoableId: dodoable.id,
+      startedAt: new Date(),
       fields: Object.values(dodoable.fields)
         .map((field) => {
           return { value: field.default, ...field };
@@ -35,7 +36,7 @@ function SimpleFormDodoableExecutor({ dodoable }) {
 
   return (
     <ActionScreen title={dodoable.name}>
-      <View style={tw("flex h-full p-4")}>
+      <View style={tw("flex flex-grow p-4")}>
         <View style={tw("flex-grow")}>
           <DodoneExperimentsSimpleForm dodone={dodone} setDodone={setDodone} />
         </View>
@@ -44,7 +45,7 @@ function SimpleFormDodoableExecutor({ dodoable }) {
             label="Dodone!"
             size="large"
             color="success"
-            tws="flex-grow"
+            block
             onClick={save}
           />
         </View>

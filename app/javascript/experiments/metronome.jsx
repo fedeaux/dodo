@@ -1,7 +1,6 @@
 import BackgroundTimer from "lib/background-timer";
 import SoundAdapter from "lib/sound-adapter";
 import TickMp3 from "assets/sound/tick.mp3";
-import useBoolState from "util/useBoolState";
 import Button from "ui/controls/button";
 
 export default class Metronome extends React.Component {

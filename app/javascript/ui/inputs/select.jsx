@@ -1,4 +1,3 @@
-import useBoolState from "util/useBoolState";
 import { TouchableOpacity } from "react-native";
 
 export default function SelectInput({ value, options, onChange }) {

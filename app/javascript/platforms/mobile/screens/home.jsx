@@ -5,21 +5,17 @@ import DayFieldWokeupAt from "entities/days/fields/wokeupAt";
 import Button from "ui/controls/button";
 import { TouchableOpacity } from "react-native";
 
-import { useApiDodoables } from "generated/api";
 import AbstractDodoableTrigger from "entities/dodoables/triggers/Abstract";
 import UserContext from "lib/UserContext";
 
 function DayAfterWakeup({ day }) {
-  const { dodoables, isLoading } = useApiDodoables();
-
   return (
     <>
-      {!isLoading &&
-        dodoables.map((dodoable) => {
-          return (
-            <AbstractDodoableTrigger key={dodoable.id} dodoable={dodoable} />
-          );
-        })}
+      {day.dodoables.map((dodoable) => {
+        return (
+          <AbstractDodoableTrigger key={dodoable.id} dodoable={dodoable} />
+        );
+      })}
     </>
   );
 }

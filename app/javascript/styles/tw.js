@@ -16,7 +16,7 @@ function extend(...selectors) {
 
 // Let this sink in for a while...
 customStyles['dodoable-trigger'] = extend('py-2 px-4 rounded mt-2');
-customStyles['dodone-dodoable-trigger'] = extend('dodoable-trigger bg-green-300 bg-opacity-20');
+customStyles['dodone-dodoable-trigger'] = extend('dodoable-trigger bg-green-300 bg-opacity-40');
 customStyles['pending-dodoable-trigger'] = extend('dodoable-trigger bg-gray-900 bg-opacity-60');
 customStyles['dodone-dodoable-trigger-text'] = extend('text-xs text-green-300');
 customStyles['pending-dodoable-trigger-text'] = extend('text-xl text-blue-300');

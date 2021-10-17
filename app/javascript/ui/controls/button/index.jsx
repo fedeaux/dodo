@@ -5,12 +5,14 @@ export default function Button({
   label,
   onClick,
   disabled = false,
+  block = false,
   textStyle = {},
   style,
   to,
   ...props
 }) {
   const disabledStyle = disabled ? "opacity-50" : "";
+  const blockStyle = block ? "flex-grow" : "";
   const history = useHistory();
 
   const onPress = useCallback((e) => {
@@ -28,7 +30,7 @@ export default function Button({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{ ...style, ...tw(disabledStyle) }}
+      style={tw(disabledStyle, blockStyle, style)}
       {...props}
     >
       <Text style={textStyle}>{label}</Text>

@@ -22,15 +22,15 @@ const colorVariations = {
 const sizeVariations = {
   default: {
     style: "py-2 px-4",
-    textStyle: "",
+    textStyle: "text-lg",
   },
   small: {
     style: "py-1 px-2",
-    textStyle: "text-sm",
+    textStyle: "",
   },
   large: {
-    style: "py-2 px-4",
-    textStyle: "text-lg",
+    style: "py-3 px-6",
+    textStyle: "text-xl",
   },
 };
 
