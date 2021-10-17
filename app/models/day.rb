@@ -1,6 +1,10 @@
 class Day < ApplicationRecord
   include Braindamage::Braindamageable
   belongs_to :user
+
+  scope :ordered, ->{
+    order(:day)
+  }
 end
 
 # == Schema Information

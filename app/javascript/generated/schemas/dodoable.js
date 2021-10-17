@@ -36,6 +36,12 @@ export default {
       writeable: true,
       default: "{}",
     },
+    lastDodoneDayId: {
+      name: "lastDodoneDayId",
+      type: "integer",
+      writeable: true,
+      default: null,
+    },
     userId: {
       name: "userId",
       type: "integer",
@@ -51,6 +57,12 @@ export default {
     updatedAt: {
       name: "updatedAt",
       type: "datetime",
+      writeable: true,
+      default: null,
+    },
+    isDodoneToday: {
+      name: "isDodoneToday",
+      type: "boolean",
       writeable: true,
       default: null,
     },

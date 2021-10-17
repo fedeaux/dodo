@@ -1,7 +1,14 @@
 class Dodone < ApplicationRecord
   include Braindamage::Braindamageable
+
   belongs_to :dodoable
   belongs_to :day
+
+  after_save_commit :touch_dodoable
+
+  def touch_dodoable
+    dodoable.dodone_saved!
+  end
 end
 
 # == Schema Information

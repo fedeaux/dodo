@@ -5,6 +5,8 @@ json.extract! dodoable,
               :executor,
               :trigger,
               :fields,
+              :last_dodone_day_id,
               :user_id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :dodone_today?

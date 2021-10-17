@@ -47,11 +47,11 @@ def todo_fields(*fields)
 end
 
 [
-  meal_dodoable('first', '08:00: Salad Cottage Sandwich'),
-  meal_dodoable('second', '11:30: Yogurt Grains'),
-  meal_dodoable('third', '15:00: Frozen Lunch'),
-  meal_dodoable('fourth', '19:30: ?'),
-  meal_dodoable('fifth', '23:00: Corn Flakes'),
+  meal_dodoable('first', 'Salad Cottage Sandwich'),
+  meal_dodoable('second', 'Yogurt Grains'),
+  meal_dodoable('third', 'Frozen Lunch'),
+  meal_dodoable('fourth', 'Free'),
+  meal_dodoable('fifth', 'Corn Flakes'),
   {
     name: 'Smoking',
     slug: "bad-habit:smoking",
@@ -104,7 +104,6 @@ end
         'Water',
         'Setup Coffee',
         'Milk and Albumin',
-        'Salad and Fish',
         'One song cleanup',
         'Skincare'
       ).merge(

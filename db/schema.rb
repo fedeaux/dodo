@@ -31,9 +31,11 @@ ActiveRecord::Schema.define(version: 2021_10_16_141002) do
     t.jsonb "executor", default: {}
     t.jsonb "trigger", default: {}
     t.jsonb "fields", default: {}
+    t.bigint "last_dodone_day_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["last_dodone_day_id"], name: "index_dodoables_on_last_dodone_day_id"
     t.index ["user_id"], name: "index_dodoables_on_user_id"
   end
 
@@ -57,6 +59,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_141002) do
   end
 
   add_foreign_key "days", "users"
+  add_foreign_key "dodoables", "days", column: "last_dodone_day_id"
   add_foreign_key "dodoables", "users"
   add_foreign_key "dodones", "days"
   add_foreign_key "dodones", "dodoables"

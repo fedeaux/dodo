@@ -13,7 +13,7 @@ class Api::DaysController < ApiController
 
   def find_day
     @day = if params[:id] == 'today'
-             current_user.days.where(day: Time.current).first_or_create
+             current_user.current_day!
            else
              Day.find(params[:id])
            end
