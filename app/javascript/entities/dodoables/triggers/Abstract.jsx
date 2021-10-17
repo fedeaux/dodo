@@ -4,6 +4,8 @@ import UserContext from "lib/UserContext";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon5 from "react-native-vector-icons/FontAwesome5";
 import { format } from "date-fns";
+import useCurrentTime from "util/useCurrentTime";
+import Chronometer from "ui/clocks/Chronometer";
 
 function DodoableIcon({ dodoable, ...props }) {
   if (!dodoable.trigger.icon) return null;
@@ -42,6 +44,18 @@ function DodoneDodoableTrigger({ dodoable }) {
   );
 }
 
+function BeingTrackedDodoableTrigger({ dodoable }) {
+  const currentTime = useCurrentTime();
+
+  return (
+    <Chronometer
+      currentTime={currentTime}
+      startedAt={dodoable.beingTrackedDodone.startedAt}
+      style={tw("text-blue-300")}
+    />
+  );
+}
+
 function PendingDodoableTrigger({ dodoable }) {
   return (
     <Link
@@ -57,16 +71,24 @@ function PendingDodoableTrigger({ dodoable }) {
         <Text style={tw("pending-dodoable-trigger-text flex-1")}>
           {dodoable.name}
         </Text>
-        <Icon size={22} name="play" color={getColor("blue-600")} />
+        {dodoable.beingTrackedDodone ? (
+          <BeingTrackedDodoableTrigger dodoable={dodoable} />
+        ) : (
+          <Icon size={22} name="play" color={getColor("blue-600")} />
+        )}
       </View>
     </Link>
   );
 }
 
 export default function AbstractDodoableTrigger({ dodoable }) {
-  const Trigger = dodoable.isDodoneToday
-    ? DodoneDodoableTrigger
-    : PendingDodoableTrigger;
+  let Trigger = null;
+
+  if (!dodoable.isDodoneToday || dodoable.beingTrackedDodone) {
+    Trigger = PendingDodoableTrigger;
+  } else {
+    Trigger = DodoneDodoableTrigger;
+  }
 
   return <Trigger dodoable={dodoable} />;
 }

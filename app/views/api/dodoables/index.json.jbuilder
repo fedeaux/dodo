@@ -7,12 +7,6 @@ json.dodoables do
         json.partial! "/api/dodones/attributes", dodone: dodone
       end
     end
-
-    if dodoable.being_tracked_dodone
-      json.being_tracked_dodone do
-        json.partial! "/api/dodones/attributes", dodone: dodoable.being_tracked_dodone
-      end
-    end
   end
 end
 

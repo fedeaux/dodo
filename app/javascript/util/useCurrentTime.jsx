@@ -1,14 +1,7 @@
-import BackgroundTimer from "lib/background-timer";
+import UserContext from "lib/UserContext";
 
 export default function useCurrentTime() {
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = BackgroundTimer.setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => BackgroundTimer.clearInterval(timer);
-  }, []);
+  const { currentTime } = useContext(UserContext);
 
   return currentTime;
 }

@@ -3,7 +3,7 @@ json.day do
 
   json.dodoables do
     json.array! @day.dodoables do |dodoable|
-      json.partial! "/api/dodoables/attributes", dodoable: dodoable
+      json.partial! "/api/dodoables/member", dodoable: dodoable
     end
   end
 end

@@ -12,39 +12,8 @@ import { differenceInSeconds } from "date-fns";
 import useCurrentTime from "util/useCurrentTime";
 import { useCallback } from "react";
 import BackgroundTimer from "lib/background-timer";
-
-function formatSeconds(seconds) {
-  const hours = parseInt(seconds / 3600);
-  const minutes = parseInt((seconds - hours * 3600) / 60);
-  seconds = parseInt(seconds - minutes * 60 - hours * 3600);
-
-  return [hours > 0 ? hours : -1, minutes, seconds]
-    .filter((unit) => {
-      return unit >= 0;
-    })
-    .map((unit) => {
-      return unit > 9 ? unit : `0${unit}`;
-    })
-    .join(":");
-}
-
-class Chronometer extends React.Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    const seconds = formatSeconds(
-      differenceInSeconds(this.props.currentTime, this.props.startedAt)
-    );
-
-    return (
-      <View style={tw("text-center w-full")}>
-        <Text style={tw("text-6xl")}>{seconds}</Text>
-      </View>
-    );
-  }
-}
+import formatSeconds from "util/formatSeconds";
+import Chronometer from "ui/clocks/Chronometer";
 
 function SimpleFormDodoableExecutorActions({
   dodoable,
@@ -91,7 +60,13 @@ function SimpleFormDodoableExecutorActions({
             block
             onClick={finishTracking}
           />
-          <Chronometer startedAt={dodone.startedAt} currentTime={currentTime} />
+          <View style={tw("text-center w-full")}>
+            <Chronometer
+              style={tw("text-6xl")}
+              startedAt={dodone.startedAt}
+              currentTime={currentTime}
+            />
+          </View>
         </View>
       );
     }
