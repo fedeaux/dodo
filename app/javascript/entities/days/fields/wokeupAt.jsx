@@ -51,16 +51,14 @@ export default function DayFieldWokeupAt({ day }) {
   return (
     <TouchableOpacity onPress={openForm}>
       {day.wokeupAt ? (
-        <View style={tw("py-2 px-4 rounded bg-gray-900 bg-opacity-60")}>
-          <Text style={tw("text-blue-300 text-xs")}>
+        <View style={tw("dodone-dodoable-trigger")}>
+          <Text style={tw("dodone-dodoable-trigger-text")}>
             Wokeup @ {format(day.wokeupAt, "HH:mm")}
           </Text>
         </View>
       ) : (
-        <View style={tw("py-2 px-4 rounded bg-gray-900 bg-opacity-60")}>
-          <Text style={tw("text-blue-300 text-xl text-center")}>
-            Track Woke Up
-          </Text>
+        <View style={tw("pending-dodoable-trigger")}>
+          <Text style={tw("pending-dodoable-trigger-text")}>Track Woke Up</Text>
         </View>
       )}
     </TouchableOpacity>

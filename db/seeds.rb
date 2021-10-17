@@ -9,7 +9,11 @@ def meal_dodoable(slug_suffix, name)
       component: 'SimpleForm'
     },
     trigger: {
-      component: 'Meal'
+      component: 'Meal',
+      icon: {
+        component: 'Icon5',
+        name: 'utensils'
+      }
     },
     fields: {
       status: {

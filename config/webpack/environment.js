@@ -49,6 +49,7 @@ const provided = {
   React: 'react',
   axios: 'axios',
   tw: [path.resolve('app/javascript/styles/tw'), 'tw'],
+  getColor: [path.resolve('app/javascript/styles/tw'), 'getColor'],
   noop: [path.resolve('app/javascript/util/noop'), 'noop'],
 };
 
