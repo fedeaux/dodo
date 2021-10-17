@@ -56,28 +56,3 @@ export default function SelectInput({ value, options, onChange, label }) {
     </>
   );
 }
-
-// function SelectInputBk({ value, options, onChange }) {
-//   const [selectOpen, closeSelect, openSelect] = useBoolState();
-
-//   const selectOption = useCallback(
-//     (value) => {
-//       onChange({ value });
-//       closeSelect();
-//     },
-//     [value, onChange]
-//   );
-
-//   const selectedOption = options.find((option) => {
-//     return option.value == value;
-//   });
-
-//   return (
-//     <TouchableOpacity onPress={openSelect}>
-//       <Text>{selectedOption?.label}</Text>
-
-//       {selectOpen &&
-// }
-//     </TouchableOpacity>
-//   );
-// }

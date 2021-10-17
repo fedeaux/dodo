@@ -10,6 +10,7 @@ class Services::DayBuilder
     order = 0
 
     %w[
+      chores:wakeup
       meal:first
       meal:second
       meal:third

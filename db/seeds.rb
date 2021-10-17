@@ -113,7 +113,30 @@ end
       ).merge(
         comments: {
           type: :text,
-          order: 9
+          order: 999
+        }
+      )
+    ),
+  },
+  {
+    name: 'On Wakeup',
+    slug: "chores:wakeup",
+    executor: {
+      component: 'Todo',
+    },
+    trigger: {
+      component: '?',
+    },
+    fields: {}.merge(
+      todo_fields(
+        'Water',
+        'Coffee',
+        'Concerta',
+        'Drink Milk'
+      ).merge(
+        comments: {
+          type: :text,
+          order: 999
         }
       )
     ),
