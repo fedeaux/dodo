@@ -121,6 +121,27 @@ def bad_habits
         }
       },
     },
+    {
+      name: 'Fap',
+      slug: "bad-habit:fap",
+      nature: :habit,
+      executor: {
+        finished_at_behaviour: :instantaneous
+      },
+      trigger: {
+        display: 'BadHabit',
+        label: 'Last fap',
+        icon: {
+          name: 'hand-paper',
+          component: 'Icon5'
+        }
+      },
+      fields: {
+        comments: {
+          type: :text
+        }
+      },
+    },
   ]
 end
 
