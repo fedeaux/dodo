@@ -13,7 +13,14 @@ import Modal from "ui/controls/modal";
 import TimeDisplay from "ui/displays/time";
 import AbstractField from "ui/fields/Abstract";
 
-export default function TimeInput({ value, onChange, label }) {
+export default function TimeInput({
+  value,
+  onChange,
+  onConfirm,
+  onCancel,
+  label,
+  Display = TimeDisplay,
+}) {
   const [showingModal, hideModal, showModal] = useBoolState(false);
   const hour = isValid(value) ? getHours(value) : 0;
   const minutes = isValid(value) ? getMinutes(value) : 0;
@@ -28,6 +35,18 @@ export default function TimeInput({ value, onChange, label }) {
     onChange({ value: setSeconds(setMinutes(newValue, minutes), 0) });
   });
 
+  const confirm = useCallback(() => {
+    if (onConfirm) onConfirm();
+
+    hideModal();
+  });
+
+  const cancel = useCallback(() => {
+    if (onCancel) onCancel();
+
+    hideModal();
+  });
+
   const setValueToNow = useCallback(() => {
     onChange({ value: new Date() });
   });
@@ -40,7 +59,7 @@ export default function TimeInput({ value, onChange, label }) {
     <>
       <TouchableOpacity onPress={showModal}>
         <View>
-          <TimeDisplay value={value} />
+          <Display value={value} />
         </View>
       </TouchableOpacity>
       <Modal
@@ -83,7 +102,7 @@ export default function TimeInput({ value, onChange, label }) {
             color="success"
             block
             tws="ml-1"
-            onClick={hideModal}
+            onClick={confirm}
           />
         </View>
       </Modal>

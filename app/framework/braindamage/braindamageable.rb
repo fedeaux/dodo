@@ -71,10 +71,11 @@ module Braindamage::Braindamageable
       exposed_attributes.delete name.to_s
     end
 
-    def cache_key
+    def cache_key(query = {})
       {
-        name: "#{self.plural_underscore_name}",
-        updated_at: false
+        # TODO: Review collection cache keys
+        name: "#{self.plural_underscore_name}/#{query.to_json}",
+        updated_at: false,
       }
     end
   end

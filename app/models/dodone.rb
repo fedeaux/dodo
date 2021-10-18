@@ -4,10 +4,17 @@ class Dodone < ApplicationRecord
   belongs_to :dodoable
   belongs_to :day
 
+  before_save :copy_started_at_to_finished_at_if_instantaneous
   after_commit :touch_dodoable
 
   def touch_dodoable
     dodoable.dodone_saved!
+  end
+
+  def copy_started_at_to_finished_at_if_instantaneous
+    return unless dodoable.executor[:finished_at_behaviour] == 'instantaneous'
+
+    self.finished_at = started_at
   end
 end
 

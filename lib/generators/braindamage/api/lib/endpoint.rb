@@ -15,18 +15,22 @@ class Endpoint
     @full_path ||= route.path.spec.to_s
   end
 
+  def member?
+    path_parts.last.param? || post?
+  end
+
+  def collection?
+    !member?
+  end
+
   def hook_signature
-    entities_signature = if path_parts.last.param? || post?
+    member_endpoint =
+
+    entities_signature = if member?
                            entities.map(&:singular_class_name).join
                          else
                            (entities[0..-2].map(&:singular_class_name) + [entities.last.plural_class_name]).join
                          end
-
-    params_signature = if read?
-                         params.map(&:singular_camel_name).join(', ')
-                       else
-                         ''
-                       end
 
     if read?
       "useApi#{entities_signature}(#{params_signature})"
@@ -39,9 +43,25 @@ class Endpoint
     end
   end
 
+  def params_signature
+    params_names.join(', ')
+  end
+
+  def params_names
+    return [] unless read?
+
+    route_params = params.map(&:singular_camel_name)
+
+    unless member?
+      route_params.push(:query)
+    end
+
+    route_params
+  end
+
   def abstract_api_function
     if read?
-      if path_parts.last.param?
+      if member?
         'getModelMember'
       else
         'getModelCollection'

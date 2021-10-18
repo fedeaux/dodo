@@ -29,15 +29,31 @@ module Generators
     end
 
     def hooks
-      [read_hooks, put_hooks, post_hooks, delete_hooks].flatten.join("\n\n").strip
+      [read_collection_hooks, read_member_hooks, put_hooks, post_hooks, delete_hooks].flatten.join("\n\n").strip
     end
 
-    def read_hooks
-      endpoints.select(&:read?).map do |endpoint|
-        "export function #{endpoint.hook_signature} {
-  const queryCacheKey = #{endpoint.parameterized_api_path};
+    def read_member_hooks
+      endpoints.select(&:read?).select(&:member?).map do |endpoint|
+        param_names = ['endpoint', endpoint.instantiable_model_name].concat endpoint.params_names
 
-  return useQuery(queryCacheKey, #{endpoint.abstract_api_function}, [queryCacheKey, #{endpoint.instantiable_model_name}]);
+        "export function #{endpoint.hook_signature} {
+  const endpoint = #{endpoint.parameterized_api_path};
+  const queryCacheKey = endpoint;
+
+  return useQuery(queryCacheKey, #{endpoint.abstract_api_function}, [#{param_names.join(', ')}]);
+}"
+      end
+    end
+
+    def read_collection_hooks
+      endpoints.select(&:read?).select(&:collection?).map do |endpoint|
+        param_names = ['endpoint', endpoint.instantiable_model_name].concat endpoint.params_names
+
+        "export function #{endpoint.hook_signature} {
+  const endpoint = #{endpoint.parameterized_api_path};
+  const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
+
+  return useQuery(queryCacheKey, #{endpoint.abstract_api_function}, [#{param_names.join(', ')}]);
 }"
       end
     end

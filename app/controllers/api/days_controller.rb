@@ -20,6 +20,6 @@ class Api::DaysController < ApiController
   end
 
   def day_params
-    params.require(:day).permit(:wokeup_at)
+    params.require(:day).permit(:wokeup_at, :turned_off_at)
   end
 end

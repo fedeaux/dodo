@@ -13,40 +13,46 @@ import Day from 'models/day';
 import Dodoable from 'models/dodoable';
 import Dodone from 'models/dodone';
 
-export function useApiDays() {
-  const queryCacheKey = '/api/days';
+export function useApiDays(query) {
+  const endpoint = '/api/days';
+  const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
 
-  return useQuery(queryCacheKey, getModelCollection, [queryCacheKey, Day]);
+  return useQuery(queryCacheKey, getModelCollection, [endpoint, Day, query]);
+}
+
+export function useApiDodoables(query) {
+  const endpoint = '/api/dodoables';
+  const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
+
+  return useQuery(queryCacheKey, getModelCollection, [endpoint, Dodoable, query]);
+}
+
+export function useApiDodones(query) {
+  const endpoint = '/api/dodones';
+  const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
+
+  return useQuery(queryCacheKey, getModelCollection, [endpoint, Dodone, query]);
 }
 
 export function useApiDay(dayId) {
-  const queryCacheKey = `/api/days/${dayId}`;
+  const endpoint = `/api/days/${dayId}`;
+  const queryCacheKey = endpoint;
 
-  return useQuery(queryCacheKey, getModelMember, [queryCacheKey, Day]);
-}
-
-export function useApiDodoables() {
-  const queryCacheKey = '/api/dodoables';
-
-  return useQuery(queryCacheKey, getModelCollection, [queryCacheKey, Dodoable]);
+  return useQuery(queryCacheKey, getModelMember, [endpoint, Day, dayId]);
 }
 
 export function useApiDodoable(dodoableId) {
-  const queryCacheKey = `/api/dodoables/${dodoableId}`;
+  const endpoint = `/api/dodoables/${dodoableId}`;
+  const queryCacheKey = endpoint;
 
-  return useQuery(queryCacheKey, getModelMember, [queryCacheKey, Dodoable]);
-}
-
-export function useApiDodones() {
-  const queryCacheKey = '/api/dodones';
-
-  return useQuery(queryCacheKey, getModelCollection, [queryCacheKey, Dodone]);
+  return useQuery(queryCacheKey, getModelMember, [endpoint, Dodoable, dodoableId]);
 }
 
 export function useApiDodone(dodoneId) {
-  const queryCacheKey = `/api/dodones/${dodoneId}`;
+  const endpoint = `/api/dodones/${dodoneId}`;
+  const queryCacheKey = endpoint;
 
-  return useQuery(queryCacheKey, getModelMember, [queryCacheKey, Dodone]);
+  return useQuery(queryCacheKey, getModelMember, [endpoint, Dodone, dodoneId]);
 }
 
 export function useApiUpdateDay() {

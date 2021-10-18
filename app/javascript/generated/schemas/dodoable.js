@@ -36,6 +36,12 @@ export default {
       writeable: true,
       default: "{}",
     },
+    nature: {
+      name: "nature",
+      type: "string",
+      writeable: true,
+      default: "0",
+    },
     lastDodoneDayId: {
       name: "lastDodoneDayId",
       type: "integer",
@@ -95,5 +101,15 @@ export default {
     },
   ],
   enums: {
+    nature: {
+      name: "nature",
+      valueMap: {
+        other: 0,
+        independent: 1,
+        habit: 2,
+      },
+      options: {
+      },
+    },
   },
 }

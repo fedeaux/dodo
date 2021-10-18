@@ -6,7 +6,12 @@ class Dodoable < ApplicationRecord
   has_many :days, through: :dodones
 
   expose :dodone_today?, type: :boolean
-  expose :being_tracked_dodone
+
+  exposed_enum nature: {
+                 other: 0,
+                 independent: 1,
+                 habit: 2
+               }
 
   def fields
     order = -1
@@ -47,9 +52,17 @@ class Dodoable < ApplicationRecord
   end
 
   def being_tracked_dodone
-    return nil if executor[:finished_at_behaviour] == :instantaneous
-
     dodones.find_by(finished_at: nil)
+  end
+
+  def todays_dodones
+    return [] unless user.current_day&.id
+
+    dodones.where(day_id: user.current_day&.id).order(:finished_at)
+  end
+
+  def last_dodone
+    @last_dodone ||= dodones.order(:started_at).last
   end
 
   def self.s(slug)
@@ -65,6 +78,7 @@ end
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string
+#  nature             :integer          default("other")
 #  slug               :string
 #  trigger            :jsonb
 #  created_at         :datetime         not null

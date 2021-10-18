@@ -15,6 +15,14 @@ class Dodoable extends Model {
       beingTrackedDodone: {
         type: "belongs_to",
         class: Dodone,
+      },
+      lastDodone: {
+        type: "belongs_to",
+        class: Dodone,
+      },
+      todaysDodones: {
+        type: "has_many",
+        class: Dodone,
       }
     };
   }

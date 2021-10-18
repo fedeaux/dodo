@@ -9,7 +9,7 @@ def meal_dodoable(slug_suffix, name)
       day_interaction: :once
     },
     trigger: {
-      component: 'Meal',
+      display: 'Meal',
       icon: {
         component: 'Icon5',
         name: 'utensils'
@@ -50,45 +50,99 @@ def todo_fields(*fields)
   field_hash
 end
 
+def practice_dodoable(name, slug)
+  {
+    name: name,
+    slug: slug,
+    nature: :independent,
+    executor: {
+      finished_at_behaviour: :chronometer
+    },
+    trigger: {
+      display: 'Empty',
+    },
+    fields: {},
+  }
+end
+
+def bad_habits
+  [
+    {
+      name: 'Smoking',
+      slug: "bad-habit:smoking",
+      nature: :habit,
+      executor: {
+        finished_at_behaviour: :instantaneous
+      },
+      trigger: {
+        display: 'BadHabit',
+        label: 'Last cigar',
+        icon: {
+          name: 'smoking-ban',
+          component: 'Icon5'
+        }
+      },
+      fields: {
+        trigger: {
+          type: :select,
+          options: text_select_options([
+                                         'Bathroom',
+                                         'Eat',
+                                         'Rest',
+                                         'Sex',
+                                         'Sleep',
+                                         'Social',
+                                         'Wakeup'
+                                       ])
+        },
+        comments: {
+          type: :text
+        }
+      },
+    },
+    {
+      name: 'League',
+      slug: "bad-habit:league",
+      nature: :habit,
+      executor: {
+        finished_at_behaviour: :instantaneous
+      },
+      trigger: {
+        display: 'BadHabit',
+        label: 'Last league',
+        icon: {
+          name: 'gamepad',
+          component: 'Icon5'
+        }
+      },
+      fields: {
+        comments: {
+          type: :text
+        }
+      },
+    },
+  ]
+end
+
 [
   meal_dodoable('first', 'Salad Cottage Sandwich'),
   meal_dodoable('second', 'Yogurt Grains'),
   meal_dodoable('third', 'Frozen Lunch'),
   meal_dodoable('fourth', 'Free'),
   meal_dodoable('fifth', 'Corn Flakes'),
-  {
-    name: 'Smoking',
-    slug: "bad-habit:smoking",
-    executor: {
-      finished_at_behaviour: :instantaneous
-    },
-    trigger: {
-      component: 'Habit',
-    },
-    fields: {
-      trigger: {
-        type: :select,
-        options: text_select_options([
-          'Bathroom',
-          'Eat',
-          'Sex',
-          'Sleep',
-          'Wakeup'
-        ])
-      },
-      comments: {
-        type: :text
-      }
-    },
-  },
+  practice_dodoable('Guitar', 'music:guitar'),
+  practice_dodoable('Piano', 'music:piano'),
+  practice_dodoable('Singing', 'music:singing'),
+  practice_dodoable('Read', 'read'),
   {
     name: 'Breath Meditation',
     slug: "meditation:Breath",
+    nature: :independent,
     executor: {
       finished_at_behaviour: :timer
     },
     trigger: {
-      component: '?',
+      display: '?',
     },
     fields: {},
   },
@@ -100,7 +154,11 @@ end
       day_interaction: :once
     },
     trigger: {
-      component: '?',
+      display: 'Todos',
+      icon: {
+        name: 'hammer',
+        component: 'Icon5'
+      }
     },
     fields: {}.merge(
       todo_fields(
@@ -127,7 +185,11 @@ end
       day_interaction: :once
     },
     trigger: {
-      component: '?',
+      display: 'Todos',
+      icon: {
+        name: 'hammer',
+        component: 'Icon5'
+      }
     },
     fields: {}.merge(
       todo_fields(
@@ -143,7 +205,7 @@ end
       )
     ),
   }
-].each do |dodoable_attributes|
+].concat(bad_habits).each do |dodoable_attributes|
   Dodoable.where(
     slug: dodoable_attributes[:slug],
     user_id: user.id

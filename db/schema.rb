@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_132437) do
     t.jsonb "executor", default: {}
     t.jsonb "trigger", default: {}
     t.jsonb "fields", default: {}
+    t.integer "nature", default: 0
     t.bigint "last_dodone_day_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

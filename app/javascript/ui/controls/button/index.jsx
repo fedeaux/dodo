@@ -7,7 +7,7 @@ export default function Button({
   disabled = false,
   block = false,
   textStyle = {},
-  style,
+  style = "",
   to,
   ...props
 }) {

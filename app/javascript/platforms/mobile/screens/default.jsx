@@ -10,8 +10,6 @@ function Menu({ closeMenu }) {
     window.location.reload();
   });
 
-  const { nukeCache } = useContext(BraindamageApiContext);
-
   return (
     <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60 p-4")}>
       <Text style={tw("text-center text-xl mb-4")}>Menu</Text>
@@ -21,7 +19,6 @@ function Menu({ closeMenu }) {
       >
         <Icon size={18} name="close" />
       </TouchableOpacity>
-      <Button label="Reload" onClick={nukeCache} />
       {ENV.PLATFORM == "web" && <Button label="Use Web" onClick={useWeb} />}
     </View>
   );
@@ -29,6 +26,7 @@ function Menu({ closeMenu }) {
 
 export default function DefaultScreen({ children, title = null }) {
   const [showMenu, closeMenu, openMenu] = useBoolState();
+  const { nukeCache } = useContext(BraindamageApiContext);
 
   return (
     <ImageBackground
@@ -45,7 +43,13 @@ export default function DefaultScreen({ children, title = null }) {
               style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-4")}
               onPress={openMenu}
             >
-              <Icon size={18} name="ellipsis-v" />
+              <Icon size={16} name="ellipsis-v" color={getColor("blue-300")} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-12")}
+              onPress={nukeCache}
+            >
+              <Icon size={16} name="refresh" color={getColor("blue-300")} />
             </TouchableOpacity>
             <Text style={tw("text-blue-300 pt-1")}>{title}</Text>
           </View>
