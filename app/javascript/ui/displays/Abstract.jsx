@@ -31,7 +31,7 @@ const displayMap = {
   select: SelectDisplay,
 };
 
-export default function AbstractField({
+export default function AbstractDisplay({
   name,
   label,
   type,

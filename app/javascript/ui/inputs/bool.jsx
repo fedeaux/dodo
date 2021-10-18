@@ -1,15 +1,26 @@
-import { CheckBox } from "react-native";
+import { TouchableOpacity } from "react-native";
+import FieldLabel from "ui/fields/Label";
 
-export default function BoolInput({ value, onChange }) {
-  const handleOnChange = useCallback((value) => {
-    onChange({ value });
+export default function BoolInput({ value, label, onChange }) {
+  const toogleValue = useCallback(() => {
+    onChange({ value: !value });
   });
 
+  const style = value
+    ? { circle: "bg-green-600 border-green-400", text: "text-green-400 " }
+    : { circle: "bg-gray-600 border-gray-700", text: "text-gray-400" };
+
   return (
-    <CheckBox
+    <TouchableOpacity
       value={value}
-      onValueChange={handleOnChange}
-      /* style={tw("p-2 bg-gray-900 bg-opacity-60 rounded text-xl")} */
-    />
+      onPress={toogleValue}
+      style={tw("flex-row items-center mt-2")}
+    >
+      <View style={tw("h-5 w-5 rounded-full border", style.circle)} />
+      <FieldLabel
+        label={label}
+        tws={["ml-4 pt-1 flex-grow text-lg", style.text]}
+      />
+    </TouchableOpacity>
   );
 }

@@ -29,11 +29,11 @@ export default function Button({
 
   return (
     <TouchableOpacity
+      {...props}
       onPress={onPress}
       style={tw(disabledStyle, blockStyle, style)}
-      {...props}
     >
-      <Text style={textStyle}>{label}</Text>
+      <Text style={tw(textStyle, "text-center")}>{label}</Text>
     </TouchableOpacity>
   );
 }

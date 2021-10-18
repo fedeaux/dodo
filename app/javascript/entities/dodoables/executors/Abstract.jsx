@@ -21,11 +21,9 @@ function SimpleFormDodoableExecutorActions({
   saveFormDodone,
   currentTime,
   finishTracking,
+  saveFormDodoneAndBack,
 }) {
-  if (
-    dodoable.executor.finishedAtBehaviour == "instantaneous" ||
-    dodone.finishedAt
-  ) {
+  if (dodoable.executor.finishedAtBehaviour == "instantaneous") {
     return (
       <View>
         <PrimaryButton
@@ -33,7 +31,28 @@ function SimpleFormDodoableExecutorActions({
           size="large"
           color="success"
           block
+          onClick={saveFormDodoneAndBack}
+        />
+      </View>
+    );
+  } else if (dodone.finishedAt) {
+    return (
+      <View style={tw("flex-row")}>
+        <PrimaryButton
+          label="Save"
+          size="large"
+          color="neutral"
+          tws="mr-1"
+          block
           onClick={saveFormDodone}
+        />
+        <PrimaryButton
+          label="Dodone"
+          size="large"
+          color="success"
+          tws="ml-1"
+          block
+          onClick={saveFormDodoneAndBack}
         />
       </View>
     );
@@ -110,12 +129,18 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
     setAutosaveTimer(BackgroundTimer.setTimeout(autosave, 1000));
   });
 
+  const saveFormDodoneAndBack = useCallback(async () => {
+    await saveFormDodone();
+
+    history.push("/");
+  });
+
   const saveDodone = useCallback(async (dodoneToBeSaved) => {
     let savedDodone = null;
 
     if (dodoneToBeSaved.isNewRecord) {
       const { response } = await create({
-        dodoneAttributes: dodone.serialize(),
+        dodoneAttributes: dodoneToBeSaved.serialize(),
       });
 
       savedDodone = response.dodone;
@@ -128,11 +153,7 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
       savedDodone = response.dodone;
     }
 
-    if (dodoable.executor.finishedAtBehaviour == "instantaneous") {
-      history.push("/");
-    } else {
-      setFormDodone(savedDodone);
-    }
+    setFormDodone(savedDodone);
   });
 
   const onFormDodoneChanged = useCallback((changedDodone) => {
@@ -158,6 +179,7 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
           saveFormDodone={saveFormDodone}
           currentTime={currentTime}
           finishTracking={finishTracking}
+          saveFormDodoneAndBack={saveFormDodoneAndBack}
         />
       </View>
     </ActionScreen>

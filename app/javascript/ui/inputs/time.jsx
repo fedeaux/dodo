@@ -68,20 +68,24 @@ export default function TimeInput({
         showModal={showingModal}
         title={label}
       >
-        <AbstractField
-          value={hour}
-          onChange={hourChanged}
-          type="number"
-          name="hour"
-          label="Hour"
-        />
-        <AbstractField
-          value={minutes}
-          onChange={minutesChanged}
-          type="number"
-          name="minutes"
-          label="Minutes"
-        />
+        <View style={tw("flex-row")}>
+          <AbstractField
+            value={hour}
+            onChange={hourChanged}
+            wrapperTws="mr-1 flex-grow"
+            type="number"
+            name="hour"
+            label="Hour"
+          />
+          <AbstractField
+            value={minutes}
+            onChange={minutesChanged}
+            wrapperTws="ml-1 flex-grow"
+            type="number"
+            name="minutes"
+            label="Minutes"
+          />
+        </View>
 
         <View style={tw("flex-row mt-4")}>
           <PrimaryButton

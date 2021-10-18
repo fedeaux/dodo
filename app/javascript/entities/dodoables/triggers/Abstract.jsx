@@ -36,7 +36,7 @@ function DodoneDodoableTrigger({ dodoable, text = dodoable.name }) {
           size={12}
           color={getColor("green-300")}
         />
-        <Text style={tw("dodone-dodoable-trigger-text flex-1")}>{text}</Text>
+        <Text style={tw("dodone-dodoable-trigger-text flex-grow")}>{text}</Text>
         <Icon size={15} name="check" color={getColor("green-300")} />
       </View>
     </Link>
@@ -71,7 +71,9 @@ function PendingDodoableTrigger({
           size={15}
           color={getColor("blue-300")}
         />
-        <Text style={tw("pending-dodoable-trigger-text flex-1")}>{text}</Text>
+        <Text style={tw("pending-dodoable-trigger-text flex-grow")}>
+          {text}
+        </Text>
         {dodoable.beingTrackedDodone ? (
           <BeingTrackedDodoableTrigger dodoable={dodoable} />
         ) : (
@@ -98,7 +100,9 @@ function SecondaryDodoableTrigger({
           size={15}
           color={getColor("gray-500")}
         />
-        <Text style={tw("secondary-dodoable-trigger-text flex-1")}>{text}</Text>
+        <Text style={tw("secondary-dodoable-trigger-text flex-grow")}>
+          {text}
+        </Text>
         {dodoable.beingTrackedDodone ? (
           <BeingTrackedDodoableTrigger dodoable={dodoable} />
         ) : (
@@ -125,7 +129,7 @@ function FailedDodoableTrigger({
           size={15}
           color={getColor("red-600")}
         />
-        <Text style={tw("failed-dodoable-trigger-text flex-1")}>{text}</Text>
+        <Text style={tw("failed-dodoable-trigger-text flex-grow")}>{text}</Text>
         {dodoable.beingTrackedDodone ? (
           <BeingTrackedDodoableTrigger dodoable={dodoable} />
         ) : (

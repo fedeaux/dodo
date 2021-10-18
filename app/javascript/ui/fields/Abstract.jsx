@@ -19,6 +19,7 @@ export default function AbstractField({
   label,
   type,
   onChange,
+  wrapperTws = "",
   ...props
 }) {
   const handleOnChange = useCallback(({ value }) => {
@@ -30,16 +31,11 @@ export default function AbstractField({
   const Input = inputMap[type];
 
   if (type == "bool") {
-    return (
-      <View style={tw("mt-4 flex-row")}>
-        <Input {...props} label={label} onChange={handleOnChange} />
-        <FieldLabel label={label} tws="ml-2" />
-      </View>
-    );
+    return <Input {...props} label={label} onChange={handleOnChange} />;
   }
 
   return (
-    <View style={tw("mt-4")}>
+    <View style={tw("mt-4", wrapperTws)}>
       <FieldLabel label={label} />
       <Input {...props} onChange={handleOnChange} label={label} />
     </View>
