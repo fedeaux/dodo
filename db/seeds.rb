@@ -11,8 +11,8 @@ def meal_dodoable(slug_suffix, name)
     trigger: {
       display: 'Meal',
       icon: {
-        component: 'Icon5',
-        name: 'utensils'
+        component: 'IconMC',
+        name: 'silverware'
       }
     },
     fields: {
