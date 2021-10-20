@@ -1,7 +1,7 @@
 user = User.where(id: 1).first_or_create
 user.update(email: 'phec06@gmail.com', name: 'Pedro')
 
-def meal_dodoable(slug_suffix, name)
+def meal_dodoable(slug_suffix, name, fields: {})
   {
     name: name,
     slug: "meal:#{slug_suffix}",
@@ -19,12 +19,14 @@ def meal_dodoable(slug_suffix, name)
       status: {
         type: :select,
         options: text_select_options(['Ate it', 'Skip', 'Something Else']),
-        default: 'Ate it'
+        default: 'Ate it',
+        order: 998
       },
       comments: {
-        type: :text
+        type: :text,
+        order: 999
       }
-    },
+    }.merge(fields),
   }
 end
 
@@ -37,7 +39,7 @@ def text_select_options(options)
   end
 end
 
-def todo_fields(*fields)
+def bool_fields(*fields)
   field_hash = {}
 
   fields.each do |field|
@@ -146,10 +148,10 @@ def bad_habits
 end
 
 [
-  meal_dodoable('first', 'Salad Cottage Sandwich'),
-  meal_dodoable('second', 'Yogurt Grains'),
+  meal_dodoable('first', 'Salad Cottage Sandwich', fields: bool_fields('Albumin', 'Vitamins')),
+  meal_dodoable('second', 'Yogurt Grains', fields: bool_fields('Albumin', 'Nootropics')),
   meal_dodoable('third', 'Frozen Lunch'),
-  meal_dodoable('fourth', 'Free'),
+  meal_dodoable('fourth', 'Free', fields: bool_fields('Albumin', 'Vitamins')),
   meal_dodoable('fifth', 'Corn Flakes'),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
@@ -157,7 +159,8 @@ end
   practice_dodoable('Read', 'read', trigger: { icon: { name: 'book' }}),
   practice_dodoable('Work: Wordable', 'work:wordable', trigger: { icon: { name: 'dollar-sign', component: 'Icon5' }}),
   practice_dodoable('Project: Dodo', 'projects:dodo', trigger: { icon: { name: 'rocket' }}),
-  practice_dodoable('Project: Livestock', 'projects:livestock', trigger: { icon: { name: 'cow', component: 'IconMC' }}),
+  practice_dodoable('Project: Livestock', 'projects:livestock', trigger: { icon: { name: 'line-chart', component: 'Icon' }}),
+  practice_dodoable('Exercise: Lake Run', 'exercise:lake-run', trigger: { icon: { name: 'running', component: 'Icon5' }}),
   {
     name: 'Breath Meditation',
     slug: "meditation:breath",
@@ -189,7 +192,7 @@ end
       }
     },
     fields: {}.merge(
-      todo_fields(
+      bool_fields(
         'Tea',
         'Juice',
         'Water',
@@ -220,7 +223,7 @@ end
       }
     },
     fields: {}.merge(
-      todo_fields(
+      bool_fields(
         'Water',
         'Coffee',
         'Concerta'
