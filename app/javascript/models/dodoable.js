@@ -1,3 +1,4 @@
+import { getTime } from 'date-fns';
 import Model from "braindamage/model";
 import DodoableSchema from 'generated/schemas/dodoable';
 import Dodone from "models/dodone";
@@ -25,6 +26,14 @@ class Dodoable extends Model {
         class: Dodone,
       }
     };
+  }
+
+  get rank() {
+    if(this.isDodoneToday) {
+      return getTime(this.lastDodone.startedAt);
+    }
+
+    return Number.MAX_VALUE;
   }
 }
 

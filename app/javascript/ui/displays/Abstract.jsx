@@ -3,18 +3,7 @@ import FieldLabel from "ui/fields/Label";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TimeDisplay from "ui/displays/time";
 import TextDisplay from "ui/displays/text";
-
-function BoolDisplay({ value }) {
-  return (
-    <View style={tw("mt-1")}>
-      {value ? (
-        <Icon size={12} name="check" />
-      ) : (
-        <Icon size={12} name="close" />
-      )}
-    </View>
-  );
-}
+import BoolDisplay from "ui/displays/bool";
 
 function SelectDisplay({ value }) {
   return (
@@ -47,18 +36,13 @@ export default function AbstractDisplay({
   const Display = displayMap[type];
 
   if (type == "bool") {
-    return (
-      <View style={tw("mt-4 flex-row")}>
-        <FieldLabel label={label} />
-        <Display {...props} onChange={handleOnChange} />
-      </View>
-    );
+    return <BoolDisplay label={label} {...props} />;
   }
 
   return (
     <View style={tw("mt-4")}>
       <FieldLabel label={label} />
-      <Display {...props} onChange={handleOnChange} />
+      <Display {...props} />
     </View>
   );
 }

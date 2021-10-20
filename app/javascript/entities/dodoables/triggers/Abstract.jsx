@@ -1,11 +1,40 @@
 import { TouchableOpacity } from "react-native";
-import { Link } from "lib/router";
+import { Link, useHistory } from "lib/router";
 import UserContext from "lib/UserContext";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon5 from "react-native-vector-icons/FontAwesome5";
+import IconMC from "react-native-vector-icons/MaterialCommunityIcons";
 import { format, formatDistanceToNow } from "date-fns";
 import useCurrentTime from "util/useCurrentTime";
 import Chronometer from "ui/clocks/Chronometer";
+
+const variations = {
+  success: {
+    wrapper: { style: "dodone-dodoable-trigger" },
+    text: { style: "dodone-dodoable-trigger-text" },
+    actionIcon: { color: getColor("green-300"), size: 15, name: "check" },
+  },
+  secondary: {
+    wrapper: { style: "secondary-dodoable-trigger" },
+    text: { style: "secondary-dodoable-trigger-text" },
+    actionIcon: { color: getColor("gray-500"), size: 15, name: "plus" },
+  },
+  failed: {
+    wrapper: { style: "failed-dodoable-trigger" },
+    text: { style: "failed-dodoable-trigger-text" },
+    actionIcon: { color: getColor("red-600"), size: 15, name: "close" },
+  },
+  pending: {
+    wrapper: { style: "pending-dodoable-trigger" },
+    text: { style: "pending-dodoable-trigger-text" },
+    actionIcon: { color: getColor("blue-300"), size: 18, name: "play" },
+  },
+  beingTracked: {
+    wrapper: { style: "being-tracked-dodoable-trigger" },
+    text: { style: "being-tracked-dodoable-trigger-text" },
+    actionIcon: { color: getColor("blue-300"), size: 18, name: "play" },
+  },
+};
 
 function DodoableIcon({ dodoable, ...props }) {
   if (!dodoable.trigger.icon) return null;
@@ -15,6 +44,7 @@ function DodoableIcon({ dodoable, ...props }) {
     {
       Icon: Icon,
       Icon5: Icon5,
+      IconMC: IconMC,
     }[dodoable.trigger.icon.component] || Icon;
 
   return (
@@ -24,119 +54,59 @@ function DodoableIcon({ dodoable, ...props }) {
   );
 }
 
-function DodoneDodoableTrigger({ dodoable, text = dodoable.name }) {
-  return (
-    <Link
-      to={`/dodoables/${dodoable.id}`}
-      style={tw("dodone-dodoable-trigger")}
-    >
-      <View style={tw("flex flex-row items-center")}>
-        <DodoableIcon
-          dodoable={dodoable}
-          size={12}
-          color={getColor("green-300")}
-        />
-        <Text style={tw("dodone-dodoable-trigger-text flex-grow")}>{text}</Text>
-        <Icon size={15} name="check" color={getColor("green-300")} />
-      </View>
-    </Link>
-  );
-}
-
-function BeingTrackedDodoableTrigger({ dodoable }) {
+function BeingTrackedDodoableTrigger({ dodoable, style }) {
   const currentTime = useCurrentTime();
 
   return (
     <Chronometer
       currentTime={currentTime}
       startedAt={dodoable.beingTrackedDodone.startedAt}
-      style={tw("text-blue-300")}
+      style={style}
     />
   );
 }
 
-function PendingDodoableTrigger({
+function DodoableTrigger({
   dodoable,
-  actionIconName = "play",
+  actionIconName,
   text = dodoable.name,
+  variation = "pending",
 }) {
-  return (
-    <Link
-      to={`/dodoables/${dodoable.id}/executor`}
-      style={tw("pending-dodoable-trigger")}
-    >
-      <View style={tw("flex flex-row items-center")}>
-        <DodoableIcon
-          dodoable={dodoable}
-          size={15}
-          color={getColor("blue-300")}
-        />
-        <Text style={tw("pending-dodoable-trigger-text flex-grow")}>
-          {text}
-        </Text>
-        {dodoable.beingTrackedDodone ? (
-          <BeingTrackedDodoableTrigger dodoable={dodoable} />
-        ) : (
-          <Icon size={22} name={actionIconName} color={getColor("blue-600")} />
-        )}
-      </View>
-    </Link>
-  );
-}
+  variation = dodoable.beingTrackedDodone ? "beingTracked" : variation;
 
-function SecondaryDodoableTrigger({
-  dodoable,
-  actionIconName = "play",
-  text = dodoable.name,
-}) {
-  return (
-    <Link
-      to={`/dodoables/${dodoable.id}/executor`}
-      style={tw("secondary-dodoable-trigger")}
-    >
-      <View style={tw("flex flex-row items-center")}>
-        <DodoableIcon
-          dodoable={dodoable}
-          size={15}
-          color={getColor("gray-500")}
-        />
-        <Text style={tw("secondary-dodoable-trigger-text flex-grow")}>
-          {text}
-        </Text>
-        {dodoable.beingTrackedDodone ? (
-          <BeingTrackedDodoableTrigger dodoable={dodoable} />
-        ) : (
-          <Icon size={18} name={actionIconName} color={getColor("gray-500")} />
-        )}
-      </View>
-    </Link>
-  );
-}
+  const v = variations[variation];
+  const history = useHistory();
 
-function FailedDodoableTrigger({
-  dodoable,
-  actionIconName = "close",
-  text = dodoable.name,
-}) {
+  const gotoExecute = useCallback(() => {
+    history.push(`/dodoables/${dodoable.id}/executor`);
+  });
+
+  const gotoShow = useCallback(() => {
+    history.push(`/dodoables/${dodoable.id}`);
+  });
+
   return (
-    <Link
-      to={`/dodoables/${dodoable.id}/executor`}
-      style={tw("failed-dodoable-trigger")}
+    <TouchableOpacity
+      onPress={gotoExecute}
+      onLongPress={gotoShow}
+      style={tw("flex flex-row items-center", v.wrapper.style)}
     >
-      <View style={tw("flex flex-row items-center")}>
-        <DodoableIcon
+      <DodoableIcon dodoable={dodoable} size={14} color={v.actionIcon.color} />
+      <Text style={tw("flex-grow", v.text.style)}>{text}</Text>
+
+      {dodoable.beingTrackedDodone ? (
+        <BeingTrackedDodoableTrigger
           dodoable={dodoable}
-          size={15}
-          color={getColor("red-600")}
+          style={tw(v.text.style, "text-sm")}
         />
-        <Text style={tw("failed-dodoable-trigger-text flex-grow")}>{text}</Text>
-        {dodoable.beingTrackedDodone ? (
-          <BeingTrackedDodoableTrigger dodoable={dodoable} />
-        ) : (
-          <Icon size={18} name={actionIconName} color={getColor("red-600")} />
-        )}
-      </View>
-    </Link>
+      ) : (
+        <Icon
+          size={v.actionIcon.size}
+          name={actionIconName || v.actionIcon.name}
+          color={v.actionIcon.color}
+        />
+      )}
+    </TouchableOpacity>
   );
 }
 
@@ -144,17 +114,13 @@ function BadHabitDodoableTrigger({ dodoable }) {
   let text = `${dodoable.trigger.label} never!`;
 
   if (dodoable.lastDodone) {
-    text = `${dodoable.trigger.label} ${formatDistanceToNow(
-      dodoable.lastDodone.finishedAt
-    )} ago`;
+    text = `${formatDistanceToNow(dodoable.lastDodone.finishedAt)} ${
+      dodoable.trigger.label
+    }`;
   }
 
   return (
-    <SecondaryDodoableTrigger
-      dodoable={dodoable}
-      actionIconName="plus"
-      text={text}
-    />
+    <DodoableTrigger dodoable={dodoable} text={text} variation="secondary" />
   );
 }
 
@@ -181,15 +147,14 @@ function TodosDodoableTrigger({ dodoable }) {
   }
 
   const text = `${dodoable.name} - ${doneCount}/${todoCount}`;
-  let Trigger;
+  let variation =
+    !dodoable.isDodoneToday || dodoable.beingTrackedDodone
+      ? "pending"
+      : "success";
 
-  if (!dodoable.isDodoneToday || dodoable.beingTrackedDodone) {
-    Trigger = PendingDodoableTrigger;
-  } else {
-    Trigger = DodoneDodoableTrigger;
-  }
-
-  return <Trigger dodoable={dodoable} text={text} />;
+  return (
+    <DodoableTrigger dodoable={dodoable} text={text} variation={variation} />
+  );
 }
 
 function MealDodoableTrigger({ dodoable }) {
@@ -202,21 +167,17 @@ function MealDodoableTrigger({ dodoable }) {
       dodoable.todaysDodones[dodoable.todaysDodones.length - 1];
   }
 
-  let Trigger;
+  let variation = "pending";
 
-  if (!dodoable.isDodoneToday || dodoable.beingTrackedDodone) {
-    Trigger = PendingDodoableTrigger;
-  } else if (consideredDodone) {
+  if (!dodoable.beingTrackedDodone && consideredDodone) {
     if (consideredDodone.fields.status.value == "Ate it") {
-      Trigger = DodoneDodoableTrigger;
+      variation = "success";
     } else {
-      Trigger = FailedDodoableTrigger;
+      variation = "failed";
     }
-  } else {
-    Trigger = PendingDodoableTrigger;
   }
 
-  return <Trigger dodoable={dodoable} />;
+  return <DodoableTrigger dodoable={dodoable} variation={variation} />;
 }
 
 const triggerMap = {
@@ -227,15 +188,15 @@ const triggerMap = {
 
 export default function AbstractDodoableTrigger({ dodoable }) {
   let Trigger = triggerMap[dodoable.trigger.display];
+  let variation = "pending";
 
   if (Trigger == null) {
-    // console.log("dodoable.trigger.display", dodoable.trigger.display);
-    if (!dodoable.isDodoneToday || dodoable.beingTrackedDodone) {
-      Trigger = PendingDodoableTrigger;
-    } else {
-      Trigger = DodoneDodoableTrigger;
+    Trigger = DodoableTrigger;
+
+    if (dodoable.isDodoneToday && !dodoable.beingTrackedDodone) {
+      variation = "success";
     }
   }
 
-  return <Trigger dodoable={dodoable} />;
+  return <Trigger dodoable={dodoable} variation={variation} />;
 }

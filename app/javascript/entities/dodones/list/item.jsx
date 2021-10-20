@@ -9,12 +9,13 @@ export default function DodoneListItem({ dodone }) {
     useBoolState();
 
   const { destroy } = useApiDestroyDodone();
+
   const destroyDodone = useCallback(() => {
     return destroy({ dodoneId: dodone.id });
   });
 
   return (
-    <View style={tw("flex-row")}>
+    <View style={tw("secondary-dodoable-trigger flex-row items-center")}>
       {confirmingDestroy ? (
         <>
           <PrimaryButton
@@ -35,10 +36,12 @@ export default function DodoneListItem({ dodone }) {
       ) : (
         <>
           <Link style={tw("flex-grow")} to={`/dodones/${dodone.id}`}>
-            <Text>{dodone.id}</Text>
+            <Text style={tw("secondary-dodoable-trigger-text")}>
+              {dodone.id}
+            </Text>
           </Link>
           <TouchableOpacity onPress={showConfirmDestroy}>
-            <Icon name="trash" />
+            <Icon name="trash" color={getColor("gray-400")} />
           </TouchableOpacity>
         </>
       )}

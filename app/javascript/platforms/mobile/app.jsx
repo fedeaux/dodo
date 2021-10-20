@@ -10,6 +10,7 @@ import BackgroundTimer from "lib/background-timer";
 
 export default function App() {
   const { day, isLoading } = useApiDay("today");
+  const [homeActiveTab, setHomeActiveTab] = useState("independent");
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -23,7 +24,9 @@ export default function App() {
   if (isLoading) return null;
 
   return (
-    <UserContext.Provider value={{ day, currentTime }}>
+    <UserContext.Provider
+      value={{ day, currentTime, homeActiveTab, setHomeActiveTab }}
+    >
       <Router>
         <Switch>
           <Route path="/dodoables/:id" component={DodoableShow} />

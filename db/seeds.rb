@@ -50,7 +50,7 @@ def todo_fields(*fields)
   field_hash
 end
 
-def practice_dodoable(name, slug)
+def practice_dodoable(name, slug, trigger: {})
   {
     name: name,
     slug: slug,
@@ -60,7 +60,7 @@ def practice_dodoable(name, slug)
     },
     trigger: {
       display: 'Empty',
-    },
+    }.merge(trigger),
     fields: {},
   }
 end
@@ -76,7 +76,7 @@ def bad_habits
       },
       trigger: {
         display: 'BadHabit',
-        label: 'Last cigar',
+        label: 'without cigar',
         icon: {
           name: 'smoking-ban',
           component: 'Icon5'
@@ -109,7 +109,7 @@ def bad_habits
       },
       trigger: {
         display: 'BadHabit',
-        label: 'Last league',
+        label: 'free of league',
         icon: {
           name: 'gamepad',
           component: 'Icon5'
@@ -130,7 +130,7 @@ def bad_habits
       },
       trigger: {
         display: 'BadHabit',
-        label: 'Last fap',
+        label: 'no fap',
         icon: {
           name: 'hand-paper',
           component: 'Icon5'
@@ -151,22 +151,26 @@ end
   meal_dodoable('third', 'Frozen Lunch'),
   meal_dodoable('fourth', 'Free'),
   meal_dodoable('fifth', 'Corn Flakes'),
-  practice_dodoable('Music: Guitar', 'music:guitar'),
-  practice_dodoable('Music: Piano', 'music:piano'),
-  practice_dodoable('Music: Singing', 'music:singing'),
-  practice_dodoable('Read', 'read'),
-  practice_dodoable('Work: Wordable', 'work:wordable'),
-  practice_dodoable('Project: Dodo', 'projects:dodo'),
-  practice_dodoable('Project: Livestock', 'projects:livestock'),
+  practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
+  practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
+  practice_dodoable('Music: Singing', 'music:singing', trigger: { icon: { name: 'music' }}),
+  practice_dodoable('Read', 'read', trigger: { icon: { name: 'book' }}),
+  practice_dodoable('Work: Wordable', 'work:wordable', trigger: { icon: { name: 'dollar-sign', component: 'Icon5' }}),
+  practice_dodoable('Project: Dodo', 'projects:dodo', trigger: { icon: { name: 'rocket' }}),
+  practice_dodoable('Project: Livestock', 'projects:livestock', trigger: { icon: { name: 'cow', component: 'IconMC' }}),
   {
     name: 'Breath Meditation',
-    slug: "meditation:Breath",
+    slug: "meditation:breath",
     nature: :independent,
     executor: {
-      finished_at_behaviour: :timer
+      finished_at_behaviour: :chronometer
     },
     trigger: {
       display: '?',
+      icon: {
+        name: 'buddhism',
+        component: 'IconMC'
+      }
     },
     fields: {},
   },
@@ -180,7 +184,7 @@ end
     trigger: {
       display: 'Todos',
       icon: {
-        name: 'hammer',
+        name: 'wrench',
         component: 'Icon5'
       }
     },
@@ -211,7 +215,7 @@ end
     trigger: {
       display: 'Todos',
       icon: {
-        name: 'hammer',
+        name: 'wrench',
         component: 'Icon5'
       }
     },
@@ -219,8 +223,7 @@ end
       todo_fields(
         'Water',
         'Coffee',
-        'Concerta',
-        'Drink Milk'
+        'Concerta'
       ).merge(
         comments: {
           type: :text,

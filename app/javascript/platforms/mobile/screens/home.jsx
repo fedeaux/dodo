@@ -11,13 +11,26 @@ import AbstractDodoableTrigger from "entities/dodoables/triggers/Abstract";
 import UserContext from "lib/UserContext";
 
 function IndependentDodoables() {
-  const { dodoables, isLoading } = useApiDodoables({ scopes: ["independent"] });
+  const { dodoables, isLoading } = useApiDodoables({
+    scopes: ["independent"],
+    order: ["name"],
+  });
+
+  const sortedDodoables = useMemo(() => {
+    if (isLoading) {
+      return [];
+    }
+
+    return dodoables.sort((dodoableA, dodoableB) => {
+      return dodoableA.rank - dodoableB.rank;
+    });
+  }, [dodoables]);
 
   if (isLoading) return null;
 
   return (
     <>
-      {dodoables.map((dodoable) => {
+      {sortedDodoables.map((dodoable) => {
         return (
           <AbstractDodoableTrigger key={dodoable.id} dodoable={dodoable} />
         );
@@ -81,9 +94,14 @@ function Schedule({ day }) {
   );
 }
 
+function useHomeActiveTab() {
+  const { homeActiveTab, setHomeActiveTab } = useContext(UserContext);
+
+  return [homeActiveTab, setHomeActiveTab];
+}
+
 function DayAfterWakeup({ day }) {
-  const [activeTab, setActiveTab] = useState();
-  // const [activeTab, setActiveTab] = useState("independent");
+  const [activeTab, setActiveTab] = useHomeActiveTab();
 
   return (
     <View style={tw("flex flex-grow")}>

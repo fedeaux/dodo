@@ -10,6 +10,10 @@ class Api::DodoablesController < ApiController
     query['scopes'].each do |scope|
       @dodoables = @dodoables.send(scope)
     end
+
+    if query['order']
+      @dodoables = @dodoables.order(query['order'])
+    end
   end
 
   private

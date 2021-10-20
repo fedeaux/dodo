@@ -14,7 +14,7 @@ const colorVariations = {
     textStyle: "text-red-200",
   },
   neutral: {
-    style: "bg-gray-400",
+    style: "bg-gray-500",
     textStyle: "text-gray-200",
   },
 };

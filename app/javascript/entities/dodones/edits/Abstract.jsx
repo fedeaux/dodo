@@ -20,7 +20,7 @@ function SimpleFormDodoneEdit({ dodone }) {
 
   return (
     <ActionScreen title={dodone.name}>
-      <View style={tw("flex h-full p-4")}>
+      <View style={tw("flex flex-grow p-4")}>
         <View style={tw("flex-grow")}>
           <DodoneExperimentsSimpleForm
             dodone={formDodone}
