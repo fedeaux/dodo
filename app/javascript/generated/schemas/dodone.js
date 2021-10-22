@@ -48,6 +48,30 @@ export default {
       writeable: true,
       default: null,
     },
+    scheduledTo: {
+      name: "scheduledTo",
+      type: "datetime",
+      writeable: true,
+      default: null,
+    },
+    isBeingTracked: {
+      name: "isBeingTracked",
+      type: "string",
+      writeable: true,
+      default: null,
+    },
+    isFinished: {
+      name: "isFinished",
+      type: "string",
+      writeable: true,
+      default: null,
+    },
+    isStarted: {
+      name: "isStarted",
+      type: "string",
+      writeable: true,
+      default: null,
+    },
   },
   names: {
     singularUnderscore: "dodone",

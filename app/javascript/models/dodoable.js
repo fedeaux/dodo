@@ -1,7 +1,6 @@
 import { getTime } from 'date-fns';
 import Model from "braindamage/model";
 import DodoableSchema from 'generated/schemas/dodoable';
-import Dodone from "models/dodone";
 
 class Dodoable extends Model {
   static schema = DodoableSchema;
@@ -11,19 +10,20 @@ class Dodoable extends Model {
     return {
       dodones: {
         type: "has_many",
-        class: Dodone
+        model: 'Dodone'
       },
       beingTrackedDodone: {
         type: "belongs_to",
-        class: Dodone,
+        model: 'Dodone',
       },
       lastDodone: {
         type: "belongs_to",
-        class: Dodone,
+        model: 'Dodone',
       },
       todaysDodones: {
         type: "has_many",
-        class: Dodone,
+        model: 'Dodone',
+        default: []
       }
     };
   }

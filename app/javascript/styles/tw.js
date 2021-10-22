@@ -1,6 +1,14 @@
 import { create } from 'tailwind-rn';
 import styles from './styles.json';
 const customStyles = {
+  "text-3xs": {
+    "fontSize": 8,
+    "lineHeight": 8
+  },
+  "text-2xs": {
+    "fontSize": 10,
+    "lineHeight": 12
+  },
   "min-h-14": {
     "minHeight": 56
   },
@@ -23,7 +31,7 @@ function extend(...selectors) {
 }
 
 // Let this sink in for a while...
-customStyles['dodoable-trigger'] = extend('py-2 px-4 rounded mt-2');
+customStyles['dodoable-trigger'] = extend('py-2 px-3 rounded mt-2');
 
 customStyles['dodone-dodoable-trigger'] = extend('dodoable-trigger bg-green-300 bg-opacity-40');
 customStyles['dodone-dodoable-trigger-text'] = extend('text-xs text-green-300');

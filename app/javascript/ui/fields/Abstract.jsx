@@ -1,4 +1,5 @@
 import TimeInput from "ui/inputs/time";
+import DurationInput from "ui/inputs/duration";
 import TextInput from "ui/inputs/text";
 import SelectInput from "ui/inputs/select";
 import BoolInput from "ui/inputs/bool";
@@ -11,6 +12,7 @@ const inputMap = {
   number: NumberInput,
   text: TextInput,
   time: TimeInput,
+  duration: DurationInput,
   select: SelectInput,
 };
 

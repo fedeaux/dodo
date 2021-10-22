@@ -1,5 +1,5 @@
 user = User.where(id: 1).first_or_create
-user.update(email: 'phec06@gmail.com', name: 'Pedro')
+user.update(email: 'phec06@gmail.com', name: 'Pedro', timezone: 'America/Sao_Paulo')
 
 def meal_dodoable(slug_suffix, name, fields: {})
   {
@@ -181,7 +181,6 @@ end
     name: 'Evening Chores',
     slug: "chores:evening",
     executor: {
-      save_on_field_changed: true,
       day_interaction: :once
     },
     trigger: {
@@ -212,7 +211,6 @@ end
     name: 'On Wakeup',
     slug: "chores:wakeup",
     executor: {
-      save_on_field_changed: true,
       day_interaction: :once
     },
     trigger: {

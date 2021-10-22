@@ -7,26 +7,23 @@ class Services::DayBuilder
   end
 
   def build
-    order = 0
-
-    %w[
-      chores:wakeup
-      meal:first
-      meal:second
-      meal:third
-      meal:fourth
-      meal:fifth
-      chores:evening
-    ].each do |slug|
-      dodoable = user.dodoables.s slug
+    [
+      { slug: 'chores:wakeup', scheduled_to: '08:00' },
+      { slug: 'meal:first', scheduled_to: '08:15' },
+      { slug: 'meal:second', scheduled_to: '11:00' },
+      { slug: 'meal:third', scheduled_to: '15:30' },
+      { slug: 'meal:fourth', scheduled_to: '19:30' },
+      { slug: 'chores:evening', scheduled_to: '21:30' },
+      { slug: 'meal:fifth', scheduled_to: '23:00' },
+    ].each do |attributes|
+      scheduled_to_parts = attributes[:scheduled_to].split(':').map(&:to_i)
+      scheduled_to = day.day.to_time.in_time_zone(user.timezone).change(hour: scheduled_to_parts[0], min: scheduled_to_parts[1])
+      dodoable = Dodoable.s attributes[:slug]
 
       day
-        .day_dodoables
-        .where(dodoable: dodoable)
+        .dodones
+        .where(dodoable_id: dodoable.id, scheduled_to: scheduled_to)
         .first_or_create
-        .update(order: order)
-
-      order += 1
     end
   end
 end

@@ -2,19 +2,22 @@ class Day < ApplicationRecord
   include Braindamage::Braindamageable
   belongs_to :user
   has_many :day_dodoables
+  has_many :dodones
 
   scope :ordered, ->{
     order(:day)
   }
 
-  before_save :ensure_day_dodoables, if: :wokeup_at_changed?
+  before_save :ensure_scheduled_dodones, if: :wokeup_at_changed?
 
-  def ensure_day_dodoables
+  def ensure_scheduled_dodones
     Services::DayBuilder.new(self).build
   end
 
-  def dodoables
-    day_dodoables.includes(:dodoable).order(:order).map(&:dodoable)
+  def schedule_dodones
+    dodones.includes(:dodoable).reject do |dodone|
+      dodone.dodoable.executor[:finished_at_behaviour] == 'instantaneous'
+    end
   end
 end
 

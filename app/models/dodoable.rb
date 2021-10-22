@@ -15,8 +15,15 @@ class Dodoable < ApplicationRecord
 
   def fields
     order = -1
+    virtual_fields = {}
 
-    super.deep_symbolize_keys.map do |name, options|
+    if executor[:finished_at_behaviour].to_sym == :timer
+      virtual_fields[:duration] = {
+        type: :duration
+      }
+    end
+
+    virtual_fields.merge(super.deep_symbolize_keys).map do |name, options|
       order += 1
       label = name.to_s.titleize
 
@@ -38,7 +45,7 @@ class Dodoable < ApplicationRecord
   def executor
     {
       finished_at_behaviour: :chronometer,
-      save_on_field_changed: false,
+      save_on_field_changed: true,
       day_interaction: :many
     }.merge(super.deep_symbolize_keys)
   end

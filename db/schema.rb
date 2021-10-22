@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_17_132437) do
+ActiveRecord::Schema.define(version: 2021_10_21_222817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_132437) do
     t.jsonb "fields", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "scheduled_to"
     t.index ["day_id"], name: "index_dodones_on_day_id"
     t.index ["dodoable_id"], name: "index_dodones_on_dodoable_id"
   end
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_132437) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "timezone", default: "UTC"
   end
 
   add_foreign_key "day_dodoables", "days"

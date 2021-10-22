@@ -9,7 +9,6 @@ export default {
 
       Object.entries(this.schema.attributes).forEach(([name, properties]) => {
         const attributeDefinition = attributesDefinitions[name] || {};
-
         this.attributesCache[name] = { ...properties, ...attributeDefinition };
         delete attributesDefinitions[name];
       })
@@ -40,6 +39,7 @@ export default {
         return this["@" + attribute.name];
       },
       set: function(value) {
+        if(attribute.model) { attribute['class'] = this.constructor.models[attribute.model] }
         return setAttributeValue(this, attribute, value);
       }
     }

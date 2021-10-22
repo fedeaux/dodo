@@ -14,6 +14,7 @@ import { useCallback } from "react";
 import BackgroundTimer from "lib/background-timer";
 import formatSeconds from "util/formatSeconds";
 import Chronometer from "ui/clocks/Chronometer";
+import Timer from "ui/clocks/Timer";
 
 function SimpleFormDodoableExecutorActions({
   dodoable,
@@ -22,6 +23,7 @@ function SimpleFormDodoableExecutorActions({
   currentTime,
   finishTracking,
   saveFormDodoneAndBack,
+  startTimer,
 }) {
   if (dodoable.executor.finishedAtBehaviour == "instantaneous") {
     return (
@@ -57,7 +59,7 @@ function SimpleFormDodoableExecutorActions({
       </View>
     );
   } else if (dodoable.executor.finishedAtBehaviour == "chronometer") {
-    if (dodone.isNewRecord) {
+    if (!dodone.isStarted) {
       return (
         <View>
           <PrimaryButton
@@ -79,9 +81,42 @@ function SimpleFormDodoableExecutorActions({
             block
             onClick={finishTracking}
           />
-          <View style={tw("text-center w-full")}>
+          <View style={tw("w-full py-2")}>
             <Chronometer
-              style={tw("text-6xl")}
+              style={tw("text-6xl text-center")}
+              startedAt={dodone.startedAt}
+              currentTime={currentTime}
+            />
+          </View>
+        </View>
+      );
+    }
+  } else if (dodoable.executor.finishedAtBehaviour == "timer") {
+    if (dodone.isNewRecord) {
+      return (
+        <View>
+          <PrimaryButton
+            label="Start Timer"
+            size="large"
+            color="success"
+            block
+            onClick={startTimer}
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View style={tw("flex flex-col")}>
+          <PrimaryButton
+            label="Abort"
+            color="success"
+            tws="mb-2"
+            block
+            onClick={finishTracking}
+          />
+          <View style={tw("w-full py-2")}>
+            <Timer
+              style={tw("text-6xl text-center")}
               startedAt={dodone.startedAt}
               currentTime={currentTime}
             />
@@ -135,8 +170,21 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
     history.push("/");
   });
 
+  const startTimer = useCallback(async () => {
+    console.log(
+      "dodone.fields.duration.value",
+      formDodone.fields.duration.value
+    );
+    // await saveFormDodone();
+
+    // history.push("/");
+  });
+
   const saveDodone = useCallback(async (dodoneToBeSaved) => {
     let savedDodone = null;
+    if (!dodoneToBeSaved.startedAt) {
+      dodoneToBeSaved.startedAt = new Date();
+    }
 
     if (dodoneToBeSaved.isNewRecord) {
       const { response } = await create({
@@ -180,6 +228,7 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
           currentTime={currentTime}
           finishTracking={finishTracking}
           saveFormDodoneAndBack={saveFormDodoneAndBack}
+          startTimer={startTimer}
         />
       </View>
     </ActionScreen>

@@ -4,6 +4,8 @@ import Nameable from "braindamage/model/nameable";
 // import Validateable from "braindamage/model/validateable";
 
 class Model {
+  static models = {};
+
   constructor(attributes = {}) {
     Object.entries(this.constructor.attributes()).forEach(([name, properties]) => {
       if(attributes.hasOwnProperty(name)) {
@@ -15,6 +17,7 @@ class Model {
   }
 
   static define() {
+    Model.models[this.name] = this;
     this.defineAttributes();
     this.defineEnums();
     this.defineNames();

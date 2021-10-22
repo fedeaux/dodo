@@ -1,6 +1,5 @@
 import Model from "braindamage/model";
 import DaySchema from 'generated/schemas/day';
-import Dodoable from "models/dodoable";
 
 class Day extends Model {
   static schema = DaySchema;
@@ -9,8 +8,12 @@ class Day extends Model {
   static attributesDefinitions() {
     return {
       dodoables: {
-        type: "belongs_to",
-        class: Dodoable
+        type: "has_many",
+        model: "Dodoable"
+      },
+      scheduleDodones: {
+        type: "has_many",
+        model: "Dodone"
       }
     };
   }

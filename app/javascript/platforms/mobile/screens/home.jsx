@@ -4,8 +4,9 @@ import DefaultScreen from "platforms/mobile/screens/default";
 import DayFieldWokeupAt from "entities/days/fields/wokeupAt";
 import DayFieldTurnedOffAt from "entities/days/fields/turnedOffAt";
 import Button from "ui/controls/button";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ScrollView } from "react-native";
 import { useApiDodoables } from "generated/api";
+import Drigger from "components/drigger";
 
 import AbstractDodoableTrigger from "entities/dodoables/triggers/Abstract";
 import UserContext from "lib/UserContext";
@@ -79,16 +80,21 @@ function TabTrigger({ setActiveTab, tab, label, activeTab }) {
 }
 
 function Schedule({ day }) {
+  const sortedScheduleDodones = useMemo(() => {
+    return day.scheduleDodones.sort((da, db) => {
+      return da.timeRank - db.timeRank;
+    });
+  }, [day]);
+
   return (
     <View style={tw("flex flex-grow")}>
-      <DayFieldWokeupAt day={day} />
-      {day.dodoables.map((dodoable) => {
-        return (
-          <AbstractDodoableTrigger key={dodoable.id} dodoable={dodoable} />
-        );
-      })}
-      <DayFieldTurnedOffAt day={day} />
-      <View style={tw("flex-grow")} />
+      <ScrollView style={tw("flex-grow")}>
+        <DayFieldWokeupAt day={day} />
+        {sortedScheduleDodones.map((dodone) => {
+          return <Drigger key={dodone.id} dodone={dodone} />;
+        })}
+        <DayFieldTurnedOffAt day={day} />
+      </ScrollView>
       <HabitDodoables />
     </View>
   );

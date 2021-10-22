@@ -6,4 +6,8 @@ json.extract! dodone,
               :finished_at,
               :fields,
               :created_at,
-              :updated_at
+              :updated_at,
+              :scheduled_to,
+              :being_tracked?,
+              :finished?,
+              :started?

@@ -10,14 +10,15 @@ end
 #
 # Table name: dodones
 #
-#  id          :bigint           not null, primary key
-#  fields      :jsonb
-#  finished_at :datetime
-#  started_at  :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  day_id      :bigint           not null
-#  dodoable_id :bigint           not null
+#  id           :bigint           not null, primary key
+#  fields       :jsonb
+#  finished_at  :datetime
+#  scheduled_to :datetime
+#  started_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  day_id       :bigint           not null
+#  dodoable_id  :bigint           not null
 #
 # Indexes
 #

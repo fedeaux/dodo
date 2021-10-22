@@ -1,4 +1,4 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ScrollView } from "react-native";
 import PrimaryButton from "ui/controls/button/primary";
 import UserContext from "lib/UserContext";
 import ActionScreen from "platforms/mobile/screens/action";
@@ -10,11 +10,11 @@ function MealDodoableShow({ dodoable }) {
   return (
     <ActionScreen title={dodoable.name}>
       <View style={tw("flex flex-grow p-4")}>
-        <View style={tw("flex-grow")}>
+        <ScrollView style={tw("flex-grow")}>
           {dodoable.dodones.map((dodone) => {
             return <DodoneListItem key={dodone.id} dodone={dodone} />;
           })}
-        </View>
+        </ScrollView>
         <View style={tw("flex flex-row")}>
           <PrimaryButton
             color="success"
