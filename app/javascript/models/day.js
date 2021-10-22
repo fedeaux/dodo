@@ -3,6 +3,7 @@ import DaySchema from 'generated/schemas/day';
 
 class Day extends Model {
   static schema = DaySchema;
+  static modelName = 'Day';
 
   // Fill-in your attribute overrides
   static attributesDefinitions() {

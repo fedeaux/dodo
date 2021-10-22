@@ -17,7 +17,7 @@ class Model {
   }
 
   static define() {
-    Model.models[this.name] = this;
+    Model.models[this.modelName] = this;
     this.defineAttributes();
     this.defineEnums();
     this.defineNames();

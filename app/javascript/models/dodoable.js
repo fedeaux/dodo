@@ -4,6 +4,7 @@ import DodoableSchema from 'generated/schemas/dodoable';
 
 class Dodoable extends Model {
   static schema = DodoableSchema;
+  static modelName = 'Dodoable';
 
   // Fill-in your attribute overrides
   static attributesDefinitions() {
