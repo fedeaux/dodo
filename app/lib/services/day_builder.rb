@@ -17,7 +17,7 @@ class Services::DayBuilder
       { slug: 'meal:fifth', scheduled_to: '23:00' },
     ].each do |attributes|
       scheduled_to_parts = attributes[:scheduled_to].split(':').map(&:to_i)
-      scheduled_to = day.day.to_time.in_time_zone(user.timezone).change(hour: scheduled_to_parts[0], min: scheduled_to_parts[1])
+      scheduled_to = day.day.to_time.in_time_zone(user.timezone) + scheduled_to_parts[0].hours + scheduled_to_parts[1].minutes
       dodoable = Dodoable.s attributes[:slug]
 
       day

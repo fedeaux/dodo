@@ -85,17 +85,24 @@ function DriggerTimeInfo({ dodoable, dodone, v }) {
     );
   }
 
-  if (dodone.startedAt && dodone.finishedAt) {
+  if (dodone.startedAt) {
+    if (dodone.finishedAt) {
+      return (
+        <View style={tw("flex-row items-center mb-1")}>
+          <Text style={tw(v.text.style, "text-3xs mr-1")}>
+            {format(dodone.startedAt, "HH:mm")}
+          </Text>
+          <IconMC name="arrow-right" size={8} color={v.actionIcon.color} />
+          <Text style={tw(v.text.style, "text-3xs ml-1")}>
+            {format(dodone.finishedAt, "HH:mm")}
+          </Text>
+        </View>
+      );
+    }
     return (
-      <View style={tw("flex-row items-center mb-1")}>
-        <Text style={tw(v.text.style, "text-3xs mr-1")}>
-          {format(dodone.startedAt, "HH:mm")}
-        </Text>
-        <IconMC name="arrow-right" size={8} color={v.actionIcon.color} />
-        <Text style={tw(v.text.style, "text-3xs ml-1")}>
-          {format(dodone.finishedAt, "HH:mm")}
-        </Text>
-      </View>
+      <Text style={tw(v.text.style, "text-3xs mr-1")}>
+        Started at {format(dodone.startedAt, "HH:mm")}
+      </Text>
     );
   }
 

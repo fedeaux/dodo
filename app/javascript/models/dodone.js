@@ -16,13 +16,21 @@ class Dodone extends Model {
     };
   }
 
-  get timeRank() {
-    if(this.isStarted) {
-      return getTime(this.startedAt);
+  get dateRank() {
+    if(this.startedAt) {
+      return this.startedAt;
     }
 
     if(this.scheduledTo) {
-      return getTime(this.scheduledTo);
+      return this.scheduledTo;
+    }
+
+    return null;
+  }
+
+  get timeRank() {
+    if(this.dateRank) {
+      return getTime(this.dateRank);
     }
 
     return 0;
