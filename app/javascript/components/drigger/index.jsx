@@ -64,6 +64,12 @@ function BeingTrackedDrigger({ dodone, style }) {
       style={style}
     />
   );
+
+  // <View style={tw("flex")}>
+  //   <Text style={tw(style, "text-3xs text-center")}>
+  //     {format(dodone.startedAt, "HH:mm")}
+  //   </Text>
+  // </View>
 }
 
 function DriggerTimeInfo({ dodoable, dodone, v }) {
@@ -103,7 +109,7 @@ function Drigger({
   text = dodoable.name,
   variation = "pending",
 }) {
-  variation = dodoable.beingTrackedDodone ? "beingTracked" : variation;
+  variation = dodone.isBeingTracked ? "beingTracked" : variation;
 
   const v = variations[variation];
   const history = useHistory();
@@ -177,8 +183,7 @@ function TodosDrigger({ dodoable, dodone }) {
   }
 
   const text = `${dodoable.name} - ${doneCount}/${todoCount}`;
-  let variation =
-    !dodoable.isDodoneToday || dodone.isBeingTracked ? "pending" : "success";
+  let variation = dodone.isFinished ? "success" : "pending";
 
   return (
     <Drigger

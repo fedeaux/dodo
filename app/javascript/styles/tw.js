@@ -20,6 +20,10 @@ const customStyles = {
     "fontSize": 48,
     "lineHeight": 48
   },
+  "bg-bluish-gray-900": {
+    "--tw-bg-opacity": 1,
+    "backgroundColor": "rgba(31, 46, 77, var(--tw-bg-opacity))"
+  },
 }
 
 function extend(...selectors) {
@@ -39,7 +43,7 @@ customStyles['dodone-dodoable-trigger-text'] = extend('text-xs text-green-300');
 customStyles['pending-dodoable-trigger'] = extend('dodoable-trigger bg-gray-900 bg-opacity-60');
 customStyles['pending-dodoable-trigger-text'] = extend('text-sm text-blue-300');
 
-customStyles['being-tracked-dodoable-trigger'] = extend('dodoable-trigger bg-blue-300 bg-opacity-30');
+customStyles['being-tracked-dodoable-trigger'] = extend('dodoable-trigger bg-bluish-gray-900 bg-opacity-60');
 customStyles['being-tracked-dodoable-trigger-text'] = extend('text-xl text-blue-300');
 
 customStyles['secondary-dodoable-trigger'] = extend('dodoable-trigger bg-gray-900 bg-opacity-60');
