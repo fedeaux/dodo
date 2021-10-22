@@ -1,4 +1,4 @@
-import { ImageBackground, TouchableOpacity } from "react-native";
+import { ImageBackground, TouchableOpacity, Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Button from "ui/controls/button";
 import ENV from "env";
@@ -28,16 +28,20 @@ export default function DefaultScreen({ children, title = null }) {
   const [showMenu, closeMenu, openMenu] = useBoolState();
   const { nukeCache } = useContext(BraindamageApiContext);
 
+  const height = Dimensions.get("window").height;
+
   return (
     <ImageBackground
       source={{ uri: "https://iili.io/30TXeI.jpg" }}
-      style={{ width: "100%", height: "100%" }}
-      style={tw("w-full h-full")}
+      style={tw("w-full flex", {
+        height: height,
+        maxHeight: height,
+      })}
     >
       {showMenu ? (
         <Menu closeMenu={closeMenu} />
       ) : (
-        <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60")}>
+        <View style={tw("w-full flex flex-grow bg-gray-900 bg-opacity-60")}>
           <View style={tw("flex flex-row px-4 pb-1 pt-4")}>
             <TouchableOpacity
               style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-4")}

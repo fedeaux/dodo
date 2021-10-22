@@ -88,13 +88,15 @@ function Schedule({ day }) {
 
   return (
     <View style={tw("flex flex-grow")}>
-      <ScrollView style={tw("flex-grow")}>
-        <DayFieldWokeupAt day={day} />
-        {sortedScheduleDodones.map((dodone) => {
-          return <Drigger key={dodone.id} dodone={dodone} />;
-        })}
-        <DayFieldTurnedOffAt day={day} />
-      </ScrollView>
+      <View style={tw("flex-grow mb-4")}>
+        <ScrollView style={{ maxHeight: 520 }}>
+          <DayFieldWokeupAt day={day} />
+          {sortedScheduleDodones.map((dodone) => {
+            return <Drigger key={dodone.id} dodone={dodone} />;
+          })}
+          <DayFieldTurnedOffAt day={day} />
+        </ScrollView>
+      </View>
       <HabitDodoables />
     </View>
   );
