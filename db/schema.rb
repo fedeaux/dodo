@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_23_171756) do
+ActiveRecord::Schema.define(version: 2021_10_23_191618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "day_dodoables", force: :cascade do |t|
-    t.bigint "day_id", null: false
-    t.bigint "dodoable_id", null: false
-    t.integer "order"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["day_id"], name: "index_day_dodoables_on_day_id"
-    t.index ["dodoable_id"], name: "index_day_dodoables_on_dodoable_id"
-  end
 
   create_table "days", force: :cascade do |t|
     t.date "day"
@@ -72,8 +62,6 @@ ActiveRecord::Schema.define(version: 2021_10_23_171756) do
     t.string "timezone", default: "UTC"
   end
 
-  add_foreign_key "day_dodoables", "days"
-  add_foreign_key "day_dodoables", "dodoables"
   add_foreign_key "days", "users"
   add_foreign_key "dodoables", "days", column: "last_dodone_day_id"
   add_foreign_key "dodoables", "users"
