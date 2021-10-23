@@ -5,9 +5,6 @@ def meal_dodoable(slug_suffix, name, fields: {})
   {
     name: name,
     slug: "meal:#{slug_suffix}",
-    executor: {
-      day_interaction: :once
-    },
     trigger: {
       display: 'Meal',
       icon: {
@@ -57,9 +54,6 @@ def practice_dodoable(name, slug, trigger: {})
     name: name,
     slug: slug,
     nature: :independent,
-    executor: {
-      finished_at_behaviour: :chronometer
-    },
     trigger: {
       display: 'Empty',
     }.merge(trigger),
@@ -73,9 +67,7 @@ def bad_habits
       name: 'Smoking',
       slug: "bad-habit:smoking",
       nature: :habit,
-      executor: {
-        finished_at_behaviour: :instantaneous
-      },
+      about_time: :instantaneous,
       trigger: {
         display: 'BadHabit',
         label: 'without cigar',
@@ -89,11 +81,14 @@ def bad_habits
           type: :select,
           options: text_select_options([
                                          'Bathroom',
+                                         'Car',
                                          'Eat',
+                                         "Mom's House",
                                          'Rest',
                                          'Sex',
                                          'Sleep',
                                          'Social',
+                                         'Stress/Anxiety',
                                          'Wakeup'
                                        ])
         },
@@ -106,9 +101,7 @@ def bad_habits
       name: 'League',
       slug: "bad-habit:league",
       nature: :habit,
-      executor: {
-        finished_at_behaviour: :instantaneous
-      },
+      about_time: :chronometrable,
       trigger: {
         display: 'BadHabit',
         label: 'free of league',
@@ -124,12 +117,10 @@ def bad_habits
       },
     },
     {
-      name: 'Fap',
-      slug: "bad-habit:fap",
+      name: 'F1',
+      slug: "bad-habit:f1",
       nature: :habit,
-      executor: {
-        finished_at_behaviour: :instantaneous
-      },
+      about_time: :instantaneous,
       trigger: {
         display: 'BadHabit',
         label: 'no fap',
@@ -165,9 +156,7 @@ end
     name: 'Breath Meditation',
     slug: "meditation:breath",
     nature: :independent,
-    executor: {
-      finished_at_behaviour: :chronometer
-    },
+    about_time: :chronometrable,
     trigger: {
       display: '?',
       icon: {
@@ -180,9 +169,6 @@ end
   {
     name: 'Evening Chores',
     slug: "chores:evening",
-    executor: {
-      day_interaction: :once
-    },
     trigger: {
       display: 'Todos',
       icon: {
@@ -210,9 +196,6 @@ end
   {
     name: 'On Wakeup',
     slug: "chores:wakeup",
-    executor: {
-      day_interaction: :once
-    },
     trigger: {
       display: 'Todos',
       icon: {

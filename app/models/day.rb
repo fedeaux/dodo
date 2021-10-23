@@ -25,7 +25,7 @@ class Day < ApplicationRecord
 
   def schedule_dodones
     dodones.includes(:dodoable).reject do |dodone|
-      dodone.dodoable.executor[:finished_at_behaviour] == 'instantaneous'
+      dodone.dodoable.instantaneous?
     end
   end
 end

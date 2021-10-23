@@ -18,7 +18,9 @@ class BaseGenerator
 
     lines = []
 
-    if thing.is_a? Hash
+    if thing.respond_to? :pretty_printable
+      return pretty_print_thing thing.pretty_printable, indent
+    elsif thing.is_a? Hash
       lines.push "{"
       # key_value_lines = []
       thing.each do |key, value|

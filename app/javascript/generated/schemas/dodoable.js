@@ -66,15 +66,15 @@ export default {
       writeable: true,
       default: null,
     },
+    aboutTime: {
+      name: "aboutTime",
+      type: "string",
+      writeable: true,
+      default: "0",
+    },
     isDodoneToday: {
       name: "isDodoneToday",
       type: "boolean",
-      writeable: true,
-      default: null,
-    },
-    beingTrackedDodone: {
-      name: "beingTrackedDodone",
-      type: "string",
       writeable: true,
       default: null,
     },
@@ -107,6 +107,16 @@ export default {
         other: 0,
         independent: 1,
         habit: 2,
+      },
+      options: {
+      },
+    },
+    aboutTime: {
+      name: "aboutTime",
+      valueMap: {
+        chronometrable: 0,
+        durable: 1,
+        instantaneous: 2,
       },
       options: {
       },

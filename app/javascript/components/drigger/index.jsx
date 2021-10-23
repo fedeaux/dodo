@@ -73,7 +73,7 @@ function BeingTrackedDrigger({ dodone, style }) {
 }
 
 function DriggerTimeInfo({ dodoable, dodone, v }) {
-  if (dodoable.executor.finishedAtBehaviour == "instantaneous") {
+  if (dodoable.isInstantaneous) {
     return null;
   }
 

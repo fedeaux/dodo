@@ -41,15 +41,15 @@ module Braindamage::Braindamageable
       value_map = definitions.values.first
       options = definitions.except(name)
 
-      self.exposed_enums[name] = {
+      self.exposed_enums[name] = Braindamage::Enum.new({
         name: name,
         value_map: value_map,
         options: options
-      }
+      })
 
       enum definitions
 
-      # DUCT TAPE!! Take away from here
+      # Look for raw exposed attribute
       if self.exposed_attributes[name.to_s]
         self.exposed_attributes[name.to_s].type = "string"
       end

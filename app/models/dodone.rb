@@ -18,7 +18,7 @@ class Dodone < ApplicationRecord
   end
 
   def being_tracked?
-    return false if dodoable.executor[:finished_at_behaviour] == 'instantaneous'
+    return false if dodoable.instantaneous?
 
     started_at && !finished_at
   end
@@ -32,7 +32,7 @@ class Dodone < ApplicationRecord
   end
 
   def copy_started_at_to_finished_at_if_instantaneous
-    return unless dodoable.executor[:finished_at_behaviour] == 'instantaneous'
+    return unless dodoable.instantaneous?
 
     self.finished_at = started_at
   end

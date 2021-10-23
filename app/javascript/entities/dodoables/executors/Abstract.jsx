@@ -25,7 +25,9 @@ function SimpleFormDodoableExecutorActions({
   saveFormDodoneAndBack,
   startTimer,
 }) {
-  if (dodoable.executor.finishedAtBehaviour == "instantaneous") {
+  console.log("dodoable", dodoable);
+
+  if (dodoable.isInstantaneous) {
     return (
       <View>
         <PrimaryButton
@@ -58,7 +60,7 @@ function SimpleFormDodoableExecutorActions({
         />
       </View>
     );
-  } else if (dodoable.executor.finishedAtBehaviour == "chronometer") {
+  } else if (dodoable.isChronometrable) {
     if (!dodone.isStarted) {
       return (
         <View>
@@ -91,7 +93,7 @@ function SimpleFormDodoableExecutorActions({
         </View>
       );
     }
-  } else if (dodoable.executor.finishedAtBehaviour == "timer") {
+  } else if (dodoable.isDurable) {
     if (dodone.isNewRecord) {
       return (
         <View>

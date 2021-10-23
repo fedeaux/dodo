@@ -13,17 +13,28 @@ class Dodoable < ApplicationRecord
                  habit: 2
                }
 
-  def fields
-    order = -1
-    virtual_fields = {}
+  exposed_enum about_time: {
+                 chronometrable: 0,
+                 durable: 1,
+                 instantaneous: 2
+               }
 
-    if executor[:finished_at_behaviour].to_sym == :timer
-      virtual_fields[:duration] = {
+  def plugins_fields
+    fields = {}
+
+    if durable?
+      fields[:duration] = {
         type: :duration
       }
     end
 
-    virtual_fields.merge(super.deep_symbolize_keys).map do |name, options|
+    return fields
+  end
+
+  def fields
+    order = -1
+
+    plugins_fields.merge(super.deep_symbolize_keys).map do |name, options|
       order += 1
       label = name.to_s.titleize
 
@@ -44,9 +55,7 @@ class Dodoable < ApplicationRecord
 
   def executor
     {
-      finished_at_behaviour: :chronometer,
-      save_on_field_changed: true,
-      day_interaction: :many
+      save_on_field_changed: true
     }.merge(super.deep_symbolize_keys)
   end
 
@@ -82,6 +91,7 @@ end
 # Table name: dodoables
 #
 #  id                 :bigint           not null, primary key
+#  about_time         :integer          default("chronometrable")
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string

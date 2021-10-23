@@ -11,6 +11,7 @@ end
 # Table name: dodoables
 #
 #  id                 :bigint           not null, primary key
+#  about_time         :integer          default("chronometrable")
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string
