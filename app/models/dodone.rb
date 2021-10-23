@@ -1,11 +1,13 @@
 class Dodone < ApplicationRecord
   include Braindamage::Braindamageable
-  expose :being_tracked?
-  expose :finished?
-  expose :started?
 
   belongs_to :dodoable
   belongs_to :day
+  expose_associations
+
+  expose :being_tracked?
+  expose :finished?
+  expose :started?
 
   before_save :copy_started_at_to_finished_at_if_instantaneous
   before_create :ensure_dodoable_fields

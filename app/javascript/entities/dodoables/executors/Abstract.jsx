@@ -25,8 +25,6 @@ function SimpleFormDodoableExecutorActions({
   saveFormDodoneAndBack,
   startTimer,
 }) {
-  console.log("dodoable", dodoable);
-
   if (dodoable.isInstantaneous) {
     return (
       <View>

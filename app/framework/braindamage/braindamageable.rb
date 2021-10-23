@@ -19,17 +19,6 @@ module Braindamage::Braindamageable
     if self.exposed_attributes["id"]
       self.exposed_attributes["id"].writeable = false
     end
-
-    # Other duct tape (Declare belongs_to fields)
-    # reflections.values.select do |reflection|
-    #   reflection.macro == :belongs_to
-    # end.each do |belongs_to_reflection|
-    #   return unless attribute = exposed_attributes[belongs_to_reflection.name.to_s]
-
-    #   if
-    #     puts
-    #   end
-    # end
   end
 
   module ClassMethods
@@ -65,6 +54,17 @@ module Braindamage::Braindamageable
 
     def expose(name, properties = {})
       exposed_attributes[name.to_s] = Braindamage::Attribute.new(properties.merge(name: name))
+    end
+
+    def expose_associations
+      # relationships
+      reflections.values.select do |reflection|
+        [:belongs_to, :has_many, :has_one].include? reflection.macro
+      end.each do |reflection|
+        expose reflection.name,
+               type: reflection.macro,
+               model: reflection.class_name
+      end
     end
 
     def hide(name)

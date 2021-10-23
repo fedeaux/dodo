@@ -68,7 +68,7 @@ class BaseGenerator
     target = args.first
     generated = target.to_s.include? 'generated'
 
-    if braindamage_generator.options[:smart]
+    unless braindamage_generator.options[:dumb]
       if generated
         config[:force] = true
       else

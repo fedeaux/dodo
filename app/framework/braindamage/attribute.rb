@@ -1,6 +1,7 @@
 class Braindamage::Attribute < Braindamage::Struct
   property :name, nil
   property :type, "string"
+  property :model, "string"
   property :writeable, true
   property :default, nil
 
@@ -16,5 +17,9 @@ class Braindamage::Attribute < Braindamage::Struct
     end
 
     @fe_name
+  end
+
+  def association?
+    [:belongs_to, :has_many, :has_one].include? type
   end
 end

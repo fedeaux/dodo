@@ -3,20 +3,10 @@ import DaySchema from 'generated/schemas/day';
 
 class Day extends Model {
   static schema = DaySchema;
-  static modelName = 'Day';
 
   // Fill-in your attribute overrides
   static attributesDefinitions() {
-    return {
-      dodoables: {
-        type: "has_many",
-        model: "Dodoable"
-      },
-      scheduleDodones: {
-        type: "has_many",
-        model: "Dodone"
-      }
-    };
+    return {};
   }
 }
 

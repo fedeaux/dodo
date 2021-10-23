@@ -1,9 +1,16 @@
 class Dodoable < ApplicationRecord
   include Braindamage::Braindamageable
+
   belongs_to :user
   belongs_to :last_dodone_day, class_name: 'Day', optional: true
   has_many :dodones
   has_many :days, through: :dodones
+
+  expose :being_tracked_dodone, type: :has_one, model: 'Dodone'
+  expose :last_dodone, type: :has_one, model: 'Dodone'
+  expose :todays_dodones, type: :has_many, model: 'Dodone'
+
+  expose_associations
 
   expose :dodone_today?, type: :boolean
 

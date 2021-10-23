@@ -1,8 +1,11 @@
 class Day < ApplicationRecord
   include Braindamage::Braindamageable
+
   belongs_to :user
-  has_many :day_dodoables
   has_many :dodones
+  expose_associations
+
+  expose :schedule_dodones, type: :has_many, model: 'Dodone'
 
   scope :ordered, ->{
     order(:day)

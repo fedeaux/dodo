@@ -39,7 +39,14 @@ export default {
         return this["@" + attribute.name];
       },
       set: function(value) {
-        if(attribute.model) { attribute['class'] = this.constructor.models[attribute.model] }
+        // debug helper
+        // if(attribute.name == "") {
+        //   console.log("attribute", attribute, attribute.model, this.constructor.models);
+        // }
+
+        if(attribute.model) {
+          attribute['class'] = this.constructor.models[attribute.model]
+        }
         return setAttributeValue(this, attribute, value);
       }
     }
@@ -80,7 +87,7 @@ function getAttributeParser(attribute) {
     }
   }
 
-  if(attribute.type === "belongs_to" || attribute.type === "has_many") {
+  if(attribute.type === "belongs_to" || attribute.type === "has_one" || attribute.type === "has_many") {
     return (value) => {
       if(!value) return attribute.default || null;
 

@@ -1,9 +1,11 @@
 export default {
+  modelName: '<%= singular_class_name %>',
   attributes: {
-    <%- exposed_attributes.each do |name, attribute| -%>
+    <%- exposed_attributes.values.sort_by(&:fe_name).each do |attribute| -%>
     <%= attribute.fe_name %>: {
       name: <%= attribute.fe_name.to_json %>,
       type: <%= attribute.type.to_json %>,
+      model: <%= attribute.model.to_json %>,
       writeable: <%= attribute.writeable.to_json %>,
       default: <%= attribute.default.to_json %>,
     },

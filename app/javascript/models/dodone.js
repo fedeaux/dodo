@@ -4,16 +4,10 @@ import DodoneSchema from 'generated/schemas/dodone';
 
 class Dodone extends Model {
   static schema = DodoneSchema;
-  static modelName = 'Dodone';
 
   // Fill-in your attribute overrides
   static attributesDefinitions() {
-    return {
-      dodoable: {
-        type: "belongs_to",
-        model: 'Dodoable'
-      }
-    };
+    return {};
   }
 
   get dateRank() {
