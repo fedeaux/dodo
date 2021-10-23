@@ -11,8 +11,12 @@ class User < ApplicationRecord
   end
 
   def current_time
-    # TimeZone stuff
-    Time.current - 5.hours
+    # fuck
+    utc_offset - 4.hours
+  end
+
+  def utc_offset
+    Time.current.in_time_zone(timezone).utc_offset
   end
 end
 

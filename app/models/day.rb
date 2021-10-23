@@ -10,6 +10,15 @@ class Day < ApplicationRecord
 
   before_save :ensure_scheduled_dodones, if: :wokeup_at_changed?
 
+  def beginning_of_day
+    day.to_time(:utc).beginning_of_day
+  end
+
+  def time_of_day_in_user_timezone(string_time)
+    parts = string_time.split(':').map(&:to_i)
+    beginning_of_day + parts[0].hours + parts[1].minutes + user.utc_offset.seconds
+  end
+
   def ensure_scheduled_dodones
     Services::DayBuilder.new(self).build
   end
