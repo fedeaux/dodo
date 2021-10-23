@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   def current_time
     # fuck
-    utc_offset - 4.hours
+    Time.current.utc + utc_offset.seconds - 4.hours
   end
 
   def utc_offset
