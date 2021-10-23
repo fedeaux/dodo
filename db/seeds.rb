@@ -13,12 +13,6 @@ def meal_dodoable(slug_suffix, name, fields: {})
       }
     },
     fields: {
-      status: {
-        type: :select,
-        options: text_select_options(['Ate it', 'Skip', 'Something Else']),
-        default: 'Ate it',
-        order: 998
-      },
       comments: {
         type: :text,
         order: 999
@@ -123,10 +117,10 @@ def bad_habits
       about_time: :instantaneous,
       trigger: {
         display: 'BadHabit',
-        label: 'no fap',
+        label: 'without f1',
         icon: {
-          name: 'hand-paper',
-          component: 'Icon5'
+          name: 'leaf-maple',
+          component: 'IconMC'
         }
       },
       fields: {
@@ -135,6 +129,25 @@ def bad_habits
         }
       },
     },
+    {
+      name: 'F5',
+      slug: "bad-habit:f5",
+      nature: :habit,
+      about_time: :instantaneous,
+      trigger: {
+        display: 'BadHabit',
+        label: 'without f5',
+        icon: {
+          name: 'leaf-maple',
+          component: 'IconMC'
+        }
+      },
+      fields: {
+        comments: {
+          type: :text
+        }
+      },
+    }
   ]
 end
 

@@ -1,5 +1,6 @@
 import AbstractDodoneShow from "entities/dodones/shows/Abstract";
 import AbstractDodoneEdit from "entities/dodones/edits/Abstract";
+import Drexecutor from "components/drexecutor";
 import { useApiDodone } from "generated/api";
 import { Router, Switch, Route, Link } from "lib/router";
 
@@ -14,6 +15,9 @@ export default function DodoneShow(props) {
     <Switch>
       <Route path={`${path}/edit`}>
         <AbstractDodoneEdit dodone={dodone} />
+      </Route>
+      <Route path={`${path}/execute`}>
+        <Drexecutor dodone={dodone} />
       </Route>
       <Route path="">
         <AbstractDodoneShow dodone={dodone} />

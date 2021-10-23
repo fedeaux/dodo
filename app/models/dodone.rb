@@ -8,8 +8,20 @@ class Dodone < ApplicationRecord
   expose :being_tracked?
   expose :finished?
   expose :started?
+  expose :started?
 
-  before_save :copy_started_at_to_finished_at_if_instantaneous
+  exposed_enum status: {
+                 unstatusable: 0,
+                 pending: 1,
+                 succeeded: 2,
+                 questionable: 3,
+                 failed: 4,
+                 skipped: 5
+               }
+
+  exposed_delegate :statusable?, to: :dodoable
+
+  before_save :auto_assign_times_and_statuses
   before_create :ensure_dodoable_fields
   after_commit :touch_dodoable
 
@@ -33,10 +45,21 @@ class Dodone < ApplicationRecord
     !! finished_at
   end
 
-  def copy_started_at_to_finished_at_if_instantaneous
-    return unless dodoable.instantaneous?
+  def auto_assign_times_and_statuses
+    if dodoable.instantaneous?
+      self.finished_at = started_at
+    end
 
-    self.finished_at = started_at
+    if statusable?
+      if unstatusable?
+        self.status = :pending
+      elsif pending? && started? && finished?
+        self.status = :succeeded
+      elsif failed? || skipped?
+        self.started_at = nil
+        self.finished_at = nil
+      end
+    end
   end
 
   def ensure_dodoable_fields
@@ -53,6 +76,7 @@ end
 #  finished_at  :datetime
 #  scheduled_to :datetime
 #  started_at   :datetime
+#  status       :integer          default("unstatusable")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  day_id       :bigint           not null
@@ -68,3 +92,20 @@ end
 #  fk_rails_...  (day_id => days.id)
 #  fk_rails_...  (dodoable_id => dodoables.id)
 #
+
+
+# Dodoable.s("bad-habit:fap")&.destroy
+# Dodoable.scheduled.find_each do |dodoable|
+#   dodoable.dodones.each do |dodone|
+#     fields = dodone.fields
+#     attributes = { status: 'pending' }
+
+#     if fields['status'] && fields['status']['value'] == 'Ate it'
+#       attributes[:fields] = fields.except('value')
+#       attributes[:status] = 'failed'
+#     end
+
+#     dodone.update(attributes)
+#   end
+# end
+# Dodone.find_each(&:save)

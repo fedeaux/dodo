@@ -19,6 +19,21 @@ class Braindamage::Attribute < Braindamage::Struct
     @fe_name
   end
 
+  def pretty_printable
+    base = {
+      name: fe_name,
+      type: type,
+      writeable: writeable,
+      default: default
+    }
+
+    if association?
+      base[:model] = model
+    end
+
+    base
+  end
+
   def association?
     [:belongs_to, :has_many, :has_one].include? type
   end

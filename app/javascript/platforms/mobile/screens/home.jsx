@@ -32,9 +32,7 @@ function IndependentDodoables() {
   return (
     <>
       {sortedDodoables.map((dodoable) => {
-        return (
-          <AbstractDodoableTrigger key={dodoable.id} dodoable={dodoable} />
-        );
+        return <Drigger key={dodoable.id} dodoable={dodoable} />;
       })}
     </>
   );
@@ -48,9 +46,7 @@ function HabitDodoables() {
   return (
     <>
       {dodoables.map((dodoable) => {
-        return (
-          <AbstractDodoableTrigger key={dodoable.id} dodoable={dodoable} />
-        );
+        return <Drigger key={dodoable.id} dodoable={dodoable} />;
       })}
     </>
   );

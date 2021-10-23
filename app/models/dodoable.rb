@@ -3,19 +3,20 @@ class Dodoable < ApplicationRecord
 
   belongs_to :user
   belongs_to :last_dodone_day, class_name: 'Day', optional: true
-  has_many :dodones
+  has_many :dodones, dependent: :destroy
   has_many :days, through: :dodones
 
   expose :being_tracked_dodone, type: :has_one, model: 'Dodone'
   expose :last_dodone, type: :has_one, model: 'Dodone'
   expose :todays_dodones, type: :has_many, model: 'Dodone'
+  expose :statusable?, type: :boolean
 
   expose_associations
 
   expose :dodone_today?, type: :boolean
 
   exposed_enum nature: {
-                 other: 0,
+                 scheduled: 0,
                  independent: 1,
                  habit: 2
                }
@@ -91,6 +92,10 @@ class Dodoable < ApplicationRecord
   def self.s(slug)
     find_by slug: slug
   end
+
+  def statusable?
+    scheduled?
+  end
 end
 
 # == Schema Information
@@ -102,7 +107,7 @@ end
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string
-#  nature             :integer          default("other")
+#  nature             :integer          default("scheduled")
 #  slug               :string
 #  trigger            :jsonb
 #  created_at         :datetime         not null

@@ -1,5 +1,5 @@
 import AbstractDodoableShow from "entities/dodoables/shows/Abstract";
-import AbstractDodoableExecutor from "entities/dodoables/executors/Abstract";
+import Drexecutor from "components/drexecutor";
 import { useApiDodoable } from "generated/api";
 import { Router, Switch, Route, Link } from "lib/router";
 
@@ -12,8 +12,8 @@ export default function DodoableShow(props) {
 
   return (
     <Switch>
-      <Route path={`${path}/executor`}>
-        <AbstractDodoableExecutor dodoable={dodoable} />
+      <Route path={`${path}/execute`}>
+        <Drexecutor dodoable={dodoable} />
       </Route>
       <Route path="">
         <AbstractDodoableShow dodoable={dodoable} />

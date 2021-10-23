@@ -1,101 +1,101 @@
 export default {
   modelName: 'Dodone',
   attributes: {
-    createdAt: {
+      createdAt: {
       name: "createdAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    day: {
+      day: {
       name: "day",
       type: "belongs_to",
-      model: "Day",
       writeable: true,
       default: null,
+      model: "Day",
     },
-    dayId: {
+      dayId: {
       name: "dayId",
       type: "integer",
-      model: "string",
       writeable: true,
       default: null,
     },
-    dodoable: {
+      dodoable: {
       name: "dodoable",
       type: "belongs_to",
-      model: "Dodoable",
       writeable: true,
       default: null,
+      model: "Dodoable",
     },
-    dodoableId: {
+      dodoableId: {
       name: "dodoableId",
       type: "integer",
-      model: "string",
       writeable: true,
       default: null,
     },
-    fields: {
+      fields: {
       name: "fields",
       type: "jsonb",
-      model: "string",
       writeable: true,
       default: "{}",
     },
-    finishedAt: {
+      finishedAt: {
       name: "finishedAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    id: {
+      id: {
       name: "id",
       type: "integer",
-      model: "string",
       writeable: false,
       default: null,
     },
-    isBeingTracked: {
+      isBeingTracked: {
       name: "isBeingTracked",
       type: "string",
-      model: "string",
       writeable: true,
       default: null,
     },
-    isFinished: {
+      isFinished: {
       name: "isFinished",
       type: "string",
-      model: "string",
       writeable: true,
       default: null,
     },
-    isStarted: {
+      isStarted: {
       name: "isStarted",
       type: "string",
-      model: "string",
       writeable: true,
       default: null,
     },
-    scheduledTo: {
+      isStatusable: {
+      name: "isStatusable",
+      type: "string",
+      writeable: true,
+      default: null,
+    },
+      scheduledTo: {
       name: "scheduledTo",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    startedAt: {
+      startedAt: {
       name: "startedAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    updatedAt: {
+      status: {
+      name: "status",
+      type: "string",
+      writeable: true,
+      default: "unstatusable",
+    },
+      updatedAt: {
       name: "updatedAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
@@ -131,5 +131,18 @@ export default {
     },
   ],
   enums: {
+    status: {
+      name: "status",
+      valueMap: {
+        unstatusable: 0,
+        pending: 1,
+        succeeded: 2,
+        questionable: 3,
+        failed: 4,
+        skipped: 5,
+      },
+      options: {
+      },
+    },
   },
 }

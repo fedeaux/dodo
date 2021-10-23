@@ -9,12 +9,20 @@ module Braindamage::Braindamageable
     self.extend Nameable
 
     columns.each do |column|
+      default = column.default
+
+      if column.type == :integer and column.default.is_a? String
+        default = default.to_i
+      end
+
       expose column.name, {
-        name: column.name,
-        type: column.type,
-        default: column.default
-      }
+               name: column.name,
+               type: column.type,
+               default: default
+             }
+
     end
+
 
     if self.exposed_attributes["id"]
       self.exposed_attributes["id"].writeable = false
@@ -29,6 +37,7 @@ module Braindamage::Braindamageable
       name = definitions.keys.first
       value_map = definitions.values.first
       options = definitions.except(name)
+      inverted_value_map = value_map.invert
 
       self.exposed_enums[name] = Braindamage::Enum.new({
         name: name,
@@ -40,7 +49,13 @@ module Braindamage::Braindamageable
 
       # Look for raw exposed attribute
       if self.exposed_attributes[name.to_s]
+        default_value = self.exposed_attributes[name.to_s].default
+
         self.exposed_attributes[name.to_s].type = "string"
+
+        if inverted_value_map[default_value]
+          self.exposed_attributes[name.to_s].default = inverted_value_map[default_value]
+        end
       end
     end
 

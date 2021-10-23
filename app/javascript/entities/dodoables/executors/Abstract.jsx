@@ -22,6 +22,7 @@ function SimpleFormDodoableExecutorActions({
   saveFormDodone,
   currentTime,
   finishTracking,
+  startTrackingFormDodone,
   saveFormDodoneAndBack,
   startTimer,
 }) {
@@ -61,14 +62,23 @@ function SimpleFormDodoableExecutorActions({
   } else if (dodoable.isChronometrable) {
     if (!dodone.isStarted) {
       return (
-        <View>
+        <View style={tw("flex-col")}>
           <PrimaryButton
             label="Start Tracking"
             size="large"
             color="success"
             block
-            onClick={saveFormDodone}
+            onClick={startTrackingFormDodone}
           />
+          {dodone.isStatusable && !dodone.isPending && (
+            <PrimaryButton
+              label="Save"
+              color="neutral"
+              tws="mt-2"
+              block
+              onClick={saveFormDodone}
+            />
+          )}
         </View>
       );
     } else {
@@ -180,11 +190,16 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
     // history.push("/");
   });
 
+  const startTrackingFormDodone = useCallback(async () => {
+    if (!formDodone.startedAt) {
+      formDodone.startedAt = new Date();
+    }
+
+    await saveDodone(formDodone);
+  });
+
   const saveDodone = useCallback(async (dodoneToBeSaved) => {
     let savedDodone = null;
-    if (!dodoneToBeSaved.startedAt) {
-      dodoneToBeSaved.startedAt = new Date();
-    }
 
     if (dodoneToBeSaved.isNewRecord) {
       const { response } = await create({
@@ -225,6 +240,7 @@ function SimpleFormDodoableExecutor({ dodoable, dodone, save }) {
           dodoable={dodoable}
           dodone={formDodone}
           saveFormDodone={saveFormDodone}
+          startTrackingFormDodone={startTrackingFormDodone}
           currentTime={currentTime}
           finishTracking={finishTracking}
           saveFormDodoneAndBack={saveFormDodoneAndBack}

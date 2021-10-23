@@ -58,6 +58,16 @@ export default function DodoneExperimentsSimpleForm({ dodone, setDodone }) {
           onChange={onDodoneChanged}
         />
       )}
+      {dodone.isStatusable && (
+        <AbstractField
+          type="select"
+          name="status"
+          value={dodone.status}
+          label="Status"
+          onChange={onDodoneChanged}
+          options={dodone.statusesAsOptions}
+        />
+      )}
     </>
   );
 }

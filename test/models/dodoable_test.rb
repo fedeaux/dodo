@@ -15,7 +15,7 @@ end
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string
-#  nature             :integer          default("other")
+#  nature             :integer          default("scheduled")
 #  slug               :string
 #  trigger            :jsonb
 #  created_at         :datetime         not null

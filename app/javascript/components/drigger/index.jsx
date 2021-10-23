@@ -9,7 +9,7 @@ import useCurrentTime from "util/useCurrentTime";
 import Chronometer from "ui/clocks/Chronometer";
 
 const variations = {
-  success: {
+  succeeded: {
     wrapper: { style: "dodone-dodoable-trigger" },
     text: { style: "dodone-dodoable-trigger-text" },
     actionIcon: { color: getColor("green-300"), size: 15, name: "check" },
@@ -23,6 +23,16 @@ const variations = {
     wrapper: { style: "failed-dodoable-trigger" },
     text: { style: "failed-dodoable-trigger-text" },
     actionIcon: { color: getColor("red-600"), size: 15, name: "close" },
+  },
+  skipped: {
+    wrapper: { style: "skipped-dodoable-trigger" },
+    text: { style: "skipped-dodoable-trigger-text" },
+    actionIcon: { color: getColor("gray-400"), size: 15, name: "close" },
+  },
+  questionable: {
+    wrapper: { style: "dodone-dodoable-trigger" },
+    text: { style: "dodone-dodoable-trigger-text" },
+    actionIcon: { color: getColor("green-300"), size: 15, name: "warning" },
   },
   pending: {
     wrapper: { style: "pending-dodoable-trigger" },
@@ -64,16 +74,10 @@ function BeingTrackedDrigger({ dodone, style }) {
       style={style}
     />
   );
-
-  // <View style={tw("flex")}>
-  //   <Text style={tw(style, "text-3xs text-center")}>
-  //     {format(dodone.startedAt, "HH:mm")}
-  //   </Text>
-  // </View>
 }
 
 function DriggerTimeInfo({ dodoable, dodone, v }) {
-  if (dodoable.isInstantaneous) {
+  if (dodoable.isInstantaneous || !dodone) {
     return null;
   }
 
@@ -116,13 +120,17 @@ function Drigger({
   text = dodoable.name,
   variation = "pending",
 }) {
-  variation = dodone.isBeingTracked ? "beingTracked" : variation;
+  variation = dodone?.isBeingTracked ? "beingTracked" : variation;
 
   const v = variations[variation];
   const history = useHistory();
 
   const gotoExecute = useCallback(() => {
-    history.push(`/dodoables/${dodoable.id}/executor`);
+    const executePath = dodone?.isPersisted
+      ? `/dodones/${dodone.id}/execute`
+      : `/dodoables/${dodoable.id}/execute`;
+
+    history.push(executePath);
   });
 
   const gotoShow = useCallback(() => {
@@ -146,7 +154,7 @@ function Drigger({
           <Text style={tw("flex-grow", v.text.style)}>{text}</Text>
         </View>
       </View>
-      {dodone.isBeingTracked ? (
+      {dodone?.isBeingTracked ? (
         <BeingTrackedDrigger
           dodone={dodone}
           style={tw(v.text.style, "text-sm")}
@@ -190,30 +198,21 @@ function TodosDrigger({ dodoable, dodone }) {
   }
 
   const text = `${dodoable.name} - ${doneCount}/${todoCount}`;
-  let variation = dodone.isFinished ? "success" : "pending";
 
   return (
     <Drigger
       dodoable={dodoable}
       dodone={dodone}
       text={text}
-      variation={variation}
+      variation={dodone.status}
     />
   );
 }
 
 function MealDrigger({ dodoable, dodone }) {
-  let variation = "pending";
-
-  if (dodone?.isFinished) {
-    if (dodone.fields.status.value == "Ate it") {
-      variation = "success";
-    } else {
-      variation = "failed";
-    }
-  }
-
-  return <Drigger dodoable={dodoable} dodone={dodone} variation={variation} />;
+  return (
+    <Drigger dodoable={dodoable} dodone={dodone} variation={dodone.status} />
+  );
 }
 
 const triggerMap = {
@@ -238,8 +237,8 @@ export default function AbstractDrigger({ dodoable, dodone }) {
   if (Trigger == null) {
     Trigger = Drigger;
 
-    if (dodone.isFinished) {
-      variation = "success";
+    if (dodone?.isFinished) {
+      variation = "succeeded";
     }
   }
 

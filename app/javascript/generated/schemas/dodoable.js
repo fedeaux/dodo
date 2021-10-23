@@ -64,6 +64,13 @@ export default {
       writeable: true,
       default: null,
     },
+    isStatusable: {
+      name: "isStatusable",
+      type: "boolean",
+      model: "string",
+      writeable: true,
+      default: null,
+    },
     lastDodone: {
       name: "lastDodone",
       type: "has_one",
@@ -167,7 +174,7 @@ export default {
     nature: {
       name: "nature",
       valueMap: {
-        other: 0,
+        scheduled: 0,
         independent: 1,
         habit: 2,
       },

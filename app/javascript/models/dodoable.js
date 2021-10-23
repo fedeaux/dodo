@@ -17,6 +17,22 @@ class Dodoable extends Model {
 
     return Number.MAX_VALUE;
   }
+
+  buildDodone({ day }) {
+    const Dodone = this.constructor.models['Dodone'];
+
+    return new Dodone({
+      dayId: day.id,
+      dodoableId: this.id,
+      fields: Object.values(this.fields)
+        .map((field) => {
+          return { value: field.default, ...field };
+        })
+        .reduce((fields, field) => {
+          return { ...fields, [field.name]: field };
+        }, {}),
+    })
+  }
 }
 
 export default Dodoable.define();

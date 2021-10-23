@@ -44,6 +44,8 @@ class BaseGenerator
       lines = [thing]
     elsif thing.is_a?(String) || thing.is_a?(Symbol)
       lines = ["\"#{thing}\""]
+    elsif thing.nil?
+      lines = ['null']
     end
 
     lines.join "\n#{indentation}"

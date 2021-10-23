@@ -17,7 +17,12 @@ class Api::DodonesController < ApiController
   private
 
   def dodone_params
-    params.require(:dodone).permit(:day_id, :started_at, :finished_at, :dodoable_id, fields: {})
+    params.require(:dodone).permit(:day_id,
+                                   :started_at,
+                                   :finished_at,
+                                   :dodoable_id,
+                                   :status,
+                                   fields: {})
   end
 
   def set_dodone

@@ -42,8 +42,6 @@ const FontFaces = `
 //   font-family: DigitalDismay;
 // }
 
-import BraindamageInitializer from "generated/initializer";
-
 document.addEventListener("DOMContentLoaded", () => {
   const useMobile = localStorage.getItem("useMobile");
 

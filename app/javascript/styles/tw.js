@@ -43,6 +43,9 @@ customStyles['dodone-dodoable-trigger-text'] = extend('text-xs text-green-300');
 customStyles['pending-dodoable-trigger'] = extend('dodoable-trigger bg-gray-900 bg-opacity-60');
 customStyles['pending-dodoable-trigger-text'] = extend('text-sm text-blue-300');
 
+customStyles['skipped-dodoable-trigger'] = extend('dodoable-trigger bg-gray-900 bg-opacity-40');
+customStyles['skipped-dodoable-trigger-text'] = extend('text-xs italic line-through text-gray-400');
+
 customStyles['being-tracked-dodoable-trigger'] = extend('dodoable-trigger bg-bluish-gray-900 bg-opacity-60');
 customStyles['being-tracked-dodoable-trigger-text'] = extend('text-xl text-blue-300');
 

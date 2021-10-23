@@ -1,4 +1,5 @@
 import { getTime } from 'date-fns';
+import { humanize } from 'inflected';
 import Model from "braindamage/model";
 import DodoneSchema from 'generated/schemas/dodone';
 
@@ -28,6 +29,16 @@ class Dodone extends Model {
     }
 
     return 0;
+  }
+
+  get useVisibleStatuses() {
+    return this.statuses.slice(1);
+  }
+
+  get statusesAsOptions() {
+    return this.useVisibleStatuses.map((status) => {
+      return { label: humanize(status), value: status };
+    })
   }
 }
 
