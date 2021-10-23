@@ -16,7 +16,7 @@ class Day < ApplicationRecord
 
   def time_of_day_in_user_timezone(string_time)
     parts = string_time.split(':').map(&:to_i)
-    beginning_of_day + parts[0].hours + parts[1].minutes + user.utc_offset.seconds
+    beginning_of_day + parts[0].hours + parts[1].minutes - user.utc_offset.seconds
   end
 
   def ensure_scheduled_dodones
