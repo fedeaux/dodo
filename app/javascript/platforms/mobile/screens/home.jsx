@@ -41,14 +41,24 @@ function IndependentDodoables() {
 function HabitDodoables() {
   const { dodoables, isLoading } = useApiDodoables({ scopes: ["habit"] });
 
+  const sortedDodoables = useMemo(() => {
+    if (isLoading) {
+      return [];
+    }
+
+    return dodoables.sort((dodoableA, dodoableB) => {
+      return dodoableA.slug.localeCompare(dodoableB.slug);
+    });
+  }, [dodoables]);
+
   if (isLoading) return null;
 
   return (
-    <>
-      {dodoables.map((dodoable) => {
+    <View style={tw("flex-row items-center justify-center")}>
+      {sortedDodoables.map((dodoable) => {
         return <Drigger key={dodoable.id} dodoable={dodoable} />;
       })}
-    </>
+    </View>
   );
 }
 

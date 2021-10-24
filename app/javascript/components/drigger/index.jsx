@@ -57,11 +57,7 @@ function DodoableIcon({ dodoable, ...props }) {
       IconMC: IconMC,
     }[dodoable.trigger.icon.component] || Icon;
 
-  return (
-    <View style={tw("mr-2")}>
-      <Component name={dodoable.trigger.icon.name} {...props} />
-    </View>
-  );
+  return <Component name={dodoable.trigger.icon.name} {...props} />;
 }
 
 function BeingTrackedDrigger({ dodone, style }) {
@@ -74,6 +70,10 @@ function BeingTrackedDrigger({ dodone, style }) {
       style={style}
     />
   );
+}
+
+function DriggerTinyText({ text, v }) {
+  return <Text style={tw(v.text.style, "text-3xs mb-1")}>{text}</Text>;
 }
 
 function DriggerTimeInfo({ dodoable, dodone, v }) {
@@ -113,30 +113,15 @@ function DriggerTimeInfo({ dodoable, dodone, v }) {
   return null;
 }
 
-function Drigger({
+function LineDrigger({
   dodoable,
   dodone,
+  v,
   actionIconName,
+  gotoExecute,
+  gotoShow,
   text = dodoable.name,
-  variation = "pending",
 }) {
-  variation = dodone?.isBeingTracked ? "beingTracked" : variation;
-
-  const v = variations[variation];
-  const history = useHistory();
-
-  const gotoExecute = useCallback(() => {
-    const executePath = dodone?.isPersisted
-      ? `/dodones/${dodone.id}/execute`
-      : `/dodoables/${dodoable.id}/execute`;
-
-    history.push(executePath);
-  });
-
-  const gotoShow = useCallback(() => {
-    history.push(`/dodoables/${dodoable.id}`);
-  });
-
   return (
     <TouchableOpacity
       onPress={gotoExecute}
@@ -146,11 +131,13 @@ function Drigger({
       <View style={tw("flex flex-grow")}>
         <DriggerTimeInfo dodoable={dodoable} dodone={dodone} v={v} />
         <View style={tw("flex flex-row items-center")}>
-          <DodoableIcon
-            dodoable={dodoable}
-            size={14}
-            color={v.actionIcon.color}
-          />
+          <View style={tw("mr-2")}>
+            <DodoableIcon
+              dodoable={dodoable}
+              size={14}
+              color={v.actionIcon.color}
+            />
+          </View>
           <Text style={tw("flex-grow", v.text.style)}>{text}</Text>
         </View>
       </View>
@@ -170,16 +157,113 @@ function Drigger({
   );
 }
 
+function IconDrigger({
+  dodoable,
+  dodone,
+  v,
+  actionIconName,
+  gotoExecute,
+  gotoShow,
+  text = dodoable.name,
+}) {
+  return (
+    <TouchableOpacity
+      onPress={gotoExecute}
+      onLongPress={gotoShow}
+      style={tw("flex items-center w-12 h-12 mx-2", v.wrapper.style)}
+    >
+      <DriggerTinyText text={text} v={v} />
+      <DodoableIcon dodoable={dodoable} size={20} color={v.actionIcon.color} />
+
+      {/* <View style={tw("flex")}> */}
+      {/*   <DriggerTimeInfo dodoable={dodoable} dodone={dodone} v={v} /> */}
+      {/*   <View style={tw("flex flex-row items-center")}> */}
+      {/*   </View> */}
+      {/* </View> */}
+      {/* {dodone?.isBeingTracked ? ( */}
+      {/*   <BeingTrackedDrigger */}
+      {/*     dodone={dodone} */}
+      {/*     style={tw(v.text.style, "text-sm")} */}
+      {/*   /> */}
+      {/* ) : ( */}
+      {/*   <Icon */}
+      {/*     size={v.actionIcon.size} */}
+      {/*     name={actionIconName || v.actionIcon.name} */}
+      {/*     color={v.actionIcon.color} */}
+      {/*   /> */}
+      {/* )} */}
+    </TouchableOpacity>
+  );
+}
+
+function Drigger({
+  dodoable,
+  dodone,
+  variation = "pending",
+  Display = LineDrigger,
+  ...props
+}) {
+  variation = dodone?.isBeingTracked ? "beingTracked" : variation;
+
+  const v = variations[variation];
+  const history = useHistory();
+
+  const gotoExecute = useCallback(() => {
+    const executePath = dodone?.isPersisted
+      ? `/dodones/${dodone.id}/execute`
+      : `/dodoables/${dodoable.id}/execute`;
+
+    history.push(executePath);
+  });
+
+  const gotoShow = useCallback(() => {
+    history.push(`/dodoables/${dodoable.id}`);
+  });
+
+  return (
+    <Display
+      dodoable={dodoable}
+      dodone={dodone}
+      v={v}
+      gotoExecute={gotoExecute}
+      gotoShow={gotoShow}
+      {...props}
+    />
+  );
+}
+
 function BadHabitDrigger({ dodoable, dodone }) {
-  let text = `${dodoable.trigger.label} never!`;
+  // let text = `${dodoable.trigger.label} never!`;
+
+  // if (dodone) {
+  //   if (dodone.startedAt) {
+  //     text = `${formatDistanceToNow(dodone.startedAt)} ${
+  //       dodoable.trigger.label
+  //     }`;
+  //   } else {
+  //     console.log("dodone", dodone, dodoable.trigger.label);
+  //     text = `???`;
+  //   }
+  // }
+
+  let text = `never!`;
 
   if (dodone) {
-    text = `${formatDistanceToNow(dodone.finishedAt)} ${
-      dodoable.trigger.label
-    }`;
+    if (dodone.startedAt) {
+      text = formatDistanceToNow(dodone.startedAt);
+    } else {
+      text = `???`;
+    }
   }
 
-  return <Drigger dodoable={dodoable} text={text} variation="secondary" />;
+  return (
+    <Drigger
+      dodoable={dodoable}
+      text={text}
+      variation="secondary"
+      Display={IconDrigger}
+    />
+  );
 }
 
 function TodosDrigger({ dodoable, dodone }) {

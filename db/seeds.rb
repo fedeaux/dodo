@@ -119,8 +119,8 @@ def bad_habits
         display: 'BadHabit',
         label: 'without f1',
         icon: {
-          name: 'leaf-maple',
-          component: 'IconMC'
+          name: 'leaf',
+          component: 'Icon5'
         }
       },
       fields: {
