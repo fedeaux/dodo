@@ -13,7 +13,7 @@ class Services::DayBuilder
       { slug: 'meal:second', scheduled_to: '11:00' },
       { slug: 'meal:third', scheduled_to: '15:30' },
       { slug: 'meal:fourth', scheduled_to: '19:30' },
-      { slug: 'chores:evening', scheduled_to: '21:30' },
+      { slug: 'chores:evening', scheduled_to: '22:00' },
       { slug: 'meal:fifth', scheduled_to: '23:00' },
     ].each do |attributes|
       scheduled_to = day.time_of_day_in_user_timezone attributes[:scheduled_to]

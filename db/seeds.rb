@@ -152,8 +152,8 @@ def bad_habits
 end
 
 [
-  meal_dodoable('first', 'Salad Cottage Sandwich', fields: bool_fields('Albumin', 'Vitamins')),
-  meal_dodoable('second', 'Yogurt Grains', fields: bool_fields('Albumin', 'Nootropics')),
+  meal_dodoable('first', 'Salad Cottage Sandwich', fields: bool_fields('Albumin', 'Vitamins', 'Nootropics')),
+  meal_dodoable('second', 'Yogurt Grains', fields: bool_fields('Albumin', 'Nootropics', 'Creatin')),
   meal_dodoable('third', 'Frozen Lunch'),
   meal_dodoable('fourth', 'Free', fields: bool_fields('Albumin', 'Vitamins')),
   meal_dodoable('fifth', 'Corn Flakes'),
@@ -180,33 +180,6 @@ end
     fields: {},
   },
   {
-    name: 'Evening Chores',
-    slug: "chores:evening",
-    trigger: {
-      display: 'Todos',
-      icon: {
-        name: 'wrench',
-        component: 'Icon5'
-      }
-    },
-    fields: {}.merge(
-      bool_fields(
-        'Tea',
-        'Juice',
-        'Water',
-        'Setup Coffee',
-        'Milk and Albumin',
-        'One song cleanup',
-        'Skincare'
-      ).merge(
-        comments: {
-          type: :text,
-          order: 999
-        }
-      )
-    ),
-  },
-  {
     name: 'On Wakeup',
     slug: "chores:wakeup",
     trigger: {
@@ -221,6 +194,34 @@ end
         'Water',
         'Coffee',
         'Concerta'
+      ).merge(
+        comments: {
+          type: :text,
+          order: 999
+        }
+      )
+    ),
+  },
+  {
+    name: 'Evening Chores',
+    slug: "chores:evening",
+    trigger: {
+      display: 'Todos',
+      icon: {
+        name: 'wrench',
+        component: 'Icon5'
+      }
+    },
+    fields: {}.merge(
+      bool_fields(
+        'Skincare',
+        'Tea',
+        'Juice',
+        'Water',
+        'Setup Coffee',
+        'Milk and Albumin',
+        'One song cleanup',
+        'Melatonin'
       ).merge(
         comments: {
           type: :text,

@@ -21,7 +21,7 @@ function MealDodoableShow({ dodoable }) {
             size="large"
             tws="flex-grow"
             label="Dodoit"
-            to={`/dodoables/${dodoable.id}/executor`}
+            to={`/dodoables/${dodoable.id}/execute`}
           />
         </View>
       </View>
