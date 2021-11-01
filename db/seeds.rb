@@ -152,11 +152,12 @@ def bad_habits
 end
 
 [
-  meal_dodoable('first', 'Salad Cottage Sandwich', fields: bool_fields('Albumin', 'Vitamins', 'Nootropics')),
-  meal_dodoable('second', 'Yogurt Grains', fields: bool_fields('Albumin', 'Nootropics', 'Creatin')),
+  meal_dodoable('first', 'Salad Cottage Sandwich & Yougurt Grains', fields: bool_fields('Albumin', 'Vitamins', 'Nootropics')),
+  meal_dodoable('second', 'Fruits'),
   meal_dodoable('third', 'Frozen Lunch'),
-  meal_dodoable('fourth', 'Free', fields: bool_fields('Albumin', 'Vitamins')),
-  meal_dodoable('fifth', 'Corn Flakes'),
+  meal_dodoable('fourth', 'Fish', fields: bool_fields('Albumin', 'Vitamins')),
+  meal_dodoable('fifth', 'Fruits', fields: bool_fields('Melatonin', 'Omega 3')),
+  meal_dodoable('sixth', 'Free'),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Singing', 'music:singing', trigger: { icon: { name: 'music' }}),
@@ -165,6 +166,7 @@ end
   practice_dodoable('Project: Dodo', 'projects:dodo', trigger: { icon: { name: 'rocket' }}),
   practice_dodoable('Project: Livestock', 'projects:livestock', trigger: { icon: { name: 'line-chart', component: 'Icon' }}),
   practice_dodoable('Exercise: Lake Run', 'exercise:lake-run', trigger: { icon: { name: 'running', component: 'Icon5' }}),
+  practice_dodoable('Exercise: Free', 'exercise:free', trigger: { icon: { name: 'running', component: 'Icon5' }}),
   {
     name: 'Breath Meditation',
     slug: "meditation:breath",
@@ -193,7 +195,8 @@ end
       bool_fields(
         'Water',
         'Coffee',
-        'Concerta'
+        'Concerta',
+        'Brintellix'
       ).merge(
         comments: {
           type: :text,
