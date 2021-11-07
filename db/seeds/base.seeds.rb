@@ -176,7 +176,7 @@ def bad_habits
 end
 
 [
-  home_training_dodoable,
+  # home_training_dodoable,
   meal_dodoable(
     'first',
     'Sandwich & Albumin',
