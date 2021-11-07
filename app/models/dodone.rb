@@ -63,6 +63,8 @@ class Dodone < ApplicationRecord
   end
 
   def ensure_dodoable_fields
+    return if self.fields
+
     self.fields = dodoable.fields
   end
 end

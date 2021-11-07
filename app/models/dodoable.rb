@@ -18,7 +18,8 @@ class Dodoable < ApplicationRecord
   exposed_enum nature: {
                  scheduled: 0,
                  independent: 1,
-                 habit: 2
+                 habit: 2,
+                 nested: 3
                }
 
   exposed_enum about_time: {
@@ -40,30 +41,13 @@ class Dodoable < ApplicationRecord
   end
 
   def fields
-    order = -1
-
-    plugins_fields.merge(super.deep_symbolize_keys).map do |name, options|
-      order += 1
-      label = name.to_s.titleize
-
-      options = {
-        name: name,
-        label: label,
-        order: order,
-        default: ''
-      }.merge(options)
-
-      if options[:type].to_sym == :select
-        options[:placeholder] = "Select #{label}"
-      end
-
-      [name, options]
-    end.to_h
+    FieldDsl.resolve plugins_fields.merge(super.deep_symbolize_keys)
   end
 
   def executor
     {
-      save_on_field_changed: true
+      save_on_field_changed: true,
+      type: 'SimpleForm'
     }.merge(super.deep_symbolize_keys)
   end
 

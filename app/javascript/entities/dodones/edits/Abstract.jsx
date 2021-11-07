@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import PrimaryButton from "ui/controls/button/primary";
 import ActionScreen from "platforms/mobile/screens/action";
-import DodoneExperimentsSimpleForm from "entities/dodones/experiments/SimpleForm";
+import DodoneForm from "entities/dodones/form";
 import { useApiUpdateDodone } from "generated/api";
 import { useHistory } from "lib/router";
 
@@ -22,10 +22,7 @@ function SimpleFormDodoneEdit({ dodone }) {
     <ActionScreen title={dodone.name}>
       <View style={tw("flex flex-grow p-4")}>
         <View style={tw("flex-grow")}>
-          <DodoneExperimentsSimpleForm
-            dodone={formDodone}
-            setDodone={setFormDodone}
-          />
+          <DodoneForm dodone={formDodone} setDodone={setFormDodone} />
         </View>
         <View style={tw("flex-row")}>
           <PrimaryButton

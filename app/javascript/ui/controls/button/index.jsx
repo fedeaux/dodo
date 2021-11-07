@@ -9,6 +9,7 @@ export default function Button({
   textStyle = {},
   style = "",
   to,
+  children,
   ...props
 }) {
   const disabledStyle = disabled ? "opacity-50" : "";
@@ -33,7 +34,11 @@ export default function Button({
       onPress={onPress}
       style={tw(disabledStyle, blockStyle, style)}
     >
-      <Text style={tw(textStyle, "text-center")}>{label}</Text>
+      {children ? (
+        children
+      ) : (
+        <Text style={tw(textStyle, "text-center")}>{label}</Text>
+      )}
     </TouchableOpacity>
   );
 }

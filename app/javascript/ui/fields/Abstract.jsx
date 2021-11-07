@@ -4,6 +4,7 @@ import TextInput from "ui/inputs/text";
 import SelectInput from "ui/inputs/select";
 import BoolInput from "ui/inputs/bool";
 import NumberInput from "ui/inputs/number";
+import CollectionInput from "ui/inputs/collection";
 
 import FieldLabel from "ui/fields/Label";
 
@@ -14,6 +15,7 @@ const inputMap = {
   time: TimeInput,
   duration: DurationInput,
   select: SelectInput,
+  collection: CollectionInput,
 };
 
 export default function AbstractField({

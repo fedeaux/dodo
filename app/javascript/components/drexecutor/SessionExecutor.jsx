@@ -1,7 +1,6 @@
 import ActionScreen from "platforms/mobile/screens/action";
 import BackgroundTimer from "lib/background-timer";
 import Chronometer from "ui/clocks/Chronometer";
-import DodoneForm from "entities/dodones/form";
 import PrimaryButton from "ui/controls/button/primary";
 import Timer from "ui/clocks/Timer";
 import useCurrentTime from "util/useCurrentTime";
@@ -9,7 +8,7 @@ import { Link, useHistory } from "lib/router";
 import { TouchableOpacity } from "react-native";
 import { useApiCreateDodone, useApiUpdateDodone } from "generated/api";
 
-function SimpleFormDodoableExecutorActions({
+function SessionDodoableExecutorActions({
   dodoable,
   dodone,
   saveDodone,
@@ -115,7 +114,7 @@ function SimpleFormDodoableExecutorActions({
   }
 }
 
-export default function SimpleFormExecutor({ dodone, dodoable }) {
+export default function SessionExecutor({ dodone, dodoable }) {
   const { create } = useApiCreateDodone();
   const { update } = useApiUpdateDodone();
   const history = useHistory();
@@ -151,6 +150,16 @@ export default function SimpleFormExecutor({ dodone, dodoable }) {
     history.push("/");
   });
 
+  // const startTimer = useCallback(async () => {
+  //   console.log(
+  //     "dodone.fields.duration.value",
+  //     formDodone.fields.duration.value
+  //   );
+  //   // await saveFormDodone();
+
+  //   // history.push("/");
+  // });
+
   const saveDodone = useCallback(async (dodoneToBeSaved) => {
     let savedDodone = null;
 
@@ -182,18 +191,15 @@ export default function SimpleFormExecutor({ dodone, dodoable }) {
 
   return (
     <ActionScreen title={dodoable.name}>
-      <View style={tw("flex flex-grow p-4")}>
-        <View style={tw("flex-grow")}>
-          <DodoneForm dodone={formDodone} setDodone={onFormDodoneChanged} />
-        </View>
-        <SimpleFormDodoableExecutorActions
-          dodoable={dodoable}
-          dodone={formDodone}
-          saveDodone={saveDodone}
-          currentTime={currentTime}
-          history={history}
-        />
-      </View>
+      {/* <View style={tw("flex flex-grow p-4")}> */}
+      {/*   <SessionDodoableExecutorActions */}
+      {/*     dodoable={dodoable} */}
+      {/*     dodone={formDodone} */}
+      {/*     saveDodone={saveDodone} */}
+      {/*     currentTime={currentTime} */}
+      {/*     history={history} */}
+      {/*   /> */}
+      {/* </View> */}
     </ActionScreen>
   );
 }

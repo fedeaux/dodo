@@ -1,20 +1,7 @@
 import AbstractField from "ui/fields/Abstract";
+import DodonesFieldsFields from "entities/dodones/fields/fields";
 
-export default function DodoneExperimentsSimpleForm({ dodone, setDodone }) {
-  const onDodoneFieldChanged = useCallback(
-    (payload) => {
-      const fields = dodone.fields;
-
-      Object.entries(payload).forEach(([name, value]) => {
-        fields[name].value = value;
-      });
-
-      dodone.fields = fields;
-      setDodone(dodone.clone());
-    },
-    [dodone, setDodone]
-  );
-
+export default function DodoneForm({ dodone, setDodone }) {
   const onDodoneChanged = useCallback(
     (payload) => {
       Object.entries(payload).forEach(([name, value]) => {
@@ -35,20 +22,7 @@ export default function DodoneExperimentsSimpleForm({ dodone, setDodone }) {
         label="Started At"
         onChange={onDodoneChanged}
       />
-
-      {Object.values(dodone.fields)
-        .sort((fa, fb) => {
-          return fa.order - fb.order;
-        })
-        .map((field) => {
-          return (
-            <AbstractField
-              key={field.name}
-              onChange={onDodoneFieldChanged}
-              {...field}
-            />
-          );
-        })}
+      <DodonesFieldsFields dodone={dodone} setDodone={setDodone} />
       {dodone.finishedAt && (
         <AbstractField
           type="time"
