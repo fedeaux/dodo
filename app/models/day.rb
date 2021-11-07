@@ -32,6 +32,8 @@ class Day < ApplicationRecord
   end
 
   def ensure_scheduled_dodones
+    return if dodones.any?
+
     Services::DayBuilder.new(self).build
   end
 
@@ -39,6 +41,10 @@ class Day < ApplicationRecord
     dodones.includes(:dodoable).reject do |dodone|
       dodone.dodoable.instantaneous?
     end
+  end
+
+  def weekday
+    day.strftime('%a').downcase.to_sym
   end
 end
 
