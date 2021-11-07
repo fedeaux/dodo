@@ -152,12 +152,23 @@ def bad_habits
 end
 
 [
-  meal_dodoable('first', 'Salad Cottage Sandwich & Yougurt Grains', fields: bool_fields('Albumin', 'Vitamins', 'Nootropics')),
-  meal_dodoable('second', 'Fruits'),
+  meal_dodoable(
+    'first',
+    'Sandwich & Albumin',
+    fields: bool_fields(
+      'Water',
+      'Coffee',
+      'Albumin',
+      'Vitamins',
+      'Nootropics',
+      'Concerta',
+      'Brintellix',
+    )
+  ),
+  meal_dodoable('second', 'Yougurt Grains', fields: bool_fields('Albumin', 'Creatin')),
   meal_dodoable('third', 'Frozen Lunch'),
   meal_dodoable('fourth', 'Fish', fields: bool_fields('Albumin', 'Vitamins')),
   meal_dodoable('fifth', 'Fruits', fields: bool_fields('Melatonin', 'Omega 3')),
-  meal_dodoable('sixth', 'Free'),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Singing', 'music:singing', trigger: { icon: { name: 'music' }}),

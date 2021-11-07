@@ -22,6 +22,15 @@ class Day < ApplicationRecord
     beginning_of_day + parts[0].hours + parts[1].minutes - user.utc_offset.seconds
   end
 
+  def time_of_day_in_user_timezone_adjusted_by_wokeup_at(string_time, string_expected_base_wokeup_at)
+    time_of_day_in_user_timezone(string_time) + wokeup_at_adjustment(string_expected_base_wokeup_at).seconds
+  end
+
+  def wokeup_at_adjustment(string_expected_base_wokeup_at)
+    expected_base_wokeup_at = time_of_day_in_user_timezone string_expected_base_wokeup_at
+    wokeup_at - expected_base_wokeup_at
+  end
+
   def ensure_scheduled_dodones
     Services::DayBuilder.new(self).build
   end

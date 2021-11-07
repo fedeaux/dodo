@@ -69,27 +69,6 @@ function DayTimeslots({ day }) {
 
   const timeslots = evalTimeslots(day.wokeupAt, minutesPerSlot);
 
-  const dodones = [
-    // {
-    //   id: 1,
-    //   title: "Investment Operations and Art",
-    //   startedAt: parseISO("2021-08-24T12:30:00.999Z"),
-    //   finishedAt: parseISO("2021-08-24T13:55:00.999Z"),
-    // },
-    // {
-    //   id: 2,
-    //   title: "Exercise and Meditation",
-    //   startedAt: parseISO("2021-08-24T14:00:00.999Z"),
-    //   finishedAt: parseISO("2021-08-24T15:55:00.999Z"),
-    // },
-    // {
-    //   id: 3,
-    //   title: "Wordable",
-    //   startedAt: parseISO("2021-08-24T16:00:00.999Z"),
-    //   finishedAt: parseISO("2021-08-24T21:25:00.999Z"),
-    // },
-  ];
-
   return (
     <View style={tw("relative")}>
       {timeslots.map((timeslot) => {
@@ -178,16 +157,25 @@ export default function Home() {
 
   return (
     <View style={tw("flex flex-col h-full")}>
-      {days.map((day) => {
-        return (
-          <View key={day.id}>
-            <Text>{format(day.day, "E, MMM do")}</Text>
-            {day.wokeupAt && <Text>{format(day.wokeupAt, "HH:mm")}</Text>}
-          </View>
-        );
-      })}
-
       <Button label="Use Mobile" onClick={useMobile} />
+      <View style={tw("flex flex-row flex-grow")}>
+        {days.map((day) => {
+          return (
+            <View key={day.id} style={tw("w-40 px-4")}>
+              <Text>{format(day.day, "E, MMM do")}</Text>
+              {day.wokeupAt && <Text>{format(day.wokeupAt, "HH:mm")}</Text>}
+
+              {day.scheduleDodones.map((dodone) => {
+                return (
+                  <Text style={tw("py-2")} key={dodone.id}>
+                    {dodone.dodoable.name}
+                  </Text>
+                );
+              })}
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 }
