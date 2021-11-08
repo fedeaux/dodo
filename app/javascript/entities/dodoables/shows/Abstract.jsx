@@ -9,8 +9,8 @@ function MealDodoableShow({ dodoable }) {
 
   return (
     <ActionScreen title={dodoable.name}>
-      <View style={tw("flex flex-grow p-4")}>
-        <ScrollView style={tw("flex-grow")}>
+      <View style={tw("flex flex-1 p-4")}>
+        <ScrollView style={tw("flex-1 mb-4")}>
           {dodoable.dodones.map((dodone) => {
             return <DodoneListItem key={dodone.id} dodone={dodone} />;
           })}

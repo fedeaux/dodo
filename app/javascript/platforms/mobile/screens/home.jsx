@@ -30,11 +30,11 @@ function IndependentDodoables() {
   if (isLoading) return null;
 
   return (
-    <>
+    <ScrollView style={tw("flex-1")}>
       {sortedDodoables.map((dodoable) => {
         return <Drigger key={dodoable.id} dodoable={dodoable} />;
       })}
-    </>
+    </ScrollView>
   );
 }
 
@@ -93,18 +93,16 @@ function Schedule({ day }) {
   }, [day]);
 
   return (
-    <View style={tw("flex flex-grow")}>
-      <View style={tw("flex-grow mb-4")}>
-        <ScrollView style={{ maxHeight: 520 }}>
-          <DayFieldWokeupAt day={day} />
-          {sortedScheduleDodones.map((dodone) => {
-            return <Drigger key={dodone.id} dodone={dodone} />;
-          })}
-          <DayFieldTurnedOffAt day={day} />
-        </ScrollView>
-      </View>
+    <>
+      <ScrollView style={tw("flex-1 mb-4")}>
+        <DayFieldWokeupAt day={day} />
+        {sortedScheduleDodones.map((dodone) => {
+          return <Drigger key={dodone.id} dodone={dodone} />;
+        })}
+        <DayFieldTurnedOffAt day={day} />
+      </ScrollView>
       <HabitDodoables />
-    </View>
+    </>
   );
 }
 
@@ -118,7 +116,7 @@ function DayAfterWakeup({ day }) {
   const [activeTab, setActiveTab] = useHomeActiveTab();
 
   return (
-    <View style={tw("flex flex-grow")}>
+    <View style={tw("flex flex-1")}>
       <View style={tw("flex-row")}>
         <TabTrigger
           setActiveTab={setActiveTab}
@@ -133,7 +131,7 @@ function DayAfterWakeup({ day }) {
           activeTab={activeTab}
         />
       </View>
-      <View style={tw("flex flex-grow")}>
+      <View style={tw("flex flex-1")}>
         {!activeTab && <Schedule day={day} />}
         {activeTab == "independent" && <IndependentDodoables />}
       </View>

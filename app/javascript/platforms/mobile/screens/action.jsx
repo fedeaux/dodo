@@ -1,5 +1,5 @@
 import Icon from "react-native-vector-icons/FontAwesome";
-import { ImageBackground } from "react-native";
+import { ImageBackground, Dimensions } from "react-native";
 import { Link } from "lib/router";
 import { useHistory } from "lib/router";
 
@@ -9,11 +9,15 @@ export default function ActionScreen({ children, backTo, title = null }) {
     history.goBack();
   });
 
+  const height = Dimensions.get("window").height;
+
   return (
     <ImageBackground
       source={{ uri: "https://iili.io/30Thbt.jpg" }}
-      style={{ width: "100%", height: "100%" }}
-      style={tw("w-full h-full")}
+      style={tw("w-full flex", {
+        height: height,
+        maxHeight: height,
+      })}
     >
       <View style={tw("w-full h-full flex-col bg-gray-900 bg-opacity-60")}>
         <View style={tw("px-4 pb-1 pt-4 min-h-14")}>
@@ -25,7 +29,7 @@ export default function ActionScreen({ children, backTo, title = null }) {
             <Icon size={18} name="home" />
           </Link>
         </View>
-        <View style={tw("flex-grow")}>{children}</View>
+        <View style={tw("flex-1")}>{children}</View>
       </View>
     </ImageBackground>
   );

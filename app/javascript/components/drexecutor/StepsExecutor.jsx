@@ -6,7 +6,7 @@ import PrimaryButton from "ui/controls/button/primary";
 import Timer from "ui/clocks/Timer";
 import useCurrentTime from "util/useCurrentTime";
 import { Link, useHistory } from "lib/router";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ScrollView } from "react-native";
 import { useApiCreateDodone, useApiUpdateDodone } from "generated/api";
 import IconMC from "react-native-vector-icons/MaterialCommunityIcons";
 import CollectionInputItem from "ui/inputs/collection_item";
@@ -150,9 +150,9 @@ function SimpleRepsExecutor({ dodone, dodoable, setDodone }) {
 function SetupStep({ dodone, dodoable, setDodone, saveDodone, start }) {
   return (
     <>
-      <View style={tw("flex-grow")}>
+      <ScrollView style={tw("flex-1 mb-4")}>
         <DodonesFieldsFields dodone={dodone} setDodone={setDodone} />
-      </View>
+      </ScrollView>
       <PrimaryButton
         label="Start"
         size="large"
@@ -168,7 +168,7 @@ export default function StepsExecutor({ dodone, dodoable }) {
   const { update } = useApiUpdateDodone();
   const history = useHistory();
   const currentTime = useCurrentTime();
-  const [currentStepIndex, setCurrentStepIndex] = useState(1);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const [formDodone, setFormDodone] = useState(dodone);
   const [autosaveTimer, setAutosaveTimer] = useState(null);
@@ -242,7 +242,7 @@ export default function StepsExecutor({ dodone, dodoable }) {
 
   return (
     <ActionScreen title={dodoable.name}>
-      <View style={tw("flex flex-grow p-4")}>
+      <View style={tw("flex flex-1 p-4")}>
         {currentStepIndex ? (
           <SimpleRepsExecutor
             dodone={formDodone}

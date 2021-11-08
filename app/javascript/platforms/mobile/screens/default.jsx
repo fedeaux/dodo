@@ -41,7 +41,7 @@ export default function DefaultScreen({ children, title = null }) {
       {showMenu ? (
         <Menu closeMenu={closeMenu} />
       ) : (
-        <View style={tw("w-full flex flex-grow bg-gray-900 bg-opacity-60")}>
+        <View style={tw("w-full flex flex-1 bg-gray-900 bg-opacity-60")}>
           <View style={tw("flex flex-row px-4 pb-1 pt-4")}>
             <TouchableOpacity
               style={tw("mr-4 pt-1 text-blue-200 absolute top-4 right-4")}
@@ -57,7 +57,7 @@ export default function DefaultScreen({ children, title = null }) {
             </TouchableOpacity>
             <Text style={tw("text-blue-300 pt-1")}>{title}</Text>
           </View>
-          <View style={tw("flex-grow p-4")}>{children}</View>
+          <View style={tw("flex flex-1 p-4")}>{children}</View>
         </View>
       )}
     </ImageBackground>
