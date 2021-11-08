@@ -7,6 +7,8 @@ export default function CollectionInputItem({
   fields,
   onChange,
   removeItem,
+  fieldsOptions = {},
+  ...props
 }) {
   const handleOnChange = useCallback((payload) => {
     onChange({ ...payload, index: index });
@@ -16,22 +18,36 @@ export default function CollectionInputItem({
     removeItem(index);
   });
 
+  const s =
+    fieldsOptions.variant == "compact"
+      ? {
+          rowWrapper: "items-end",
+          fieldsWrapper: "flex-row",
+          fieldWrapper: "pr-4",
+        }
+      : {
+          rowWrapper: "items-center",
+          fieldsWrapper: "flex-col pr-2",
+          fieldWrapper: "",
+        };
+
   return (
-    <View key={index} style={tw("px-2 flex-row items-center")}>
-      <View key={index} style={tw("pr-2 flex-grow")}>
+    <View style={tw("flex-row", s.rowWrapper)}>
+      <View style={tw("flex-1", s.fieldsWrapper)}>
         {Object.values(fields)
           .sort((fa, fb) => {
             return fa.order - fb.order;
           })
           .map((field) => {
             return (
-              <AbstractField
-                key={field.name}
-                onChange={handleOnChange}
-                value={value[field.name]}
-                {...field}
-                name={field.name}
-              />
+              <View key={field.name} style={tw("flex-grow", s.fieldWrapper)}>
+                <AbstractField
+                  onChange={handleOnChange}
+                  value={value[field.name]}
+                  {...fieldsOptions}
+                  {...field}
+                />
+              </View>
             );
           })}
       </View>

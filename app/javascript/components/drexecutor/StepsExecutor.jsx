@@ -128,8 +128,8 @@ function SimpleRepsExecutor({ dodone, dodoable, setDodone }) {
         <CollectionInputItem
           index={currentSetIndex}
           value={currentSet}
-          fields={dodone.fields.sets.fields}
           onChange={handleOnChange}
+          {...dodone.fields.sets}
         />
       </View>
       <RestableStepActions

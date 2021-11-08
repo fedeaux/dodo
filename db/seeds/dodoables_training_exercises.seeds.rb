@@ -31,6 +31,9 @@ def sre(dodoable_attributes) # Simple Reps Exercise
           { reps: 10, weight: 0 },
           { reps: 10, weight: 0 }
         ],
+        fields_options: {
+          variant: :compact
+        },
         fields: {
           reps: {
             type: :number,
@@ -49,15 +52,17 @@ end
 after :base do
   user = User.find 1
 
-  # [
-  #   sre(slug: 'training:bodybuilding:push:push-ups:closed:0deg:bodyweight', name: 'Closed Push Ups'),
-  #   sre(slug: 'training:bodybuilding:push:push-ups:open:0deg:bodyweight', name: 'Open Push Ups'),
-  # ].each do |dodoable_attributes|
-  #   Dodoable.where(
-  #     slug: dodoable_attributes[:slug],
-  #     user_id: user.id
-  #   )
-  #     .first_or_create
-  #     .update(dodoable_attributes)
-  # end
+  [
+    sre(slug: 'training:bodybuilding:push:push-ups:closed:0deg:bodyweight', name: 'Closed Push Ups'),
+    sre(slug: 'training:bodybuilding:push:push-ups:open:0deg:bodyweight', name: 'Open Push Ups'),
+  ].each do |dodoable_attributes|
+    next
+
+    Dodoable.where(
+      slug: dodoable_attributes[:slug],
+      user_id: user.id
+    )
+      .first_or_create
+      .update(dodoable_attributes)
+  end
 end

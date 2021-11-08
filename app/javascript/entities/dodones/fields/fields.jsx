@@ -5,15 +5,11 @@ export default function DodonesFieldsFields({ dodone, setDodone }) {
     (payload) => {
       const fields = dodone.fields;
 
-      console.log("fields", fields);
-
       Object.entries(payload).forEach(([name, value]) => {
-        console.log("name, value", name, value);
         fields[name].value = value;
       });
 
       dodone.fields = fields;
-      console.log("dodone.clone()", dodone.clone());
       setDodone(dodone.clone());
     },
     [dodone, setDodone]

@@ -33,13 +33,15 @@ export default function CollectionInput({ value, onChange, fields, ...props }) {
     });
   });
 
+  // console.log("-1 props", props);
+
   if (typeof value.map != "function") {
     return null;
   }
 
   return (
     <>
-      <View style={tw("mb-2")}>
+      <View style={tw("mb-4")}>
         {value.map((valueItem, valueIndex) => {
           return (
             <CollectionInputItem
@@ -49,6 +51,7 @@ export default function CollectionInput({ value, onChange, fields, ...props }) {
               fields={fields}
               onChange={handleOnChange}
               removeItem={removeItem}
+              {...props}
             />
           );
         })}

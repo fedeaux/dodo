@@ -14,9 +14,13 @@ const sizeVariations = {
   large: {
     style: "",
   },
+  input: {
+    width: 30,
+    height: 36,
+  },
 };
 
-export default function CircleButton({
+export default function SquareButton({
   size = "default",
   color = "default",
   tws = "",
@@ -30,11 +34,11 @@ export default function CircleButton({
     <Button
       {...props}
       style={tw(
-        "flex-row text-center items-center",
+        "flex-row text-center rounded items-center",
         colorVariation.style,
         tws,
         {
-          borderRadius: 100,
+          borderRadius: 0,
           ...sizeVariation,
         }
       )}
