@@ -63,9 +63,7 @@ class Dodone < ApplicationRecord
   end
 
   def ensure_dodoable_fields
-    return if self.fields
-
-    self.fields = dodoable.fields
+    self.fields = dodoable.fields.deep_merge self.fields.deep_symbolize_keys
   end
 end
 
