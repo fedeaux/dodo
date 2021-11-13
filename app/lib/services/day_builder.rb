@@ -37,15 +37,27 @@ class Services::DayBuilder
     ]
   end
 
+  def weekend
+[
+        { slug: 'jump-wakeup', scheduled_to: '07:00' },
+        { slug: 'exercise:legacy-dodo', scheduled_to: '08:00' },
+        { slug: 'meal:first', scheduled_to: '10:20' },
+        { slug: 'meal:second', scheduled_to: '14:00' },
+        { slug: 'meal:third', scheduled_to: '18:00' },
+        { slug: 'chores:evening', scheduled_to: '21:30' },
+        { slug: 'meal:fourth', scheduled_to: '21:45' },
+      ]
+  end
+
   def week_schedule
     {
-      sun: [],
+      sun: weekend,
       mon: week_day,
       tue: week_day(exercise_slug: 'exercise:legacy-dodo'),
       wed: week_day,
       thu: week_day(exercise_slug: 'exercise:legacy-dodo'),
       fri: week_day,
-      sat: week_day,
+      sat: weekend,
     }
   end
 end
