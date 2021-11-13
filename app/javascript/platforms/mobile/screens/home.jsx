@@ -101,7 +101,7 @@ function Schedule({ day }) {
         })}
         <DayFieldTurnedOffAt day={day} />
       </ScrollView>
-      <HabitDodoables />
+      {/* <HabitDodoables /> */}
     </>
   );
 }

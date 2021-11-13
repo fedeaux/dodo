@@ -15,7 +15,7 @@ end
 #  finished_at  :datetime
 #  scheduled_to :datetime
 #  started_at   :datetime
-#  status       :integer          default("success")
+#  status       :integer          default("unstatusable")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  day_id       :bigint           not null

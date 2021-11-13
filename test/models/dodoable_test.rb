@@ -12,6 +12,7 @@ end
 #
 #  id                 :bigint           not null, primary key
 #  about_time         :integer          default("chronometrable")
+#  active             :boolean          default(TRUE)
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string

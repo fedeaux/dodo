@@ -10,6 +10,7 @@ import BackgroundTimer from "lib/background-timer";
 
 export default function App() {
   const { day, isLoading } = useApiDay("today");
+  // const [homeActiveTab, setHomeActiveTab] = useState("independent");
   const [homeActiveTab, setHomeActiveTab] = useState();
 
   const [currentTime, setCurrentTime] = useState(new Date());

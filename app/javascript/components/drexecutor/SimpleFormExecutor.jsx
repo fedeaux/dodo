@@ -8,6 +8,7 @@ import useCurrentTime from "util/useCurrentTime";
 import { Link, useHistory } from "lib/router";
 import { TouchableOpacity } from "react-native";
 import { useApiCreateDodone, useApiUpdateDodone } from "generated/api";
+import FieldLabel from "ui/fields/Label";
 
 function SimpleFormDodoableExecutorActions({
   dodoable,
@@ -115,6 +116,23 @@ function SimpleFormDodoableExecutorActions({
   }
 }
 
+function DodoableInstructions({ dodoable }) {
+  if (!dodoable.executor.instructions) return null;
+
+  return (
+    <View style={tw("mt-6")}>
+      <FieldLabel label="Instructions" />
+      {dodoable.executor.instructions.map((instruction) => {
+        return (
+          <Text key={instruction} style={tw("mb-1")}>
+            {instruction}
+          </Text>
+        );
+      })}
+    </View>
+  );
+}
+
 export default function SimpleFormExecutor({ dodone, dodoable }) {
   const { create } = useApiCreateDodone();
   const { update } = useApiUpdateDodone();
@@ -185,6 +203,7 @@ export default function SimpleFormExecutor({ dodone, dodoable }) {
       <View style={tw("flex flex-grow p-4")}>
         <View style={tw("flex-grow")}>
           <DodoneForm dodone={formDodone} setDodone={onFormDodoneChanged} />
+          {<DodoableInstructions dodoable={dodoable} />}
         </View>
         <SimpleFormDodoableExecutorActions
           dodoable={dodoable}

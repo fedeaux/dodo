@@ -28,6 +28,11 @@ class Dodoable < ApplicationRecord
                  instantaneous: 2
                }
 
+  default_scope ->{ where(active: true) }
+  scope :even_inactive, ->{
+    unscope(where: :active)
+  }
+
   def plugins_fields
     fields = {}
 
@@ -88,6 +93,7 @@ end
 #
 #  id                 :bigint           not null, primary key
 #  about_time         :integer          default("chronometrable")
+#  active             :boolean          default(TRUE)
 #  executor           :jsonb
 #  fields             :jsonb
 #  name               :string

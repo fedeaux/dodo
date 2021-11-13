@@ -1,6 +1,10 @@
 user = User.where(id: 1).first_or_create
 user.update(email: 'phec06@gmail.com', name: 'Pedro', timezone: 'America/Sao_Paulo')
 
+def reslug_dodoable(current_slug, new_slug)
+  Dodoable.find_by(slug: current_slug)&.update(slug: new_slug)
+end
+
 def meal_dodoable(slug_suffix, name, fields: {})
   {
     name: name,
@@ -18,6 +22,35 @@ def meal_dodoable(slug_suffix, name, fields: {})
         order: 999
       }
     }.merge(fields),
+  }
+end
+
+def jump_wakeup
+  {
+    name: 'Jump Wakeup',
+    slug: "jump-wakeup",
+    trigger: {
+      display: 'Todos',
+      icon: {
+        component: 'IconMC',
+        name: 'silverware'
+      }
+    },
+    fields: bool_fields(
+      'Malto Albumin',
+      'Sandwish',
+      'Concerta',
+      'Brintellix',
+      'Vitamins',
+      'Nootropics',
+      'Water',
+      'Coffee'
+    ).merge({
+              comments: {
+                type: :text,
+                order: 999
+              }
+            })
   }
 end
 
@@ -67,15 +100,16 @@ def bool_fields(*fields)
   field_hash
 end
 
-def practice_dodoable(name, slug, trigger: {})
+def practice_dodoable(name, slug, trigger: {}, nature: :independent, executor: {})
   {
     name: name,
     slug: slug,
-    nature: :independent,
+    nature: nature,
     trigger: {
       display: 'Empty',
     }.merge(trigger),
     fields: {},
+    executor: executor
   }
 end
 
@@ -176,33 +210,43 @@ def bad_habits
 end
 
 [
+  jump_wakeup,
   # home_training_dodoable,
-  meal_dodoable(
-    'first',
-    'Sandwich & Albumin',
-    fields: bool_fields(
-      'Water',
-      'Coffee',
-      'Albumin',
-      'Vitamins',
-      'Nootropics',
-      'Concerta',
-      'Brintellix',
-    )
-  ),
-  meal_dodoable('second', 'Yougurt Grains', fields: bool_fields('Albumin', 'Creatin')),
-  meal_dodoable('third', 'Frozen Lunch'),
-  meal_dodoable('fourth', 'Fish', fields: bool_fields('Albumin', 'Vitamins')),
-  meal_dodoable('fifth', 'Fruits', fields: bool_fields('Melatonin', 'Omega 3')),
+  meal_dodoable('first', 'Sandwish and Juice'),
+  meal_dodoable('second', 'Frozen Lunch and Juice'),
+  meal_dodoable('third', 'Fish', fields: bool_fields('Albumin', 'Creatin')),
+  meal_dodoable('fourth', 'Free', fields: bool_fields('Melatonin', 'Omega 3')),
+  practice_dodoable('Shredding Investments', 'shredding-investments', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Singing', 'music:singing', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Read', 'read', trigger: { icon: { name: 'book' }}),
-  practice_dodoable('Work: Wordable', 'work:wordable', trigger: { icon: { name: 'dollar-sign', component: 'Icon5' }}),
+  practice_dodoable('Retirement: Morning Setup',
+                    'retirement:morning-setup',
+                    trigger: {
+                      icon: {
+                        name: 'white-balance-sunny',
+                        component: 'IconMC'
+                      }
+                    },
+                    nature: :scheduled,
+                    executor: {
+                      instructions: [
+                        'Answer People',
+                        'Bureaucracies',
+                        'Follow Ups',
+                        'Review Trading View',
+                        'Setup a few orders'
+                      ]
+                    }
+                   ),
+  practice_dodoable('Retirement: First Deep Work', 'retirement:first-deep-work', trigger: { icon: { name: 'white-balance-sunny', component: 'IconMC' }}, nature: :scheduled),
+  practice_dodoable('Retirement: Second Deep Work', 'retirement:second-deep-work', trigger: { icon: { name: 'white-balance-sunny', component: 'IconMC' }}, nature: :scheduled),
   practice_dodoable('Project: Dodo', 'projects:dodo', trigger: { icon: { name: 'rocket' }}),
   practice_dodoable('Project: Livestock', 'projects:livestock', trigger: { icon: { name: 'line-chart', component: 'Icon' }}),
   practice_dodoable('Exercise: Lake Run', 'exercise:lake-run', trigger: { icon: { name: 'running', component: 'Icon5' }}),
   practice_dodoable('Exercise: Free', 'exercise:free', trigger: { icon: { name: 'running', component: 'Icon5' }}),
+  practice_dodoable('Exercise: Legacy Dodo', 'exercise:legacy-dodo', trigger: { icon: { name: 'running', component: 'Icon5' }}),
   {
     name: 'Breath Meditation',
     slug: "meditation:breath",
@@ -254,11 +298,13 @@ end
     fields: {}.merge(
       bool_fields(
         'Skincare',
+        'Journaling',
         'Tea',
         'Juice',
         'Water',
         'Setup Coffee',
-        'Milk and Albumin',
+        'Prepare Milk and Albumin',
+        'Prepare Tomorrow\'s Meals',
         'One song cleanup',
         'Melatonin'
       ).merge(
@@ -270,10 +316,22 @@ end
     ),
   }
 ].concat(bad_habits).each do |dodoable_attributes|
-  Dodoable.where(
-    slug: dodoable_attributes[:slug],
-    user_id: user.id
-  )
+  Dodoable
+    .even_inactive
+    .where(
+      slug: dodoable_attributes[:slug],
+      user_id: user.id
+    )
     .first_or_create
     .update(dodoable_attributes)
 end
+
+def deactivate(*slugs)
+  slugs.each do |slug|
+    Dodoable.where(slug: slug).update_all(active: false)
+  end
+end
+
+deactivate('work:wordable', 'music:piano', 'music:singing')
+
+# reset_schedule

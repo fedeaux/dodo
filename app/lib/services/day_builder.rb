@@ -22,72 +22,30 @@ class Services::DayBuilder
     week_schedule[day.weekday]
   end
 
+  def week_day(exercise_slug: 'exercise:lake-run')
+    [
+      { slug: 'jump-wakeup', scheduled_to: '07:00' },
+      { slug: exercise_slug, scheduled_to: '08:00' },
+      { slug: 'retirement:morning-setup', scheduled_to: '09:30' },
+      { slug: 'meal:first', scheduled_to: '10:20' },
+      { slug: 'retirement:first-deep-work', scheduled_to: '11:00' },
+      { slug: 'meal:second', scheduled_to: '14:00' },
+      { slug: 'retirement:second-deep-work', scheduled_to: '14:30' },
+      { slug: 'meal:third', scheduled_to: '18:00' },
+      { slug: 'chores:evening', scheduled_to: '21:30' },
+      { slug: 'meal:fourth', scheduled_to: '21:45' },
+    ]
+  end
+
   def week_schedule
     {
-      sun: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
-      mon: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'exercise:lake-run', scheduled_to: '08:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'work:wordable', scheduled_to: '11:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
-      tue: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'work:wordable', scheduled_to: '11:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
-      wed: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'exercise:lake-run', scheduled_to: '08:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'work:wordable', scheduled_to: '11:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
-      thu: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'work:wordable', scheduled_to: '11:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
-      fri: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'exercise:lake-run', scheduled_to: '08:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'work:wordable', scheduled_to: '11:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
-      sat: [
-        { slug: 'meal:first', scheduled_to: '07:00' },
-        { slug: 'meal:second', scheduled_to: '10:00' },
-        { slug: 'meal:third', scheduled_to: '14:00' },
-        { slug: 'meal:fourth', scheduled_to: '17:30' },
-        { slug: 'meal:fifth', scheduled_to: '21:30' },
-        { slug: 'chores:evening', scheduled_to: '21:45' },
-      ],
+      sun: [],
+      mon: week_day,
+      tue: week_day(exercise_slug: 'exercise:legacy-dodo'),
+      wed: week_day,
+      thu: week_day(exercise_slug: 'exercise:legacy-dodo'),
+      fri: week_day,
+      sat: week_day,
     }
   end
 end
