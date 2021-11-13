@@ -334,9 +334,9 @@ end
 
 deactivate('work:wordable', 'music:piano', 'music:singing')
 
-def reset_schedule
+def reset_schedule(user)
   user.current_day.dodones.destroy_all
   user.current_day.ensure_scheduled_dodones
 end
 
-reset_schedule
+reset_schedule user
