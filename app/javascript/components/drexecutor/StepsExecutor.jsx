@@ -30,9 +30,9 @@ function RestableStepActions({
   pauseTimer,
   timerInterval,
   startTimer,
+  showingClockOptions,
+  toogleClockOptions,
 }) {
-  const [showingClockOptions, , , toogleClockOptions] = useBoolState();
-
   if (leftRestTime >= 0) {
     return (
       <TouchableOpacity onPress={toogleClockOptions} style={tw("relative")}>
@@ -62,16 +62,23 @@ function RestableStepActions({
             />
           </TouchableOpacity>
         )}
-        <Clock style={tw("text-6xl text-center")} seconds={leftRestTime} />
+        <Clock
+          style={tw("text-7xl text-center bg-black bg-opacity-20 p-2")}
+          seconds={leftRestTime}
+        />
       </TouchableOpacity>
     );
   }
 
-  if (isLastItem) {
-    return <PrimaryButton label="Dodone!" onClick={finish} />;
-  }
-
-  return <PrimaryButton label="Next" onClick={next} />;
+  return (
+    <View style={tw("p-4")}>
+      {isLastItem ? (
+        <PrimaryButton label="Dodone!" onClick={finish} />
+      ) : (
+        <PrimaryButton label="Next" onClick={next} />
+      )}
+    </View>
+  );
 }
 
 function SimpleRepsExecutor({
@@ -88,6 +95,8 @@ function SimpleRepsExecutor({
   const [leftRestTime, setLeftRestTime] = useState(restTime);
   const [currentSet, setCurrentSet] = useState(sets[currentSetIndex]);
   const [timerInterval, setTimerInteval] = useState(null);
+  const [showingClockOptions, hideClockOptions, , toogleClockOptions] =
+    useBoolState();
 
   const isLastItem = currentSetIndex == sets.length - 1;
 
@@ -114,6 +123,7 @@ function SimpleRepsExecutor({
     setLeftRestTime(restTime);
     setDodone(dodone);
     startTimer();
+    hideClockOptions();
   }, [startTimer, currentSetIndex, dodone, currentSet]);
 
   const finish = useCallback(() => {
@@ -136,7 +146,7 @@ function SimpleRepsExecutor({
 
   return (
     <View style={tw("flex flex-grow")}>
-      <View style={tw("flex-grow")}>
+      <View style={tw("flex-grow p-4")}>
         <CollectionInputItem
           index={currentSetIndex}
           onChange={handleOnChange}
@@ -154,6 +164,8 @@ function SimpleRepsExecutor({
         finish={finish}
         timerInterval={timerInterval}
         startTimer={startTimer}
+        showingClockOptions={showingClockOptions}
+        toogleClockOptions={toogleClockOptions}
       />
     </View>
   );
@@ -161,7 +173,7 @@ function SimpleRepsExecutor({
 
 function SetupStep({ dodone, dodoable, setDodone, saveDodone, start }) {
   return (
-    <>
+    <View style={tw("p-4")}>
       <ScrollView style={tw("flex-1 mb-4")}>
         <DodonesFieldsFields dodone={dodone} setDodone={setDodone} />
       </ScrollView>
@@ -171,7 +183,7 @@ function SetupStep({ dodone, dodoable, setDodone, saveDodone, start }) {
         color="success"
         onClick={start}
       />
-    </>
+    </View>
   );
 }
 
@@ -254,7 +266,7 @@ export default function StepsExecutor({ dodone, dodoable }) {
 
   return (
     <ActionScreen title={dodoable.name}>
-      <View style={tw("flex flex-1 p-4")}>
+      <View style={tw("flex flex-1")}>
         {currentStepIndex ? (
           <SimpleRepsExecutor
             dodone={formDodone}

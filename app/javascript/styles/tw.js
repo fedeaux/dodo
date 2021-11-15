@@ -20,6 +20,10 @@ const customStyles = {
     "fontSize": 48,
     "lineHeight": 48
   },
+  "text-7xl": {
+    "fontSize": 54,
+    "lineHeight": 54
+  },
   "bg-bluish-gray-900": {
     "--tw-bg-opacity": 1,
     "backgroundColor": "rgba(31, 46, 77, var(--tw-bg-opacity))"

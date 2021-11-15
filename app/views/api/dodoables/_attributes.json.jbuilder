@@ -11,4 +11,5 @@ json.extract! dodoable,
               :created_at,
               :updated_at,
               :about_time,
+              :active,
               :dodone_today?
