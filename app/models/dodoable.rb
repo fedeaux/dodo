@@ -9,7 +9,6 @@ class Dodoable < ApplicationRecord
   expose :being_tracked_dodone, type: :has_one, model: 'Dodone'
   expose :last_dodone, type: :has_one, model: 'Dodone'
   expose :todays_dodones, type: :has_many, model: 'Dodone'
-  expose :statusable?, type: :boolean
 
   expose_associations
 
@@ -80,10 +79,6 @@ class Dodoable < ApplicationRecord
 
   def self.s(slug)
     find_by slug: slug
-  end
-
-  def statusable?
-    scheduled?
   end
 end
 

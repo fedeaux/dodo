@@ -1,73 +1,66 @@
 export default {
   modelName: 'Day',
   attributes: {
-    createdAt: {
+      createdAt: {
       name: "createdAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    day: {
+      day: {
       name: "day",
       type: "date",
-      model: "string",
       writeable: true,
       default: null,
     },
-    dodones: {
+      dodones: {
       name: "dodones",
       type: "has_many",
-      model: "Dodone",
       writeable: true,
       default: null,
+      model: "Dodone",
     },
-    id: {
+      id: {
       name: "id",
       type: "integer",
-      model: "string",
       writeable: false,
       default: null,
     },
-    scheduleDodones: {
+      scheduleDodones: {
       name: "scheduleDodones",
       type: "has_many",
-      model: "Dodone",
       writeable: true,
       default: null,
+      model: "Dodone",
     },
-    turnedOffAt: {
+      turnedOffAt: {
       name: "turnedOffAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    updatedAt: {
+      updatedAt: {
       name: "updatedAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    user: {
+      user: {
       name: "user",
       type: "belongs_to",
-      model: "User",
       writeable: true,
       default: null,
+      model: "User",
     },
-    userId: {
+      userId: {
       name: "userId",
       type: "integer",
-      model: "string",
       writeable: true,
       default: null,
     },
-    wokeupAt: {
+      wokeupAt: {
       name: "wokeupAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },

@@ -1,150 +1,136 @@
 export default {
   modelName: 'Dodoable',
   attributes: {
-    aboutTime: {
+      aboutTime: {
       name: "aboutTime",
       type: "string",
-      model: "string",
       writeable: true,
-      default: "0",
+      default: "chronometrable",
     },
-    beingTrackedDodone: {
+      active: {
+      name: "active",
+      type: "boolean",
+      writeable: true,
+      default: "true",
+    },
+      beingTrackedDodone: {
       name: "beingTrackedDodone",
       type: "has_one",
-      model: "Dodone",
       writeable: true,
       default: null,
+      model: "Dodone",
     },
-    createdAt: {
+      createdAt: {
       name: "createdAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    days: {
+      days: {
       name: "days",
       type: "has_many",
-      model: "Day",
       writeable: true,
       default: null,
+      model: "Day",
     },
-    dodones: {
+      dodones: {
       name: "dodones",
       type: "has_many",
-      model: "Dodone",
       writeable: true,
       default: null,
+      model: "Dodone",
     },
-    executor: {
+      executor: {
       name: "executor",
       type: "jsonb",
-      model: "string",
       writeable: true,
       default: "{}",
     },
-    fields: {
+      fields: {
       name: "fields",
       type: "jsonb",
-      model: "string",
       writeable: true,
       default: "{}",
     },
-    id: {
+      id: {
       name: "id",
       type: "integer",
-      model: "string",
       writeable: false,
       default: null,
     },
-    isDodoneToday: {
+      isDodoneToday: {
       name: "isDodoneToday",
       type: "boolean",
-      model: "string",
       writeable: true,
       default: null,
     },
-    isStatusable: {
-      name: "isStatusable",
-      type: "boolean",
-      model: "string",
-      writeable: true,
-      default: null,
-    },
-    lastDodone: {
+      lastDodone: {
       name: "lastDodone",
       type: "has_one",
-      model: "Dodone",
       writeable: true,
       default: null,
+      model: "Dodone",
     },
-    lastDodoneDay: {
+      lastDodoneDay: {
       name: "lastDodoneDay",
       type: "belongs_to",
-      model: "Day",
       writeable: true,
       default: null,
+      model: "Day",
     },
-    lastDodoneDayId: {
+      lastDodoneDayId: {
       name: "lastDodoneDayId",
       type: "integer",
-      model: "string",
       writeable: true,
       default: null,
     },
-    name: {
+      name: {
       name: "name",
       type: "string",
-      model: "string",
       writeable: true,
       default: null,
     },
-    nature: {
+      nature: {
       name: "nature",
       type: "string",
-      model: "string",
       writeable: true,
-      default: "0",
+      default: "scheduled",
     },
-    slug: {
+      slug: {
       name: "slug",
       type: "string",
-      model: "string",
       writeable: true,
       default: null,
     },
-    todaysDodones: {
+      todaysDodones: {
       name: "todaysDodones",
       type: "has_many",
-      model: "Dodone",
       writeable: true,
       default: null,
+      model: "Dodone",
     },
-    trigger: {
+      trigger: {
       name: "trigger",
       type: "jsonb",
-      model: "string",
       writeable: true,
       default: "{}",
     },
-    updatedAt: {
+      updatedAt: {
       name: "updatedAt",
       type: "datetime",
-      model: "string",
       writeable: true,
       default: null,
     },
-    user: {
+      user: {
       name: "user",
       type: "belongs_to",
-      model: "User",
       writeable: true,
       default: null,
+      model: "User",
     },
-    userId: {
+      userId: {
       name: "userId",
       type: "integer",
-      model: "string",
       writeable: true,
       default: null,
     },
@@ -177,6 +163,7 @@ export default {
         scheduled: 0,
         independent: 1,
         habit: 2,
+        nested: 3,
       },
       options: {
       },

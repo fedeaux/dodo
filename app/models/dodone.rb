@@ -9,6 +9,7 @@ class Dodone < ApplicationRecord
   expose :finished?
   expose :started?
   expose :started?
+  expose :statusable?, type: :boolean
 
   exposed_enum status: {
                  unstatusable: 0,
@@ -18,8 +19,6 @@ class Dodone < ApplicationRecord
                  failed: 4,
                  skipped: 5
                }
-
-  exposed_delegate :statusable?, to: :dodoable
 
   before_save :auto_assign_times_and_statuses
   before_create :ensure_dodoable_fields
@@ -64,6 +63,10 @@ class Dodone < ApplicationRecord
 
   def ensure_dodoable_fields
     self.fields = dodoable.fields.deep_merge self.fields.deep_symbolize_keys
+  end
+
+  def statusable?
+    !! scheduled_to
   end
 end
 

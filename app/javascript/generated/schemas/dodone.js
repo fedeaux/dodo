@@ -71,7 +71,7 @@ export default {
     },
       isStatusable: {
       name: "isStatusable",
-      type: "string",
+      type: "boolean",
       writeable: true,
       default: null,
     },
