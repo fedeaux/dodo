@@ -25,7 +25,7 @@ function IndependentDodoables() {
     return dodoables.sort((dodoableA, dodoableB) => {
       return dodoableA.rank - dodoableB.rank;
     });
-  }, [dodoables]);
+  }, [dodoables, isLoading]);
 
   if (isLoading) return null;
 

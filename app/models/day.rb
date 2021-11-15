@@ -39,7 +39,7 @@ class Day < ApplicationRecord
 
   def schedule_dodones
     dodones.includes(:dodoable).reject do |dodone|
-      dodone.dodoable.instantaneous?
+      dodone.dodoable.instantaneous? || dodone.dodoable.nested?
     end
   end
 

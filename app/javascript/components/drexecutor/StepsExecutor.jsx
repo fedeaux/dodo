@@ -74,7 +74,13 @@ function RestableStepActions({
   return <PrimaryButton label="Next" onClick={next} />;
 }
 
-function SimpleRepsExecutor({ dodone, dodoable, setDodone }) {
+function SimpleRepsExecutor({
+  dodone,
+  dodoable,
+  setDodone,
+  currentTime,
+  saveFormDodoneAndBack,
+}) {
   const sets = dodone.fields.sets.value;
   const restTime = parseInt(dodone.fields.rest.value);
 
@@ -110,7 +116,13 @@ function SimpleRepsExecutor({ dodone, dodoable, setDodone }) {
     startTimer();
   }, [startTimer, currentSetIndex, dodone, currentSet]);
 
-  const finish = useCallback(() => {}, []);
+  const finish = useCallback(() => {
+    sets.splice(currentSetIndex, 1, currentSet);
+    dodone.fields.sets.value = sets;
+    dodone.finishedAt = currentTime;
+    setDodone(dodone);
+    saveFormDodoneAndBack();
+  }, [setDodone]);
 
   const handleOnChange = useCallback(({ index, ...payload }) => {
     setCurrentSet({ ...currentSet, ...payload });
@@ -168,7 +180,7 @@ export default function StepsExecutor({ dodone, dodoable }) {
   const { update } = useApiUpdateDodone();
   const history = useHistory();
   const currentTime = useCurrentTime();
-  const [currentStepIndex, setCurrentStepIndex] = useState(1);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const [formDodone, setFormDodone] = useState(dodone);
   const [autosaveTimer, setAutosaveTimer] = useState(null);
@@ -248,6 +260,8 @@ export default function StepsExecutor({ dodone, dodoable }) {
             dodone={formDodone}
             dodoable={dodoable}
             setDodone={onFormDodoneChanged}
+            saveFormDodoneAndBack={saveFormDodoneAndBack}
+            currentTime={currentTime}
           />
         ) : (
           <SetupStep

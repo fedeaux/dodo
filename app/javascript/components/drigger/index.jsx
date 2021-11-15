@@ -131,13 +131,15 @@ function LineDrigger({
       <View style={tw("flex flex-grow")}>
         <DriggerTimeInfo dodoable={dodoable} dodone={dodone} v={v} />
         <View style={tw("flex flex-row items-center")}>
-          <View style={tw("mr-2")}>
-            <DodoableIcon
-              dodoable={dodoable}
-              size={14}
-              color={v.actionIcon.color}
-            />
-          </View>
+          {dodoable.trigger.icon && (
+            <View style={tw("mr-2")}>
+              <DodoableIcon
+                dodoable={dodoable}
+                size={14}
+                color={v.actionIcon.color}
+              />
+            </View>
+          )}
           <Text style={tw("flex-grow", v.text.style)}>{text}</Text>
         </View>
       </View>
