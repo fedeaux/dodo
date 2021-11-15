@@ -4,4 +4,4 @@ json.days do
   end
 end
 
-json.cache_key Day.cache_key
+json.cache_key Day.cache_key(@query)

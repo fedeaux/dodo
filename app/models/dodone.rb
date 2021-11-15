@@ -24,6 +24,7 @@ class Dodone < ApplicationRecord
   before_create :ensure_dodoable_fields
   after_commit :touch_dodoable
 
+  default_scope ->{ order('created_at DESC') }
   scope :scheduled, ->{ where('scheduled_to IS NOT NULL') }
 
   def touch_dodoable

@@ -4,4 +4,4 @@ json.dodones do
   end
 end
 
-json.cache_key Dodone.cache_key
+json.cache_key Dodone.cache_key(@query)

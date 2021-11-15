@@ -4,5 +4,4 @@ json.dodoables do
   end
 end
 
-# TODO: Review collection cache keys
 json.cache_key Dodoable.cache_key(@query)

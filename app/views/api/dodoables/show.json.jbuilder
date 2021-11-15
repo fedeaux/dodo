@@ -8,4 +8,4 @@ json.dodoable do
   end
 end
 
-json.cache_key @dodoable.cache_key
+json.cache_key @dodoable.cache_key(@query)
