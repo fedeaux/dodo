@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parse, formatDistanceToNow } from "date-fns";
 import SubtleTitle from "ui/typography/SubtleTitle";
 import DefaultScreen from "platforms/mobile/screens/default";
 import DayFieldWokeupAt from "entities/days/fields/wokeupAt";
@@ -49,7 +49,7 @@ function HabitDodoables() {
     return dodoables.sort((dodoableA, dodoableB) => {
       return dodoableA.slug.localeCompare(dodoableB.slug);
     });
-  }, [dodoables]);
+  }, [dodoables, isLoading]);
 
   if (isLoading) return null;
 
@@ -85,6 +85,18 @@ function TabTrigger({ setActiveTab, tab, label, activeTab }) {
   );
 }
 
+function DopaminDetox() {
+  const lastDopaminFuck = parse("14/11/2021", "dd/MM/yyyy", new Date());
+
+  return (
+    <View style={tw("text-center")}>
+      <Text style={tw("text-lg text-blue-400 italic")}>
+        {formatDistanceToNow(lastDopaminFuck)} without fucking up my dopamin
+      </Text>
+    </View>
+  );
+}
+
 function Schedule({ day }) {
   const sortedScheduleDodones = useMemo(() => {
     return day.scheduleDodones.sort((da, db) => {
@@ -101,7 +113,7 @@ function Schedule({ day }) {
         })}
         <DayFieldTurnedOffAt day={day} />
       </ScrollView>
-      {/* <HabitDodoables /> */}
+      {<DopaminDetox />}
     </>
   );
 }

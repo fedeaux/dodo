@@ -315,7 +315,7 @@ end
       )
     ),
   }
-].concat(bad_habits).each do |dodoable_attributes|
+].each do |dodoable_attributes|
   Dodoable
     .even_inactive
     .where(
@@ -332,7 +332,14 @@ def deactivate(*slugs)
   end
 end
 
-deactivate('work:wordable', 'music:piano', 'music:singing')
+deactivate('work:wordable',
+           'music:piano',
+           'music:singing',
+           'bad-habit:smoking',
+           'bad-habit:league',
+           'bad-habit:f1',
+           'bad-habit:f5'
+          )
 
 def reset_schedule(user)
   user.current_day.dodones.destroy_all
