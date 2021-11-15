@@ -24,7 +24,7 @@ export default function useQuery(cacheKey, queryFunc, queryParams) {
       setResponse(cached);
       setIsLoading(false);
     }
-  }, []);
+  }, [cached]);
 
   return { ...response, isLoading };
 }

@@ -342,6 +342,8 @@ deactivate('work:wordable',
           )
 
 def reset_schedule(user)
+  return if Rails.env.production?
+
   user.current_day.dodones.destroy_all
   user.current_day.ensure_scheduled_dodones
 end
