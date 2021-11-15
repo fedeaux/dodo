@@ -6,7 +6,7 @@ import PrimaryButton from "ui/controls/button/primary";
 import Timer from "ui/clocks/Timer";
 import useCurrentTime from "util/useCurrentTime";
 import { Link, useHistory } from "lib/router";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ScrollView } from "react-native";
 import { useApiCreateDodone, useApiUpdateDodone } from "generated/api";
 import FieldLabel from "ui/fields/Label";
 
@@ -200,11 +200,11 @@ export default function SimpleFormExecutor({ dodone, dodoable }) {
 
   return (
     <ActionScreen title={dodoable.name}>
-      <View style={tw("flex flex-grow p-4")}>
-        <View style={tw("flex-grow")}>
+      <View style={tw("flex flex-1 p-4")}>
+        <ScrollView style={tw("flex-1")}>
           <DodoneForm dodone={formDodone} setDodone={onFormDodoneChanged} />
           {<DodoableInstructions dodoable={dodoable} />}
-        </View>
+        </ScrollView>
         <SimpleFormDodoableExecutorActions
           dodoable={dodoable}
           dodone={formDodone}

@@ -3,16 +3,22 @@ import { TouchableOpacity } from "react-native";
 import PrimaryButton from "ui/controls/button/primary";
 import { useApiDestroyDodone } from "generated/api";
 import { Link } from "lib/router";
+import { format } from "date-fns";
 
 export default function DodoneListItem({ dodone }) {
   const [confirmingDestroy, cancelConfirmDestroy, showConfirmDestroy] =
     useBoolState();
 
+  const [destroyed, , setDestroyed] = useBoolState();
+
   const { destroy } = useApiDestroyDodone();
 
   const destroyDodone = useCallback(() => {
-    return destroy({ dodoneId: dodone.id });
+    destroy({ dodoneId: dodone.id });
+    setDestroyed(true);
   });
+
+  if (destroyed) return null;
 
   return (
     <View style={tw("secondary-dodoable-trigger flex-row items-center")}>
@@ -35,8 +41,15 @@ export default function DodoneListItem({ dodone }) {
         </>
       ) : (
         <>
-          <Link style={tw("flex-grow")} to={`/dodones/${dodone.id}`}>
+          <Link
+            style={tw("flex-1 flex flex-row items-center")}
+            to={`/dodones/${dodone.id}`}
+          >
             <Text style={tw("secondary-dodoable-trigger-text")}>
+              {format(dodone.createdAt, "E, MMM do")}
+            </Text>
+            <View style={tw("flex-1")} />
+            <Text style={tw("secondary-dodoable-trigger-text text-xs mr-2")}>
               {dodone.id}
             </Text>
           </Link>
