@@ -24,6 +24,9 @@ const customStyles = {
     "--tw-bg-opacity": 1,
     "backgroundColor": "rgba(31, 46, 77, var(--tw-bg-opacity))"
   },
+  "font-digital": {
+    fontFamily: "DigitalDismay"
+  }
 }
 
 function extend(...selectors) {

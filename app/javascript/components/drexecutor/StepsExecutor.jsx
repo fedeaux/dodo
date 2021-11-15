@@ -127,9 +127,9 @@ function SimpleRepsExecutor({ dodone, dodoable, setDodone }) {
       <View style={tw("flex-grow")}>
         <CollectionInputItem
           index={currentSetIndex}
-          value={currentSet}
           onChange={handleOnChange}
           {...dodone.fields.sets}
+          value={currentSet}
         />
       </View>
       <RestableStepActions
@@ -168,7 +168,7 @@ export default function StepsExecutor({ dodone, dodoable }) {
   const { update } = useApiUpdateDodone();
   const history = useHistory();
   const currentTime = useCurrentTime();
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(1);
 
   const [formDodone, setFormDodone] = useState(dodone);
   const [autosaveTimer, setAutosaveTimer] = useState(null);

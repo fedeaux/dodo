@@ -37,11 +37,13 @@ def sre(dodoable_attributes) # Simple Reps Exercise
         fields: {
           reps: {
             type: :number,
-            order: 0
+            order: 0,
+            default: 10
           },
           weight: {
             type: :number,
-            order: 1
+            order: 1,
+            default: 0
           }
         }
       }
@@ -56,8 +58,6 @@ after :base do
     sre(slug: 'training:bodybuilding:push:push-ups:closed:0deg:bodyweight', name: 'Closed Push Ups'),
     sre(slug: 'training:bodybuilding:push:push-ups:open:0deg:bodyweight', name: 'Open Push Ups'),
   ].each do |dodoable_attributes|
-    next
-
     Dodoable.where(
       slug: dodoable_attributes[:slug],
       user_id: user.id

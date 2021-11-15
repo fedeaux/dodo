@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import TimeDisplay from "ui/displays/time";
 import TextDisplay from "ui/displays/text";
 import BoolDisplay from "ui/displays/bool";
+import CollectionDisplay from "ui/displays/collection";
 
 function SelectDisplay({ value }) {
   return (
@@ -16,8 +17,10 @@ function SelectDisplay({ value }) {
 const displayMap = {
   bool: BoolDisplay,
   text: TextDisplay,
+  number: TextDisplay,
   time: TimeDisplay,
   select: SelectDisplay,
+  collection: CollectionDisplay,
 };
 
 export default function AbstractDisplay({

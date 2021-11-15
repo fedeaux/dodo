@@ -56,6 +56,7 @@ export default function CollectionInputItem({
           onClick={removeInputItem}
           icon={{ name: "minus" }}
           color="danger"
+          tws="mb-2"
         />
       )}
     </View>

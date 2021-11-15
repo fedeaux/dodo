@@ -11,7 +11,7 @@ import FontAwesome from "react-native-vector-icons/Fonts/FontAwesome.ttf";
 import FontAwesome5_Regular from "react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf";
 import FontAwesome5_Solid from "react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf";
 import MaterialCommunityIcons from "react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf";
-// import DigitalDismay from "./assets/fonts/DigitalDismay.otf";
+import DigitalDismay from "assets/fonts/DigitalDismay.otf";
 
 import Platform from "../platforms/index";
 
@@ -35,12 +35,12 @@ const FontFaces = `
   src: url(${MaterialCommunityIcons});
   font-family: MaterialCommunityIcons;
 }
-`;
 
-// @font-face {
-//   src: url(/#{DigitalDismay});
-//   font-family: DigitalDismay;
-// }
+@font-face {
+  src: url(${DigitalDismay});
+  font-family: DigitalDismay;
+}
+`;
 
 document.addEventListener("DOMContentLoaded", () => {
   const useMobile = localStorage.getItem("useMobile");

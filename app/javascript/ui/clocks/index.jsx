@@ -1,7 +1,11 @@
 import formatSeconds from "util/formatSeconds";
 
-export default function Clock({ seconds, ...props }) {
+export default function Clock({ seconds, style, ...props }) {
   const formatedSeconds = formatSeconds(seconds);
 
-  return <Text {...props}>{formatedSeconds}</Text>;
+  return (
+    <Text style={tw(style, "font-digital")} {...props}>
+      {formatedSeconds}
+    </Text>
+  );
 }

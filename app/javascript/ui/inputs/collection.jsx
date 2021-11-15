@@ -33,8 +33,6 @@ export default function CollectionInput({ value, onChange, fields, ...props }) {
     });
   });
 
-  // console.log("-1 props", props);
-
   if (typeof value.map != "function") {
     return null;
   }
