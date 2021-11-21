@@ -26,14 +26,14 @@ class Services::DayBuilder
     [
       { slug: 'jump-wakeup', scheduled_to: '07:00' },
       { slug: exercise_slug, scheduled_to: '08:00' },
-      { slug: 'retirement:morning-setup', scheduled_to: '09:30' },
-      { slug: 'meal:first', scheduled_to: '10:20' },
-      { slug: 'retirement:first-deep-work', scheduled_to: '11:00' },
-      { slug: 'meal:second', scheduled_to: '14:00' },
-      { slug: 'retirement:second-deep-work', scheduled_to: '14:30' },
-      { slug: 'meal:third', scheduled_to: '18:00' },
+      { slug: 'meal:first', scheduled_to: '9:15' },
+      { slug: 'retirement:morning-setup', scheduled_to: '09:45' },
+      { slug: 'retirement:first-deep-work', scheduled_to: '10:00' },
+      { slug: 'meal:second', scheduled_to: '13:00' },
+      { slug: 'retirement:second-deep-work', scheduled_to: '14:00' },
+      { slug: 'meal:third', scheduled_to: '17:40' },
+      { slug: 'meal:fourth', scheduled_to: '21:00' },
       { slug: 'chores:evening', scheduled_to: '21:30' },
-      { slug: 'meal:fourth', scheduled_to: '21:45' },
     ]
   end
 
@@ -41,11 +41,11 @@ class Services::DayBuilder
 [
         { slug: 'jump-wakeup', scheduled_to: '07:00' },
         { slug: 'exercise:legacy-dodo', scheduled_to: '08:00' },
-        { slug: 'meal:first', scheduled_to: '10:20' },
-        { slug: 'meal:second', scheduled_to: '14:00' },
-        { slug: 'meal:third', scheduled_to: '18:00' },
+        { slug: 'meal:first', scheduled_to: '09:15' },
+        { slug: 'meal:second', scheduled_to: '13:00' },
+        { slug: 'meal:third', scheduled_to: '17:40' },
+        { slug: 'meal:fourth', scheduled_to: '21:00' },
         { slug: 'chores:evening', scheduled_to: '21:30' },
-        { slug: 'meal:fourth', scheduled_to: '21:45' },
       ]
   end
 

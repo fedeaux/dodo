@@ -212,10 +212,10 @@ end
 [
   jump_wakeup,
   # home_training_dodoable,
-  meal_dodoable('first', 'Sandwish and Juice'),
+  meal_dodoable('first', 'Yogurt Grains', fields: bool_fields('Albumin', 'Creatin')),
   meal_dodoable('second', 'Frozen Lunch and Juice'),
-  meal_dodoable('third', 'Fish', fields: bool_fields('Albumin', 'Creatin')),
-  meal_dodoable('fourth', 'Free', fields: bool_fields('Melatonin', 'Omega 3')),
+  meal_dodoable('third', 'Sandwish and Juice', fields: bool_fields('Albumin')),
+  meal_dodoable('fourth', 'Fish', fields: bool_fields('Melatonin', 'Omega 3')),
   practice_dodoable('Shredding Investments', 'shredding-investments', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
