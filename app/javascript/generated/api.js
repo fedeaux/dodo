@@ -12,6 +12,7 @@ import useWrite from 'braindamage/api/useWrite';
 import Day from 'models/day';
 import Dodoable from 'models/dodoable';
 import Dodone from 'models/dodone';
+import Week from 'models/week';
 
 export function useApiDays(query) {
   const endpoint = '/api/days';
@@ -32,6 +33,13 @@ export function useApiDodones(query) {
   const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
 
   return useQuery(queryCacheKey, getModelCollection, [endpoint, Dodone, query]);
+}
+
+export function useApiWeeks(query) {
+  const endpoint = '/api/weeks';
+  const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
+
+  return useQuery(queryCacheKey, getModelCollection, [endpoint, Week, query]);
 }
 
 export function useApiDay(dayId, query) {
@@ -55,6 +63,13 @@ export function useApiDodone(dodoneId, query) {
   return useQuery(queryCacheKey, getModelMember, [endpoint, Dodone, dodoneId, query]);
 }
 
+export function useApiWeek(weekId, query) {
+  const endpoint = `/api/weeks/${weekId}`;
+  const queryCacheKey = `${endpoint}/${JSON.stringify(query)}`;
+
+  return useQuery(queryCacheKey, getModelMember, [endpoint, Week, weekId, query]);
+}
+
 export function useApiUpdateDay() {
   const { write: update, ...rest } = useWrite(updateModelMember, ['/api/days/:dayId', Day]);
 
@@ -69,6 +84,12 @@ export function useApiUpdateDodoable() {
 
 export function useApiUpdateDodone() {
   const { write: update, ...rest } = useWrite(updateModelMember, ['/api/dodones/:dodoneId', Dodone]);
+
+  return { update, ...rest };
+}
+
+export function useApiUpdateWeek() {
+  const { write: update, ...rest } = useWrite(updateModelMember, ['/api/weeks/:weekId', Week]);
 
   return { update, ...rest };
 }
@@ -91,6 +112,12 @@ export function useApiCreateDodone() {
   return { create, ...rest };
 }
 
+export function useApiCreateWeek() {
+  const { write: create, ...rest } = useWrite(createModelMember, ['/api/weeks', Week]);
+
+  return { create, ...rest };
+}
+
 export function useApiDestroyDay() {
   const { write: destroy, ...rest } = useWrite(destroyModelMember, ['/api/days/:dayId', Day]);
 
@@ -105,6 +132,12 @@ export function useApiDestroyDodoable() {
 
 export function useApiDestroyDodone() {
   const { write: destroy, ...rest } = useWrite(destroyModelMember, ['/api/dodones/:dodoneId', Dodone]);
+
+  return { destroy, ...rest };
+}
+
+export function useApiDestroyWeek() {
+  const { write: destroy, ...rest } = useWrite(destroyModelMember, ['/api/weeks/:weekId', Week]);
 
   return { destroy, ...rest };
 }

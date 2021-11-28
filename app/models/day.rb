@@ -17,6 +17,18 @@ class Day < ApplicationRecord
     day.to_time(:utc).beginning_of_day
   end
 
+  def end_of_day
+    day.to_time(:utc).end_of_day
+  end
+
+  def beginning_of_user_day
+    @beginning_of_user_day ||= beginning_of_day - user.utc_offset.seconds
+  end
+
+  def end_of_user_day
+    @end_of_user_day ||= end_of_day - user.utc_offset.seconds
+  end
+
   def time_of_day_in_user_timezone(string_time)
     parts = string_time.split(':').map(&:to_i)
     beginning_of_day + parts[0].hours + parts[1].minutes - user.utc_offset.seconds
@@ -45,6 +57,10 @@ class Day < ApplicationRecord
 
   def weekday
     day.strftime('%a').downcase.to_sym
+  end
+
+  def week
+    Week.where(user_id: user_id, start_day: day.beginning_of_week).first_or_create
   end
 end
 

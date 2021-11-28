@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :days
   has_many :dodoables
+  has_many :weeks
 
   def current_day
     days.where(day: current_time).first

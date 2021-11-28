@@ -20,5 +20,6 @@ module Dodo
     config.active_record.default_timezone = :utc
     config.eager_load_paths << Rails.root.join("app/framework")
     config.hosts << /.*/
+    config.beginning_of_week = :sunday
   end
 end
