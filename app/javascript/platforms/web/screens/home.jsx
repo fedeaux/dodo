@@ -12,6 +12,7 @@ import { useApiDays } from "generated/api";
 import { useCallback } from "react";
 import TimeInput from "ui/inputs/time";
 import Button from "ui/controls/button";
+import Drigger from "components/drigger";
 
 function Menu() {}
 
@@ -132,15 +133,21 @@ function DayHeader({ day }) {
   );
 }
 
-function Day() {
-  const { day, isLoading } = useApiDay("today");
-
-  if (isLoading) return null;
+function Day({ day }) {
+  // TODO: DRY here and mobile
+  const sortedScheduleDodones = useMemo(() => {
+    return day.scheduleDodones.sort((da, db) => {
+      return da.timeRank - db.timeRank;
+    });
+  }, [day]);
 
   return (
-    <View>
-      <DayHeader day={day} />
-      <DayTimeslots day={day} />
+    <View key={day.id} style={tw("w-80 px-4")}>
+      <Text>{format(day.day, "E, MMM do")}</Text>
+      {day.wokeupAt && <Text>{format(day.wokeupAt, "HH:mm")}</Text>}
+      {sortedScheduleDodones.map((dodone) => {
+        return <Drigger key={dodone.id} dodone={dodone} />;
+      })}
     </View>
   );
 }
@@ -156,24 +163,11 @@ export default function Home() {
   if (isLoading) return null;
 
   return (
-    <View style={tw("flex flex-col h-full")}>
+    <View style={tw("flex flex-col h-full bg-gray-600")}>
       <Button label="Use Mobile" onClick={useMobile} />
       <View style={tw("flex flex-row flex-grow")}>
         {days.map((day) => {
-          return (
-            <View key={day.id} style={tw("w-40 px-4")}>
-              <Text>{format(day.day, "E, MMM do")}</Text>
-              {day.wokeupAt && <Text>{format(day.wokeupAt, "HH:mm")}</Text>}
-
-              {day.scheduleDodones.map((dodone) => {
-                return (
-                  <Text style={tw("py-2")} key={dodone.id}>
-                    {dodone.dodoable.name}
-                  </Text>
-                );
-              })}
-            </View>
-          );
+          return <Day key={day.id} day={day} />;
         })}
       </View>
     </View>

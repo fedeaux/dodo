@@ -98,6 +98,8 @@ function DopaminDetox() {
 }
 
 function Schedule({ day }) {
+  // TODO: DRY here and mobile
+
   const sortedScheduleDodones = useMemo(() => {
     return day.scheduleDodones.sort((da, db) => {
       return da.timeRank - db.timeRank;

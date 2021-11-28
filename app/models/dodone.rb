@@ -1,7 +1,7 @@
 class Dodone < ApplicationRecord
   include Braindamage::Braindamageable
 
-  belongs_to :dodoable
+  belongs_to :dodoable, -> { unscope(where: :active) }
   belongs_to :day
   expose_associations
 
