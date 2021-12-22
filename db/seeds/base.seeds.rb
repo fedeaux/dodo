@@ -330,14 +330,15 @@ def deactivate(*slugs)
   end
 end
 
-deactivate('work:wordable',
-           'music:piano',
-           'music:singing',
-           'bad-habit:smoking',
-           'bad-habit:league',
-           'bad-habit:f1',
-           'bad-habit:f5'
-          )
+deactivate(
+  'work:wordable',
+  'music:piano',
+  'music:singing',
+  'bad-habit:smoking',
+  'bad-habit:league',
+  'bad-habit:f1',
+  'bad-habit:f5'
+)
 
 def reset_schedule(user)
   return if Rails.env.production?
@@ -346,4 +347,4 @@ def reset_schedule(user)
   user.current_day.ensure_scheduled_dodones
 end
 
-reset_schedule user
+# reset_schedule user
