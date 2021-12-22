@@ -62,6 +62,20 @@ class Day < ApplicationRecord
   def week
     Week.where(user_id: user_id, start_day: day.beginning_of_week).first_or_create
   end
+
+  %i[sun mon tue wed thu fri sat].each do |weekday|
+    define_method "#{weekday}?" do
+      self.weekday == weekday
+    end
+  end
+
+  def business?
+    ! weekend?
+  end
+
+  def weekend?
+    sat? || sun?
+  end
 end
 
 # == Schema Information

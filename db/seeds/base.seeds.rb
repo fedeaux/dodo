@@ -25,6 +25,9 @@ def meal_dodoable(slug_suffix, name, fields: {})
   }
 end
 
+# 'Vitamins',
+# 'Nootropics',
+
 def jump_wakeup
   {
     name: 'Jump Wakeup',
@@ -37,14 +40,10 @@ def jump_wakeup
       }
     },
     fields: bool_fields(
-      'Malto Albumin',
-      'Sandwish',
       'Concerta',
       'Brintellix',
-      'Vitamins',
-      'Nootropics',
       'Water',
-      'Coffee'
+      'Ginger Tea'
     ).merge({
               comments: {
                 type: :text,
@@ -54,11 +53,11 @@ def jump_wakeup
   }
 end
 
-def home_training_dodoable
+def free_training_dodoable
   {
     name: 'Exercise: Home Training',
     nature: :independent,
-    slug: "exercise:home-training",
+    slug: "exercise:free-training",
     executor: {
       type: 'Session'
     },
@@ -211,10 +210,10 @@ end
 
 [
   jump_wakeup,
-  # home_training_dodoable,
-  meal_dodoable('first', 'Yogurt Grains', fields: bool_fields('Albumin', 'Creatin')),
-  meal_dodoable('second', 'Frozen Lunch and Juice'),
-  meal_dodoable('third', 'Sandwish and Juice', fields: bool_fields('Albumin')),
+  free_training_dodoable,
+  meal_dodoable('first', 'Açaí', fields: bool_fields('Albumin', 'Creatin', 'Vitamins', 'Nootropics')),
+  meal_dodoable('second', 'Fruits'),
+  meal_dodoable('third', 'Frozen Lunch'),
   meal_dodoable('fourth', 'Fish', fields: bool_fields('Melatonin', 'Omega 3')),
   practice_dodoable('Shredding Investments', 'shredding-investments', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
@@ -240,6 +239,7 @@ end
                       ]
                     }
                    ),
+  practice_dodoable('Retirement: Investment Grooming', 'retirement:investment-grooming', trigger: { icon: { name: 'white-balance-sunny', component: 'IconMC' }}, nature: :scheduled),
   practice_dodoable('Retirement: First Deep Work', 'retirement:first-deep-work', trigger: { icon: { name: 'white-balance-sunny', component: 'IconMC' }}, nature: :scheduled),
   practice_dodoable('Retirement: Second Deep Work', 'retirement:second-deep-work', trigger: { icon: { name: 'white-balance-sunny', component: 'IconMC' }}, nature: :scheduled),
   practice_dodoable('Project: Dodo', 'projects:dodo', trigger: { icon: { name: 'rocket' }}),
@@ -297,16 +297,14 @@ end
     },
     fields: {}.merge(
       bool_fields(
-        'Skincare',
-        'Journaling',
-        'Tea',
-        'Juice',
+        'Turn Computer Off',
+        'Prepare Good Night Tea',
+        'Self Knowledge/Schedule Journaling',
         'Water',
-        'Setup Coffee',
-        'Prepare Milk and Albumin',
-        'Prepare Tomorrow\'s Meals',
-        'One song cleanup',
-        'Melatonin'
+        'Setup Ginger/Black Tea',
+        'Set tomorrow foods aside',
+        'Melatonin',
+        'Clean one thing up',
       ).merge(
         comments: {
           type: :text,

@@ -1,4 +1,6 @@
 class Services::DayBuilder
+  WAKE_UP_AT = '07:45'
+
   attr_accessor :day, :user
 
   def initialize(day)
@@ -8,8 +10,12 @@ class Services::DayBuilder
 
   def build
     day_schedule.each do |attributes|
-      scheduled_to = day.time_of_day_in_user_timezone_adjusted_by_wokeup_at attributes[:scheduled_to], '07:00'
+      scheduled_to = day.time_of_day_in_user_timezone_adjusted_by_wokeup_at attributes[:scheduled_to], WAKE_UP_AT
       dodoable = Dodoable.s attributes[:slug]
+
+      unless dodoable
+        raise "Seed #{attributes[:slug]}"
+      end
 
       day
         .dodones
@@ -19,45 +25,37 @@ class Services::DayBuilder
   end
 
   def day_schedule
-    week_schedule[day.weekday]
-  end
-
-  def week_day(exercise_slug: 'exercise:lake-run')
-    [
-      { slug: 'jump-wakeup', scheduled_to: '07:00' },
-      { slug: exercise_slug, scheduled_to: '08:00' },
-      { slug: 'meal:first', scheduled_to: '9:15' },
-      { slug: 'retirement:morning-setup', scheduled_to: '09:45' },
-      { slug: 'retirement:first-deep-work', scheduled_to: '10:00' },
-      { slug: 'meal:second', scheduled_to: '13:00' },
-      { slug: 'retirement:second-deep-work', scheduled_to: '14:00' },
-      { slug: 'meal:third', scheduled_to: '17:40' },
-      { slug: 'meal:fourth', scheduled_to: '21:00' },
-      { slug: 'chores:evening', scheduled_to: '21:30' },
+    dodoables = [
+      { slug: 'jump-wakeup', scheduled_to: '07:45' },
+      { slug: 'meal:first', scheduled_to: '08:00' },
+      { slug: 'exercise:free-training', scheduled_to: '08:30' }
     ]
-  end
 
-  def weekend
-[
-        { slug: 'jump-wakeup', scheduled_to: '07:00' },
-        { slug: 'exercise:legacy-dodo', scheduled_to: '08:00' },
-        { slug: 'meal:first', scheduled_to: '09:15' },
-        { slug: 'meal:second', scheduled_to: '13:00' },
-        { slug: 'meal:third', scheduled_to: '17:40' },
-        { slug: 'meal:fourth', scheduled_to: '21:00' },
-        { slug: 'chores:evening', scheduled_to: '21:30' },
+    if day.business?
+      dodoables.concat(
+        [
+          { slug: 'retirement:investment-grooming', scheduled_to: '09:45' },
+          { slug: 'meal:second', scheduled_to: '10:45' },
+          { slug: 'retirement:first-deep-work', scheduled_to: '11:00' },
+          { slug: 'meal:third', scheduled_to: '14:00' }
+        ]
+      )
+
+      unless day.wed?
+        dodoables.concat(
+          [
+            { slug: 'retirement:second-deep-work', scheduled_to: '14:30' },
+          ]
+        )
+      end
+    end
+
+    dodoables.concat(
+      [
+        { slug: 'chores:evening', scheduled_to: '21:15' },
       ]
-  end
+    )
 
-  def week_schedule
-    {
-      sun: weekend,
-      mon: week_day,
-      tue: week_day(exercise_slug: 'exercise:legacy-dodo'),
-      wed: week_day,
-      thu: week_day(exercise_slug: 'exercise:legacy-dodo'),
-      fri: week_day,
-      sat: weekend,
-    }
+    dodoables
   end
 end

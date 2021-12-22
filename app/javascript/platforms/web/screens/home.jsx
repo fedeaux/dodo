@@ -153,22 +153,22 @@ function Day({ day }) {
 }
 
 export default function Home() {
-  const { days, isLoading } = useApiDays();
+  // const { days, isLoading } = useApiDays();
 
   const useMobile = useCallback(() => {
     localStorage.setItem("useMobile", true);
     window.location.reload();
   });
 
-  if (isLoading) return null;
+  // if (isLoading) return null;
 
   return (
     <View style={tw("flex flex-col h-full bg-gray-600")}>
       <Button label="Use Mobile" onClick={useMobile} />
       <View style={tw("flex flex-row flex-grow")}>
-        {days.map((day) => {
-          return <Day key={day.id} day={day} />;
-        })}
+        {/* {days.map((day) => { */}
+        {/*   return <Day key={day.id} day={day} />; */}
+        {/* })} */}
       </View>
     </View>
   );
