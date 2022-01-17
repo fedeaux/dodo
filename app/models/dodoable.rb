@@ -48,6 +48,10 @@ class Dodoable < ApplicationRecord
     FieldDsl.resolve plugins_fields.merge(super.deep_symbolize_keys)
   end
 
+  def fields=(fields_attributes)
+    super FieldDsl.resolve fields_attributes
+  end
+
   def executor
     {
       save_on_field_changed: true,

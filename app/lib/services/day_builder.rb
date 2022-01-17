@@ -1,5 +1,5 @@
 class Services::DayBuilder
-  WAKE_UP_AT = '07:45'
+  WAKE_UP_AT = '06:15'
 
   attr_accessor :day, :user
 
@@ -26,33 +26,16 @@ class Services::DayBuilder
 
   def day_schedule
     dodoables = [
-      { slug: 'jump-wakeup', scheduled_to: '07:45' },
-      { slug: 'meal:first', scheduled_to: '08:00' },
-      { slug: 'exercise:free-training', scheduled_to: '08:30' }
+      { slug: 'jump-wakeup', scheduled_to: '06:15' },
+      { slug: 'exercise:treadmill:free', scheduled_to: '07:00' },
+      { slug: 'meal:first', scheduled_to: '08:30' },
+      { slug: 'meal:second', scheduled_to: '13:00' },
     ]
-
-    if day.business?
-      dodoables.concat(
-        [
-          { slug: 'retirement:investment-grooming', scheduled_to: '09:45' },
-          { slug: 'meal:second', scheduled_to: '10:45' },
-          { slug: 'retirement:first-deep-work', scheduled_to: '11:00' },
-          { slug: 'meal:third', scheduled_to: '14:00' }
-        ]
-      )
-
-      unless day.wed?
-        dodoables.concat(
-          [
-            { slug: 'retirement:second-deep-work', scheduled_to: '14:30' },
-          ]
-        )
-      end
-    end
 
     dodoables.concat(
       [
-        { slug: 'chores:evening', scheduled_to: '21:15' },
+        { slug: 'chores:evening', scheduled_to: '20:00' },
+        { slug: 'meal:third', scheduled_to: '20:30' },
       ]
     )
 

@@ -22,6 +22,8 @@ export default function DodonesFieldsFields({ dodone, setDodone }) {
           return fa.order - fb.order;
         })
         .map((field) => {
+          console.log("field", field);
+
           return (
             <AbstractField
               key={field.name}

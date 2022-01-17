@@ -25,9 +25,6 @@ def meal_dodoable(slug_suffix, name, fields: {})
   }
 end
 
-# 'Vitamins',
-# 'Nootropics',
-
 def jump_wakeup
   {
     name: 'Jump Wakeup',
@@ -151,11 +148,8 @@ def bad_habits
     {
       name: 'League',
       slug: "bad-habit:league",
-      nature: :habit,
-      about_time: :chronometrable,
+      nature: :independent,
       trigger: {
-        display: 'BadHabit',
-        label: 'free of league',
         icon: {
           name: 'gamepad',
           component: 'Icon5'
@@ -170,11 +164,8 @@ def bad_habits
     {
       name: 'F1',
       slug: "bad-habit:f1",
-      nature: :habit,
-      about_time: :instantaneous,
+      nature: :independent,
       trigger: {
-        display: 'BadHabit',
-        label: 'without f1',
         icon: {
           name: 'leaf',
           component: 'Icon5'
@@ -189,11 +180,8 @@ def bad_habits
     {
       name: 'F5',
       slug: "bad-habit:f5",
-      nature: :habit,
-      about_time: :instantaneous,
+      nature: :independent,
       trigger: {
-        display: 'BadHabit',
-        label: 'without f5',
         icon: {
           name: 'leaf-maple',
           component: 'IconMC'
@@ -211,15 +199,22 @@ end
 [
   jump_wakeup,
   free_training_dodoable,
-  meal_dodoable('first', 'Açaí', fields: bool_fields('Albumin', 'Creatin', 'Vitamins', 'Nootropics')),
-  meal_dodoable('second', 'Fruits'),
-  meal_dodoable('third', 'Frozen Lunch'),
+  bad_habits,
+  meal_dodoable('first', 'Açaí', fields: bool_fields('Albumin', 'Some Fruit', 'Creatin', 'Vitamins', 'Nootropics')),
+  meal_dodoable('second', 'Lunch'),
+  meal_dodoable('third', 'Something Fishy'),
   meal_dodoable('fourth', 'Fish', fields: bool_fields('Melatonin', 'Omega 3')),
   practice_dodoable('Shredding Investments', 'shredding-investments', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Guitar', 'music:guitar', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Piano', 'music:piano', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Music: Singing', 'music:singing', trigger: { icon: { name: 'music' }}),
+  practice_dodoable('Music: Berimbau', 'music:berimbau', trigger: { icon: { name: 'music' }}),
+  practice_dodoable('Music: Pandeiro', 'music:pandeiro', trigger: { icon: { name: 'music' }}),
+  practice_dodoable('Music: Theory', 'music:theory', trigger: { icon: { name: 'music' }}),
   practice_dodoable('Read', 'read', trigger: { icon: { name: 'book' }}),
+  practice_dodoable('Study: Technical Analysis', 'study:technical-analysis', trigger: { icon: { name: 'line-chart', component: 'Icon' }}),
+  practice_dodoable('Study: Investments', 'study:investments', trigger: { icon: { name: 'white-balance-sunny', component: 'IconMC' }}),
+  practice_dodoable('Study: Buddhism', 'study:buddhism', trigger: { icon: { name: 'buddhism', component: 'IconMC' }}),
   practice_dodoable('Retirement: Morning Setup',
                     'retirement:morning-setup',
                     trigger: {
@@ -247,6 +242,8 @@ end
   practice_dodoable('Exercise: Lake Run', 'exercise:lake-run', trigger: { icon: { name: 'running', component: 'Icon5' }}),
   practice_dodoable('Exercise: Free', 'exercise:free', trigger: { icon: { name: 'running', component: 'Icon5' }}),
   practice_dodoable('Exercise: Legacy Dodo', 'exercise:legacy-dodo', trigger: { icon: { name: 'running', component: 'Icon5' }}),
+  practice_dodoable('Exercise: Free Treadmill', 'exercise:treadmill:free', trigger: { icon: { name: 'running', component: 'Icon5' }}),
+  practice_dodoable('Exercise: Free Stretch', 'exercise:stretch:free', trigger: { icon: { name: 'yoga', component: 'IconMC' }}),
   {
     name: 'Breath Meditation',
     slug: "meditation:breath",
@@ -299,12 +296,15 @@ end
       bool_fields(
         'Turn Computer Off',
         'Prepare Good Night Tea',
-        'Self Knowledge/Schedule Journaling',
-        'Water',
-        'Setup Ginger/Black Tea',
-        'Set tomorrow foods aside',
         'Melatonin',
-        'Clean one thing up',
+        'Vitamins',
+        'Omega 3',
+        'Journaling',
+        'Quick Cook',
+        "Clean things up/Setup tomorrow's tea and tennis",
+        'Water',
+        'Skin Care',
+        'Brush Teeth',
       ).merge(
         comments: {
           type: :text,
@@ -313,7 +313,7 @@ end
       )
     ),
   }
-].each do |dodoable_attributes|
+].flatten.each do |dodoable_attributes|
   Dodoable
     .even_inactive
     .where(
@@ -321,7 +321,7 @@ end
       user_id: user.id
     )
     .first_or_create
-    .update(dodoable_attributes)
+    .update(dodoable_attributes.merge(active: true))
 end
 
 def deactivate(*slugs)
@@ -332,12 +332,15 @@ end
 
 deactivate(
   'work:wordable',
-  'music:piano',
-  'music:singing',
+  # 'music:piano',
+  # 'music:singing',
   'bad-habit:smoking',
-  'bad-habit:league',
-  'bad-habit:f1',
-  'bad-habit:f5'
+  # 'bad-habit:league',
+  # 'bad-habit:f1',
+  # 'bad-habit:f5'
+  'exercise:legacy-dodo',
+  'exercise:free-training',
+  'read'
 )
 
 def reset_schedule(user)
